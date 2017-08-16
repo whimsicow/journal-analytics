@@ -1,4 +1,11 @@
-/****************************************************************** READ ME STUFF
+/********************************* CLIENT ID FOR USERS TO HAVE ACCESS TO DIGITAL CRAFTS*/
+const CLIENT_ID = '456569075688-n6uo0irm3rf0pjticr9ntjir3qmfa9uh.apps.googleusercontent.com';
+
+
+/****************************************************************** 
+                          READ ME STUFF
+*******************************************************************
+
  Google Analytic main Methods:
     static method - gapi.analytics.ready()
     static method - gapi.analytics.auth.authorize()
@@ -11,11 +18,10 @@
     set() - Sets or updates the component's configuration options (this can also be done at creation time in the constructor).
     execute() - Invokes the component's primary action. This is usually rendering something on the page or running a report (or both).
     get() - Returns the current configuration options of a component.
-*******************************************************************/
 
-
-
-/****************************************************************** LOAD GOOGLE ANALYTICS LIBRARY */
+/******************************************************************
+                    LOAD GOOGLE ANALYTICS LIBRARY
+******************************************************************/
 (function(w,d,s,g,js,fs){
   g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
   js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
@@ -24,12 +30,11 @@
 }(window,document,'script'));
 
 
+/******************************************************************
+                GOOGLE ANALYTIC SETUP FOR API CALL
+******************************************************************/
 $(document).ready(() => {
   gapi.analytics.ready(() => {
-
-
-    /****************************************************************** AUTHORIZE USER */
-    const CLIENT_ID = '456569075688-n6uo0irm3rf0pjticr9ntjir3qmfa9uh.apps.googleusercontent.com';
     
     gapi.analytics.auth.authorize({
         // auth-container is dom element that hosts the sign-in button during a sessions first load. sign in button can also contain an event listener to do something     else as well
@@ -84,6 +89,12 @@ $(document).ready(() => {
       {chart: {container: 'chart-container'}}
     )
 
+   /************************************************************** ACTIVEUSERES */
+
+    const activeUsers = new gapi.analytics.ext.ActiveUsers({
+    container: 'active-users-container',
+    pollingInterval: 5
+    });
 
     /************************************************************** DATERANGE */
     /**
@@ -125,6 +136,24 @@ $(document).ready(() => {
       console.log('Error occured during query or rendering')
     })
 
+    /************************************************************** LISTENER FOR ACTIVE USERES */
+    activeUsers.once('success', function() {
+    var element = this.container.firstChild;
+    var timeout;
+
+    this.on('change', function(data) {
+      var element = this.container.firstChild;
+      var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
+      element.className += (' ' + animationClass);
+
+      clearTimeout(timeout);
+      timeout = setTimeout(function() {
+        element.className =
+            element.className.replace(/ is-(increasing|decreasing)/g, '');
+      }, 3000);
+    });
+  });
+
     /************************************************************** LISTENER FOR VIEW SELECTORS */
     viewSelector.on('viewChange', (data) => {
       // updates graph
@@ -153,4 +182,38 @@ $(document).ready(() => {
       datefield.textContent = `${data['start-date']} '&mdash' ${data['end-date']}`
     })
   })
+
+    /************************************************************** EVENTS PIE GRAPH */
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'SocialMedia');
+        data.addColumn('number', 'Hits');
+        data.addRows([
+          ['Facebook', 3],
+          ['Twitter', 1],
+          ['Instagram', 1],
+          ['LinkedIn', 1],
+        ]);
+
+        // Set chart options
+        var options = {'title':'Events',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
 })
