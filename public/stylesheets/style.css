@@ -45,6 +45,9 @@ body {
 .hamburger-icon {
     margin-right: 20px;
 }
+.hamburger-icon:hover {
+    cursor: pointer;
+}
 .mobile-menu {
     padding-top: 70px;
     z-index: 50;
@@ -65,7 +68,7 @@ body {
 .nav-menu-mobile a {
     margin-right: 10px;
     text-decoration: none;
-    color: white;
+    color: black;
 }
 .logo a:hover,
 .nav-menu-mobile a:hover {
@@ -82,7 +85,6 @@ body {
     background-image: url('../images/background3.jpg');
     background-repeat: none;
     background-size: cover;
-
 }
 
 
