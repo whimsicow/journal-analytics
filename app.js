@@ -8,6 +8,9 @@ const index = require('./routes/index');
 const users = require('./routes/users');
 const expressHbs = require('express-handlebars');
 
+var index = require('./routes/index');
+var users = require('./routes/users');
+var login = require('./routes/login');
 
 
 const app = express();
@@ -26,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/login', login);
 
 
 
