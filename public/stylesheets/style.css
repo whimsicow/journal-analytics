@@ -8,6 +8,7 @@
 
 body {
     margin: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -158,14 +159,26 @@ body {
 
 /* *************************************************** */
 /* logged in user information with welcome  */
+.welcome-user {
+    text-align: center;
+    margin-top: 80px;
+    font-size: 20px;
+    font-family: 'Raleway', sans-serif;
+    padding-bottom: 30px;
+}
 .loggedin-user-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: 30px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+}
+.user-photo-container img{
+    max-height: 100px;
 }
 .company-logo-container img{
-    max-height: 90px;
+    max-height: 60px;
+    padding-left: 20px;
 }
 
 
