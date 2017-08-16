@@ -1,2 +1,23 @@
+<meta name="google-signin-client_id" content='456569075688-n6uo0irm3rf0pjticr9ntjir3qmfa9uh.apps.googleusercontent.com'>
 <h2>Hi, this is the login page!!</h2>
-<div id="embed-api-auth-container"></div> <!--You are logged in as: google user -->
+{{!--<div id="embed-api-auth-container"></div> <!--You are logged in as: google user -->--}}
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<a href="#" onclick="signOut();">Sign out</a>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
+{{!--<script src="../javascripts/vendors/loginout.js"></script>--}}
