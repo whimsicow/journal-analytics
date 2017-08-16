@@ -61,7 +61,8 @@ body {
     margin-top: 40px;
 }
 .logo a, 
-.nav-menu-mobile a {
+.nav-menu-mobile a,
+.nav-menu-large a {
     margin-right: 10px;
     text-decoration: none;
     color: white;
@@ -74,7 +75,6 @@ body {
 
 
 
-
 /* banner aspect
 .banner-container {
     height: 400px;
@@ -83,7 +83,9 @@ body {
     background-size: cover;
 }
  */
-
+ .main-user-experience {
+     padding-bottom: 100px;
+ }
 /* *************************************************** */
 /* green plus sign fixed to bottom right to add events */
 .add-event-button {
@@ -170,7 +172,7 @@ body {
     margin-top: 100px;
     font-size: 20px;
     font-family: 'Raleway', sans-serif;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 .loggedin-user-info {
     display: flex;
@@ -206,7 +208,13 @@ body {
 .DateRangeSelector-item {
     padding: 14px;
 }
-
+.gapi-analytics-data-chart {
+   
+}
+#chart-container {
+    padding-top: 90px;
+    padding-bottom: 20px;
+}
 
 /* *************************************************** */
 .footer-container {
@@ -226,6 +234,30 @@ body {
 
 /* *************************************************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
 @media only screen and (min-width: 768px){
+    .navigation-bar-large {
+        display: unset;
+        position: fixed;
+        top: 0;
+        z-index: 100;
+        width: 100%;
+        height: 70px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #2C3531;
+    }
+    .nav-menu-large a{
+        margin-right: 30px;
+    }
+    .logo {
+        margin-left: 30px;
+    }
+    .mobile-menu,
+    .nav-mobile-container {
+        display: none;
+    }
+
+
     .form {
         top: 40%;
         left: 40%;
@@ -244,6 +276,7 @@ body {
         justify-content: center;
         align-items: center;
     }
+    
 
 }
 
@@ -253,5 +286,9 @@ body {
 @media only screen and (min-width: 960px){
     .chart-information-container {
         justify-content: flex-start;
+    }
+    .main-user-experience {
+        max-width: 1024px;
+        margin: 0 auto;
     }
 }
