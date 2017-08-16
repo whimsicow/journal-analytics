@@ -10,22 +10,11 @@ body {
     margin: 0;
 }
 
-.add-event-button {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    z-index: 75;
-}
-.add-event-button img {
-    height: 40px;
-}
-.add-event-button img:hover {
-    cursor: pointer;
-}
 
-/* navigation bar */
+
+
+
+/* navigation bar across all pages */
 .navigation-bar-mobile {
     position: fixed;
     top: 0;
@@ -35,6 +24,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #2C3531;
 }
 .navigation-bar-large {
     display: none;
@@ -88,7 +78,22 @@ body {
 }
 
 
-
+/* *************************************************** */
+/* green plus sign fixed to bottom right to add events */
+.add-event-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    z-index: 75;
+}
+.add-event-button img {
+    height: 40px;
+}
+.add-event-button img:hover {
+    cursor: pointer;
+}
 
 /* popup form container */
 .add-event-button button{
@@ -145,9 +150,23 @@ body {
     width: 70px;
     height: 30px;
 }
+/* *************************************************** */
 
 
 
+
+
+/* *************************************************** */
+/* logged in user information with welcome  */
+.loggedin-user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 30px;
+}
+.company-logo-container img{
+    max-height: 90px;
+}
 
 
 

@@ -7,8 +7,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
   res.render('users', {
-    title: "The Swan House",
-    message: "Choose a member to see their status.",
+    title: "Welcome!"
   })
 });
 
