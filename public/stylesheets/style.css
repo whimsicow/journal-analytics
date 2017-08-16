@@ -41,25 +41,30 @@ body {
 }
 .mobile-menu {
     padding-top: 70px;
-    z-index: 50;
+    position: fixed;
+    top: 0;
+    z-index: 2000;
+    width: 350px;
 }
 .nav-menu-mobile {
     padding-left: 0;
-    padding-bottom: 30px;
+    padding-bottom: 80px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 25px;
+    background: #2C3531;
+    opacity: .8;
 }
 .nav-menu-mobile span{
-    margin-top: 30px;
+    margin-top: 40px;
 }
 .logo a, 
 .nav-menu-mobile a {
     margin-right: 10px;
     text-decoration: none;
-    color: black;
+    color: white;
 }
 .logo a:hover,
 .nav-menu-mobile a:hover {
@@ -70,14 +75,14 @@ body {
 
 
 
-/* banner aspect */
+/* banner aspect
 .banner-container {
     height: 400px;
     background-image: url('../images/background3.jpg');
     background-repeat: none;
     background-size: cover;
 }
-
+ */
 
 /* *************************************************** */
 /* green plus sign fixed to bottom right to add events */
@@ -164,7 +169,7 @@ body {
     margin-top: 80px;
     font-size: 20px;
     font-family: 'Raleway', sans-serif;
-    padding-bottom: 30px;
+    margin-bottom: 60px;
 }
 .loggedin-user-info {
     display: flex;
@@ -180,28 +185,39 @@ body {
     max-height: 60px;
     padding-left: 20px;
 }
+/* logged in user information with welcome  */
+/* *************************************************** */
 
 
 
+
+/* *************************************************** */
+/* Chart section */
+.chart-container {
+    width: 100%;
+}
+
+
+
+
+
+/* *************************************************** */
 .footer-container {
     height: 200px;
-    background-color: #D9B08C;
+    background-color: #2C3531;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    color: white;
 }
 .menu-footer {
     padding: 0;
 }
-.logo-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 
 
+/* *************************************************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
 @media only screen and (min-width: 768px){
     .form {
         top: 40%;
@@ -220,6 +236,8 @@ body {
 }
 
 
+
+/* *************************************************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
 @media only screen and (min-width: 960px){
 
 }
