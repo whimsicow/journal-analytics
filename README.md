@@ -7,15 +7,16 @@
 
 # Documented Progress
 <h3>An idea was born...and then skteched</h3>
-<img src="http://i.imgur.com/9pAQfh5.jpg" width="300" height="300" />
+<img src="http://i.imgur.com/inGZEQZ.jpg" width="300" height="300" />
+<img src="http://i.imgur.com/twnfl4F.jpg" width="300" height="300" />
+
 <h3>Mobile</h3>
-<img src="https://vectr.com/gnohj/a6gTnbA932.svg?width=640&height=640&select=a6gTnbA932page0" width="300" height="300" />
+
 <h3>Tablet / Desktop </h3>
-<img src="https://vectr.com/gnohj/b48EwifEEb.svg?width=640&height=640&select=b48EwifEEbpage0" width="300" height="300" />
+
 <h3>Daily Goals</h3>
-<img src="http://i.imgur.com/w0VkqqT.jpg" width="300" height="300" />
+
 <h3>Brand Identity</h3>
-<img src="http://i.imgur.com/D6yF8Ru.jpg" width="300" height="300" />
  
 # Features
 
