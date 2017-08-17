@@ -215,8 +215,16 @@ body {
     padding-top: 90px;
     padding-bottom: 20px;
 }
+/* Chart section */
+/* *************************************************** */
+
+
+
+
+
 
 /* *************************************************** */
+/* footer for all pages */
 .footer-container {
     height: 200px;
     background-color: #2C3531;
@@ -229,6 +237,13 @@ body {
 .menu-footer {
     padding: 0;
 }
+
+
+/* *************************************************** */
+
+
+
+
 
 
 
