@@ -20,7 +20,7 @@ const CLIENT_ID = '456569075688-n6uo0irm3rf0pjticr9ntjir3qmfa9uh.apps.googleuser
     get() - Returns the current configuration options of a component.
 
 /******************************************************************
-                    LOAD GOOGLE ANALYTICS LIBRARY
+                    LOAD GOOGLE ANALYTICS LIBRARY (gives us gapi api)
 ******************************************************************/
 (function(w,d,s,g,js,fs){
   g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
@@ -31,7 +31,7 @@ const CLIENT_ID = '456569075688-n6uo0irm3rf0pjticr9ntjir3qmfa9uh.apps.googleuser
 
 
 /******************************************************************
-                GOOGLE ANALYTIC SETUP FOR API CALL
+                GOOGLE ANALYTICS SETUP FOR API CALL
 ******************************************************************/
 $(document).ready(() => {
   gapi.analytics.ready(() => {
@@ -52,7 +52,7 @@ $(document).ready(() => {
 
 
     /************************************************************** CONFIGS */
-    const commonConfig = {
+    const mainGraphConfig = {
       query: {
         metrics: 'ga:sessions',
         dimensions: 'ga:date'
@@ -70,9 +70,9 @@ $(document).ready(() => {
       }
     }
 
-    const dateRange1 = {
+    const mainGraphDateRange = {
       'start-date': '14daysAgo',
-      'end-date': '8daysAgo'
+      'end-date': '1daysAgo'
     }
 
     /************************************************************** CHART */
@@ -81,13 +81,17 @@ $(document).ready(() => {
      * and Google chart options. It will be rendered inside an element
      * with the id "chart-container".
      */
-    const dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
-    .set({
-      query: dateRange1
-    })
+    const mainGraph = new gapi.analytics.googleCharts.DataChart(mainGraphConfig)
     .set(
-      {chart: {container: 'chart-container'}}
-    )
+      {
+        query: mainGraphDateRange
+      })
+    .set(
+      {
+        chart: {
+          container: 'chart-container'
+        }
+      })
 
    /************************************************************** ACTIVEUSERES */
 
@@ -106,7 +110,7 @@ $(document).ready(() => {
     const dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
       container: 'date-range-selector-container'
     })
-    .set(dateRange1)
+    .set(mainGraphDateRange)
     .execute()
 
 
@@ -121,18 +125,21 @@ $(document).ready(() => {
     .execute()
 
     /************************************************************** LISTENER FOR CHART */
-    dataChart1.on('success', (result) => {
+    mainGraph.on('success', (result) => {
       console.groupCollapsed('Query was successful and Graph has been rendered')
       console.group('Raw Data')
       console.log(result.data) // raw data of the graph values (x, y, and graph points)
+      console.groupEnd()
       console.group('Chart Info')
       console.log(result.chart) // gives info of chart.. can manipulate chart using js/jquery with this info )
+      console.groupEnd()
       console.group('Entire Raw Response')
       console.log(result.response) // raw data of the entire response... )
       console.groupEnd()
+      console.groupEnd()
     })
 
-    dataChart1.on('error', (result) => {
+    mainGraph.on('error', (result) => {
       console.log('Error occured during query or rendering')
     })
 
@@ -157,7 +164,7 @@ $(document).ready(() => {
     /************************************************************** LISTENER FOR VIEW SELECTORS */
     viewSelector.on('viewChange', (data) => {
       // updates graph
-      dataChart1.set({
+      mainGraph.set({
         query: {
           ids: data.ids
         }
@@ -172,7 +179,7 @@ $(document).ready(() => {
     /************************************************************** LISTENER FOR DATE RANGE SELECTOR*/
     dateRangeSelector1.on('change', (data) => {
       // updates graph
-      dataChart1.set({
+      mainGraph.set({
         query: data
       })
       .execute()
@@ -183,7 +190,9 @@ $(document).ready(() => {
     })
   })
 
-    /************************************************************** EVENTS PIE GRAPH */
+    /************************************************************** EVENTS PIE GRAPH
+     * 
+     */
       // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
 
