@@ -3,6 +3,10 @@
 <main>
     <div class="main-user-experience">
 
+            <!-- date -->
+        <div class="date">
+            <label for="date">Date: </label>
+            <input id="date" autocomplete="on" type="date" required>
     
         <div class="welcome-user">
             Welcome, {{name}}!
@@ -10,6 +14,7 @@
         <div class="loggedin-user-info">
             <div class="company-logo-container">
                 <img class="company-logo" src="../images/digitalcraftslogo.png" alt="company-logo">
+
             </div>
             <div class="user-photo-container">
                 <img src='{{pic}}' alt='profile picture'>
@@ -43,46 +48,56 @@
                     <button name="button" type="reset">Reset</button>
                     <button name="button" class="exit-popup" data-popup="close-event-popup"> Close </button>
                 </div>
-
+            
             <!-- icons to choose from -->
-            <div class="icon-dropdown" id="myDropdown">
-                <option class="icon" value="facebook" data-imagesrc="../images/facebook.png" data-description="Facebook Post"></option>
-                <option class="icon" value="twitter" data-imagesrc="../images/twitter.png" data-description="Tweet"></option>
-                <option class="icon" value="gmail" data-imagesrc="../images/gmail.png" data-description="Google Plus post"></option>
-                <option class="icon" value="linkedin" data-imagesrc="../images/linkedin.png" data-description="Linkedin post"></option>
-                <option class="icon" value="pintrest" data-imagesrc="../images/pintrest.png" data-description="Pintrest post"></option>
-                <option class="icon" value="instagram" data-imagesrc="../images/instagram.png" data-description="Instagram post"></option>
-                <option class="icon" value="email" data-imagesrc="../images/email.png" data-description="Email"></option>
+                <div class="icon-dropdown" id="myDropdown">
+                    <option class="icon" value="facebook" data-imagesrc="../images/facebook.png" data-description="Facebook Post"></option>
+                    <option class="icon" value="twitter" data-imagesrc="../images/twitter.png" data-description="Tweet"></option>
+                    <option class="icon" value="gmail" data-imagesrc="../images/gmail.png" data-description="Google Plus post"></option>
+                    <option class="icon" value="linkedin" data-imagesrc="../images/linkedin.png" data-description="Linkedin post"></option>
+                    <option class="icon" value="pintrest" data-imagesrc="../images/pintrest.png" data-description="Pintrest post"></option>
+                    <option class="icon" value="instagram" data-imagesrc="../images/instagram.png" data-description="Instagram post"></option>
+                    <option class="icon" value="email" data-imagesrc="../images/email.png" data-description="Email"></option>
                 </div>
             </div>
         </form>
-
-        
-    
-        <!-- Map and Google API containers -->
-        <div id="embed-api-auth-container" class="hidden"></div>
-        <div class="chart-information-container">
-            <div class="chart-selection-container">
-                    <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
-            </div>
-            <div class="chart-date-range-container">
-                <div id="date-range-selector-container"></div> <!-- Start/End Date selector -->
-            </div>
-        </div>
-        <div class="chart-container">
-            <div id="chart-container"></div> <!-- Graph -->
-        </div>
 
     </div>
 
 
 
+
+
+    <!-- Map and Google API containers -->
+    <div id="view-name"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data -->
+    <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
+    <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
+    <div id="active-users-container"></div> <!-- Active users -->
+    <hr />
+
+    <!----------- Main GRAPH ----------->
+    <h3> Sessions Count </h3>
+    <div id="date-range-selector-container"></div> <!-- Start/End Date selector -->
+    <div id="chart-container"></div> <!-- ChartJS Graph -->
+    <hr />
+
+    <!--------- Sessions/Users Graph --------->
+    <h3> Site Traffic Sessions vs. Users - last 30 days </h3>
+    <div id="sessions-users-container"></div> <!-- ChartJS Graph -->
+    <hr />
+
+    <!--------- Annual Graph --------->
+    <div class="Chartjs">
+        <h3>Annual (by users)</h3>
+        <figure class="Chartjs-figure" id="chart-2-container"></figure>
+        <ol class="Chartjs-legend" id="legend-2-container"></ol>
+    </div>
+
+
 </main>
- <!-- cdn: DDSlick for dropdown icon list -->
-
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+ <!-- cdn: DDSlick for dropdown icon list -->
 <script src="https://cdn.rawgit.com/prashantchaudhary/ddslick/master/jquery.ddslick.min.js"></script>
 <script src="../javascripts/vendors/googleanalytics/chart.js"></script>
 <script src="../javascripts/vendors/googleanalytics/date-range-selector.js"></script>
