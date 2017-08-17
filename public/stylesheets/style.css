@@ -87,7 +87,10 @@ body {
     background-size: cover;
 }
 
-
+/* class that hides things */
+.hidden {
+    display: none;
+}
 
 
 /* popup form container */
