@@ -1,24 +1,48 @@
- <main>
-    <!-- fixed green plus button at bottom right -->
-    <div class="add-event-button">
-        <button><img src="../images/plusadd.png" alt="green plus button for adding event" data-type="open-event-popup"></button>
-    </div>
 
 
-    <!-- popup form for adding events -->
-    <form class="form" id="submit-event" data-popup="form-container">
-        <div class="form-container"> 
+<main>
+    <div class="main-user-experience">
 
-            <!-- date -->
-            <div class="date">
-                <label for="date">Date: </label>
-                <input id="date" autocomplete="on" type="date" value="date" required>
+    
+        <div class="welcome-user">
+            Welcome, {{name}}!
+        </div>
+        <div class="loggedin-user-info">
+            <div class="company-logo-container">
+                <img class="company-logo" src="../images/digitalcraftslogo.png" alt="company-logo">
             </div>
-
-            <!-- describe event box -->
-            <div class="describe-event">
-                <textarea data-type="form-description" name = "event-description" rows="10" cols="50" placeholder="Describe your event" required></textarea>
+            <div class="user-photo-container">
+                <img src='{{pic}}' alt='profile picture'>
             </div>
+        </div>
+
+        
+        <!-- fixed green plus button at bottom right -->
+        <div class="add-event-button">
+            <img src="../images/plusadd.png" alt="green plus button for adding event" data-type="open-event-popup">
+        </div>
+
+
+        <!-- popup form for adding events -->
+        <form class="form" id="submit-event" data-popup="form-container">
+            <div class="form-container"> 
+
+                <!-- date -->
+                <div class="date">
+                    <label for="date">Date: </label>
+                    <input id="date" autocomplete="on" type="date" value="date" required>
+                </div>
+
+                <!-- describe event box -->
+                <div class="describe-event">
+                    <textarea data-type="form-description" name = "event-description" rows="10" cols="50" placeholder="Describe your event" required></textarea>
+                </div>
+                
+                <div class="button-container">
+                    <button name="button" type="submit" class="submit-event" data-role="submit">Submit</button>
+                    <button name="button" type="reset">Reset</button>
+                    <button name="button" class="exit-popup" data-popup="close-event-popup"> Close </button>
+                </div>
 
             <!-- icons to choose from -->
             <div class="icon-dropdown" id="myDropdown">
@@ -29,23 +53,38 @@
                 <option class="icon" value="pintrest" data-imagesrc="../images/pintrest.png" data-description="Pintrest post"></option>
                 <option class="icon" value="instagram" data-imagesrc="../images/instagram.png" data-description="Instagram post"></option>
                 <option class="icon" value="email" data-imagesrc="../images/email.png" data-description="Email"></option>
+                </div>
             </div>
+        </form>
 
-            
-            <div class="button-container">
-                <button name="button" type="submit" class="submit-event" data-role="submit">Submit</button>
-                <button name="button" type="reset">Reset</button>
-                <button name="button" class="exit-popup" data-popup="close-event-popup"> Close </button>
+        
+    
+        <!-- Map and Google API containers -->
+        <div id="embed-api-auth-container" class="hidden"></div>
+        <div class="chart-information-container">
+            <div class="chart-selection-container">
+                    <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
+            </div>
+            <div class="chart-date-range-container">
+                <div id="date-range-selector-container"></div> <!-- Start/End Date selector -->
             </div>
         </div>
-    </form>
+        <div class="chart-container">
+            <div id="chart-container"></div> <!-- Graph -->
+        </div>
 
-    
-    <!-- Map and Google API containers -->
-    <div>Welcome, {{name}}!</div>
-    <img src='{{pic}}' alt='profile picture'>
-    <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
-    <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
-    <div id="chart-container"></div> <!-- Graph -->
-    <div id="date-range-selector-container"></div> <!-- Start/End Date selector -->
+    </div>
+
+
+
 </main>
+ <!-- cdn: DDSlick for dropdown icon list -->
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+<script src="https://cdn.rawgit.com/prashantchaudhary/ddslick/master/jquery.ddslick.min.js"></script>
+<script src="../javascripts/vendors/googleanalytics/chart.js"></script>
+<script src="../javascripts/vendors/googleanalytics/date-range-selector.js"></script>
+<script src="../javascripts/vendors/googleanalytics/view-selector2.js"></script>
+<script src="../javascripts/form.js"></script>
