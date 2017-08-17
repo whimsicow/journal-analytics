@@ -67,12 +67,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-// app.use('/login', login);
+app.use('/login', login);
 
-app.get('/login',
-  function(req, res){
-    res.render('login');
-  });
 
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));

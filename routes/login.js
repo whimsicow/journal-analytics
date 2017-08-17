@@ -3,64 +3,40 @@ var router = express.Router();
 const passport = require('passport');
 
 
-router.get('/',
-  function(req, res){
-    res.render('login');
-  });
 
-router.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
-
-router.get('/auth/google/callback', 
-  passport.authenticate('google', { 
-      successRedirect: '/users',
-      failureRedirect: '/login' }));
-
-router.get('/logout', function(req, res) {
-  console.log('logging out');
-  req.logout();
-  res.redirect('/login');
+router.get('/', function(req, res) {
+    let user = '';
+    if (req.isAuthenticated()) {
+        res.render('login', {
+        message1: "You are already signed in. ",
+        link: '/users',
+        linktext: "View your analytics."
+        });
+    
+    } else {
+        res.render('login', {
+        message1: "You are not currently signed in. Please ",
+        link: '/auth/google',
+        linktext: "sign in with Google."
+        });
+    }
+    
 });
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
-}
+// router.get('/auth/google',
+//   passport.authenticate('google', { scope: ['profile'] }));
 
-// function ensureAuthenticated(req, res, next) {
-//     if (req.isAuthenticated()) {
-//       // req.user is available for use here
-//       return next();
-//     }
+// router.get('/auth/google/callback', 
+//   passport.authenticate('google', { 
+//       successRedirect: '../users',
+//       failureRedirect: '/' }));
 
-//       // denied. redirect to login
-//     res.redirect('/login');
-// }
-
-// router.get('/protected', ensureAuthenticated, function(req, res) {
-//   res.send("access granted. secure stuff happens here");
+// router.get('/logout', function(req, res) {
+//   console.log('logging out');
+//   req.logout();
+//   res.redirect('/');
 // });
 
-
-// /* GET home page. */
-// router.get('/', function(req, res, next) {
-//   let user = '';
-//   if (req.isAuthenticated()) {
-//     user = JSON.stringify(req.user, null, 4);
-//   }
-//   res.render('users', {
-//     title: "The Swan House",
-//     message: "Choose a member to see their status.",
-//   });
-// });
-
-// router.get('/auth/google', passport.authenticate('google'));
-
-// router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }),
-//   function(req, res) {
-//     res.redirect('/login');
-//   }
-// );
 
 
 
