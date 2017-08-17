@@ -11,83 +11,58 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+/* *************************************************** */
+/* login page */
+.login-google {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
 
 
 
 
-/* navigation bar across all pages */
-.navigation-bar-mobile {
-    position: fixed;
-    top: 0;
-    z-index: 100;
-    width: 100%;
-    height: 70px;
+
+
+
+
+
+
+
+/* *************************************************** */
+/* Useres logged in page */
+.main-user-experience {
+    padding-bottom: 100px;
+}
+
+/* ************* */
+/* logged in user information with welcome  */
+.welcome-user {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 20px;
+    font-family: 'Raleway', sans-serif;
+    margin-bottom: 40px;
+}
+.loggedin-user-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2C3531;
+    padding-right: 20px;
+    padding-bottom: 30px;
 }
-.navigation-bar-large {
-    display: none;
+.user-photo-container img{
+    max-height: 100px;
 }
-.logo {
-    margin-left: 20px;
+.company-logo-container img{
+    max-height: 60px;
+    padding-left: 20px;
 }
-.hamburger-icon {
-    margin-right: 20px;
-}
-.hamburger-icon:hover {
-    cursor: pointer;
-}
-.mobile-menu {
-    padding-top: 70px;
-    position: fixed;
-    top: 0;
-    z-index: 2000;
-    min-width: 350px;
-}
-.nav-menu-mobile {
-    padding-left: 0;
-    padding-bottom: 80px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 25px;
-    background: #2C3531;
-    opacity: .8;
-}
-.nav-menu-mobile span{
-    margin-top: 40px;
-}
-.logo a, 
-.nav-menu-mobile a,
-.nav-menu-large a {
-    margin-right: 10px;
-    text-decoration: none;
-    color: white;
-}
-.logo a:hover,
-.nav-menu-mobile a:hover {
-    cursor: pointer;
-    color: #FFCB9A;
-}
+/* logged in user information with welcome  */
+/* ****************** */
 
 
 
-/* banner aspect
-.banner-container {
-    height: 400px;
-    background-image: url('../images/background3.jpg');
-    background-repeat: none;
-    background-size: cover;
-}
-
- */
- .main-user-experience {
-     padding-bottom: 100px;
- }
-/* *************************************************** */
+/* ******************* */
 /* green plus sign fixed to bottom right to add events */
 .add-event-button {
     position: fixed;
@@ -108,15 +83,13 @@ body {
 .add-event-button img:active {
     box-shadow: 1px 3px 1px slategray;
 }
-
-
 /* class that hides things */
 .hidden {
     display: none;
 }
 
-
-/* popup form container */
+/* ********************* */
+/* Popup form to add events */
 .form {
     position: fixed;
     top: 40%;
@@ -136,10 +109,10 @@ body {
 .form .icon-dropdown {
     margin-bottom: 10px;
 }
-
 .form .icon-dropdown {
     height: 50px;
 }
+/* icon dropdown */
 .dd-selected {
     display: flex;
     align-content: center;
@@ -167,37 +140,8 @@ body {
     width: 70px;
     height: 30px;
 }
-/* *************************************************** */
-
-
-
-
-
-/* *************************************************** */
-/* logged in user information with welcome  */
-.welcome-user {
-    text-align: center;
-    margin-top: 100px;
-    font-size: 20px;
-    font-family: 'Raleway', sans-serif;
-    margin-bottom: 40px;
-}
-.loggedin-user-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 20px;
-    padding-bottom: 30px;
-}
-.user-photo-container img{
-    max-height: 100px;
-}
-.company-logo-container img{
-    max-height: 60px;
-    padding-left: 20px;
-}
-/* logged in user information with welcome  */
-/* *************************************************** */
+/* ********************** */
+/* ********************** */
 
 
 
@@ -225,7 +169,7 @@ body {
 }
 /* Chart section */
 /* *************************************************** */
-
+/* End of user  */
 
 
 
@@ -257,29 +201,6 @@ body {
 
 /* *************************************************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
 @media only screen and (min-width: 768px){
-    .navigation-bar-large {
-        display: unset;
-        position: fixed;
-        top: 0;
-        z-index: 100;
-        width: 100%;
-        height: 70px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #2C3531;
-    }
-    .nav-menu-large a{
-        margin-right: 30px;
-    }
-    .logo {
-        margin-left: 30px;
-    }
-    .mobile-menu,
-    .nav-mobile-container {
-        display: none;
-    }
-
 
     .form {
         top: 40%;
@@ -288,12 +209,7 @@ body {
         min-height: 300px;
         width: 400px;
     }
-    .logo a, 
-    .nav-menu a {
-        margin-left: 10px;
-        text-decoration: none;
-        color: white;
-    }
+
     .chart-information-container {
         display: flex;
         justify-content: center;
