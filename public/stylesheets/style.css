@@ -82,6 +82,7 @@ body {
     background-repeat: none;
     background-size: cover;
 }
+
  */
  .main-user-experience {
      padding-bottom: 100px;
@@ -107,6 +108,13 @@ body {
 .add-event-button img:active {
     box-shadow: 1px 3px 1px slategray;
 }
+
+
+/* class that hides things */
+.hidden {
+    display: none;
+}
+
 
 /* popup form container */
 .form {
