@@ -5,10 +5,15 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressHbs = require('express-handlebars');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const session = require('express-session');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
 const login = require('./routes/login');
+
+require('dotenv').config();
 
 
 const app = express();
@@ -17,9 +22,6 @@ const app = express();
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}))
 app.set('view engine', 'hbs');
 
-var passport = require('passport');
-var GoogleStrategy = require('passport-google-oauth20').Strategy;
-require('dotenv').config();
 
 passport.serializeUser(function(user, done) {
   // placeholder for custom user serialization
@@ -37,7 +39,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'http://localhost:3737/auth/google/callback'
+    callbackURL: process.env.GOOGLE_CALLBACK
   },
     function(accessToken, refreshToken, profile, done) {
         // placeholder for translating profile into your own custom user object.
@@ -47,7 +49,6 @@ passport.use(new GoogleStrategy({
 ));
 
 // Express and Passport Session
-const session = require('express-session');
 app.use(session({
     secret: 'asdfjkl;',
     resave: true,
@@ -71,24 +72,25 @@ app.use('/login', login);
 
 
 app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
+    passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { 
-      successRedirect: '/users',
-      failureRedirect: '/login' }));
+    passport.authenticate('google', {
+        successRedirect: '/users',
+        failureRedirect: '/login',
+        failureFlash: true }));
 
 app.get('/logout', function(req, res) {
-  console.log('logging out');
-  req.logout();
-  res.redirect('/login');
+    console.log('logging out');
+    req.logout();
+    res.redirect('/login');
 });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler

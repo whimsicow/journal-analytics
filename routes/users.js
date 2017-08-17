@@ -10,9 +10,10 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
-router.get('/', ensureAuthenticated, function(req, res) {
-    let user = '';
-    user = JSON.stringify(req.user, null, 4);
+router.get('/', ensureAuthenticated, function(req, res) { 
+    if (res['id_token']) {
+        console.log(res['id_token']);
+    }
     
     res.render('users', {
         title: "Welcome",
