@@ -17,21 +17,57 @@ const CLIENT_ID = '456569075688-n6uo0irm3rf0pjticr9ntjir3qmfa9uh.apps.googleuser
  Google Analytic extended Methods:
     set() - Sets or updates the component's configuration options (this can also be done at creation time in the constructor).
     execute() - Invokes the component's primary action. This is usually rendering something on the page or running a report (or both).
-    get() - Returns the current configuration options of a component.
+    get() - Returns the current configuration options of a component.*/
 
 /******************************************************************
-                    LOAD GOOGLE ANALYTICS LIBRARY (gives us gapi api)
+                            HELPER
 ******************************************************************/
-(function(w,d,s,g,js,fs){
-  g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
-  js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
-  js.src='https://apis.google.com/js/platform.js';
-  fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
-}(window,document,'script'));
+  function query(params) {
+    return new Promise(function(resolve, reject) {
+      var data = new gapi.analytics.report.Data({query: params});
+      data.once('success', function(response) { resolve(response); })
+          .once('error', function(response) { reject(response); })
+          .execute();
+    });
+  }
 
+
+  function makeCanvas(id) {
+    var container = document.getElementById(id);
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+
+    container.innerHTML = '';
+    canvas.width = 500;
+    canvas.height = 500;
+    container.appendChild(canvas);
+
+    return ctx;
+  }
+
+  function generateLegend(id, items) {
+    var legend = document.getElementById(id);
+    legend.innerHTML = items.map(function(item) {
+      var color = item.color || item.fillColor;
+      var label = item.label;
+      return '<li><i class="annual-legend" style="background:' + color + '"></i>' +
+          escapeHtml(label) + '</li>';
+    }).join('');
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  Chart.defaults.global.animationSteps = 60;
+  Chart.defaults.global.animationEasing = 'easeInOutQuart';
+  Chart.defaults.global.responsive = true;
+  Chart.defaults.global.maintainAspectRatio = false;
 
 /******************************************************************
-                GOOGLE ANALYTICS SETUP FOR API CALL
+                GOOGLE ANALYTICS AUTHENTICATION
 ******************************************************************/
 $(document).ready(() => {
   gapi.analytics.ready(() => {
@@ -51,80 +87,163 @@ $(document).ready(() => {
     })
 
 
-    /************************************************************** CONFIGS */
+/******************************************************************
+                            MAIN GRAPH
+******************************************************************/
+    /******************************* CONFIG */
     const mainGraphConfig = {
       query: {
         metrics: 'ga:sessions',
         dimensions: 'ga:date'
       },
       chart: {
-        type: 'COLUMN',
+        type: 'LINE',
         options: {
             color: 'red',
             legend: 'middle',
             is3D: true,
             width: '100%',
-            title: 'Sessions for the past 2 weeks',
             fontSize: 16 // font size for pop-up window when hovering over a data plot from the graph
         }
       }
     }
-
     const mainGraphDateRange = {
       'start-date': '14daysAgo',
-      'end-date': '1daysAgo'
+      'end-date': '0daysAgo'
     }
 
-    /************************************************************** CHART */
-    /**
-     * Create a new DataChart instance with the given query parameters
-     * and Google chart options. It will be rendered inside an element
-     * with the id "chart-container".
-     */
+    /******************************* GRAPH CONSTRUCTOR */
     const mainGraph = new gapi.analytics.googleCharts.DataChart(mainGraphConfig)
-    .set(
-      {
-        query: mainGraphDateRange
-      })
-    .set(
-      {
-        chart: {
-          container: 'chart-container'
+      .set(
+        {
+          query: mainGraphDateRange
+        })
+      .set(
+        {
+          chart: {
+            container: 'chart-container'
+          }
+        })
+
+/******************************************************************
+                            ANNUAL GRAPH
+******************************************************************/
+function renderYearOverYearChart(ids) {
+  
+      // Adjust `now` to experiment with different days, for testing only...
+      var now = moment(); // .subtract(3, 'day');
+  
+      var thisYear = query({
+        'ids': ids,
+        'dimensions': 'ga:month,ga:nthMonth',
+        'metrics': 'ga:users',
+        'start-date': moment(now).date(1).month(0).format('YYYY-MM-DD'),
+        'end-date': moment(now).format('YYYY-MM-DD')
+      });
+  
+      var lastYear = query({
+        'ids': ids,
+        'dimensions': 'ga:month,ga:nthMonth',
+        'metrics': 'ga:users',
+        'start-date': moment(now).subtract(1, 'year').date(1).month(0)
+            .format('YYYY-MM-DD'),
+        'end-date': moment(now).date(1).month(0).subtract(1, 'day')
+            .format('YYYY-MM-DD')
+      });
+  
+      Promise.all([thisYear, lastYear]).then(function(results) {
+        var data1 = results[0].rows.map(function(row) { return +row[2]; });
+        var data2 = results[1].rows.map(function(row) { return +row[2]; });
+        var labels = ['Jan','Feb','Mar','Apr','May','Jun',
+                      'Jul','Aug','Sep','Oct','Nov','Dec'];
+  
+        // Ensure the data arrays are at least as long as the labels array.
+        // Chart.js bar charts don't (yet) accept sparse datasets.
+        for (var i = 0, len = labels.length; i < len; i++) {
+          if (data1[i] === undefined) data1[i] = null;
+          if (data2[i] === undefined) data2[i] = null;
         }
+  
+        var data = {
+          labels : labels,
+          datasets : [
+            {
+              label: 'Last Year',
+              fillColor : '#BDDAF5',
+              strokeColor : '#BDDAF5',
+              data : data2
+            },
+            {
+              label: 'This Year',
+              fillColor : '#808F9E',
+              strokeColor : 'rgba(151,187,205,1)',
+              data : data1
+            }
+          ]
+        };
+  
+        const annualGraph = new Chart(makeCanvas('chart-2-container')).Bar(data);
+      })
+      .catch(function(err) {
+        console.error(err.stack);
+      });
+    }
+
+/******************************************************************
+                    SESSIONS VS USERS GRAPH
+******************************************************************/
+
+    var sessionsUsers = new gapi.analytics.googleCharts.DataChart({
+    query: {
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+      'metrics': 'ga:sessions,ga:users',
+      'dimensions': 'ga:date'
+    },
+    chart: {
+      'container': 'sessions-users-container',
+      'type': 'LINE',
+      'options': {
+        'width': '100%'
+      }
+    }
+  });
+  sessionsUsers.execute();
+
+
+/******************************************************************
+                    GOOGLE ANALYTICS HEADER INFO
+******************************************************************/
+
+   /*********************************** ACTIVE USERS */
+    const activeUsers = new gapi.analytics.ext.ActiveUsers(
+      {
+        container: 'active-users-container',
+        pollingInterval: 5
       })
 
-   /************************************************************** ACTIVEUSERES */
-
-    const activeUsers = new gapi.analytics.ext.ActiveUsers({
-    container: 'active-users-container',
-    pollingInterval: 5
-    });
-
-    /************************************************************** DATERANGE */
-    /**
-     * Create a new DateRangeSelector instance to be rendered inside of an
-     * element with the id "date-range-selector-1-container", set its date range
-     * and then render it to the page.
-     */
-
-    const dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
-      container: 'date-range-selector-container'
-    })
-    .set(mainGraphDateRange)
+    /********************************** VIEWSELECTOR CONSTRUCTOR*/
+    const viewSelector = new gapi.analytics.ext.ViewSelector2(
+      {
+        container: 'view-selector-container'
+      })
     .execute()
 
+    /********************************** DATERANGE CONSTRUCTOR*/
+    const dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector(
+      {
+        container: 'date-range-selector-container'
+      })
+      .set(mainGraphDateRange)
+      .execute()
 
-    /************************************************************** VIEWSELECTOR */
-    /**
-     * Create a new ViewSelector2 instance to be rendered inside of an
-     * element with the id "view-selector-container".
-     */
-    const viewSelector = new gapi.analytics.ext.ViewSelector2({
-      container: 'view-selector-container'
-    })
-    .execute()
 
-    /************************************************************** LISTENER FOR CHART */
+
+/******************************************************************
+                            LISTENERS
+******************************************************************/
+
+   /***************************************** MAIN GRAPH */
     mainGraph.on('success', (result) => {
       console.groupCollapsed('Query was successful and Graph has been rendered')
       console.group('Raw Data')
@@ -143,7 +262,7 @@ $(document).ready(() => {
       console.log('Error occured during query or rendering')
     })
 
-    /************************************************************** LISTENER FOR ACTIVE USERES */
+    /***************************************** ACTIVE USERS */
     activeUsers.once('success', function() {
     var element = this.container.firstChild;
     var timeout;
@@ -161,9 +280,10 @@ $(document).ready(() => {
     });
   });
 
-    /************************************************************** LISTENER FOR VIEW SELECTORS */
+    /************************************** VIEW SELECTORS */
     viewSelector.on('viewChange', (data) => {
-      // updates graph
+
+      // main graph
       mainGraph.set({
         query: {
           ids: data.ids
@@ -171,18 +291,28 @@ $(document).ready(() => {
       })
       .execute()
 
+      // sessions vs users graph
+      sessionsUsers.set({
+        query: {
+          ids: data.ids
+        }
+      })
+
+      // annual graph
+      renderYearOverYearChart(data.ids);
+
       // updates title 
       const title = document.getElementById('view-name')
       title.textContent = `${data.property.name} ${data.view.name}`
     })
 
-    /************************************************************** LISTENER FOR DATE RANGE SELECTOR*/
+    /************************************* DATE RANGE SELECTOR*/
     dateRangeSelector1.on('change', (data) => {
+      console.log(data)
       // updates graph
       mainGraph.set({
-        query: data
-      })
-      .execute()
+        query: data // new start date and end date
+      }).execute()
 
       // Update the "from" dates text.
       const datefield = document.getElementById('from-dates')
@@ -190,39 +320,7 @@ $(document).ready(() => {
     })
   })
 
-    /************************************************************** EVENTS PIE GRAPH
-     * 
-     */
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
-
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'SocialMedia');
-        data.addColumn('number', 'Hits');
-        data.addRows([
-          ['Facebook', 3],
-          ['Twitter', 1],
-          ['Instagram', 1],
-          ['LinkedIn', 1],
-        ]);
-
-        // Set chart options
-        var options = {'title':'Events',
-                       'width':400,
-                       'height':300};
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
 
 })
