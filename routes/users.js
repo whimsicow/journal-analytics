@@ -12,10 +12,11 @@ function ensureAuthenticated(req, res, next) {
 router.get('/', ensureAuthenticated, function(req, res) {
     let user = '';
     user = JSON.stringify(req.user, null, 4);
-
+    
     res.render('users', {
         title: "The Swan House",
         name: req.user.name.givenName,
+        pic: req.user.photos[0]['value'],
         ftrlink: '/logout',
         ftrlinktext: 'Logout',
         navlink: '/logout',
