@@ -1,25 +1,58 @@
 
 
 <main>
+
+
     <div class="main-user-experience">
 
-            <!-- date -->
-        <div class="date">
-            <label for="date">Date: </label>
-            <input id="date" autocomplete="on" type="date" required>
-    
-        <div class="welcome-user">
-            Welcome, {{name}}!
-        </div>
-        <div class="loggedin-user-info">
-            <div class="company-logo-container">
-                <img class="company-logo" src="../images/digitalcraftslogo.png" alt="company-logo">
-
-            </div>
+        <div class="chart-navigation">
             <div class="user-photo-container">
                 <img src='{{pic}}' alt='profile picture'>
             </div>
+            <h3>Company Analytics</h3>
+             <!-- Map and Google API containers -->
+            <div id="view-name"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data -->
+            <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
+            <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
+            <div id="active-users-container"></div> <!-- Active users -->
+            <h3>Sessions Count</h3>
+            <div id="date-range-selector-container"></div> <!-- Start/End Date selector -->
         </div>
+        {{!-- Charts container --}}
+        <div class="charts-container">
+            <div class="welcome-container">
+                <div class="welcome-user">
+                    Welcome, {{name}}!
+                </div>
+                <div class="loggedin-user-info">
+                    <div class="company-logo-container">
+                        <img class="company-logo" src="../images/digitalcraftslogo.png" alt="company-logo">
+                        {{!-- <img class="company-logo" src='{{{companylogo}}}'alt="company-logo"> --}}
+                    </div>
+                </div>
+            </div>
+
+            
+            <!----------- Main GRAPH ----------->
+            
+            <div id="chart-container"></div> <!-- ChartJS Graph -->
+            <hr />
+
+            <!--- Sessions/Users Graph --->
+            <h3> Site Traffic Sessions vs. Users - last 30 days </h3>
+            <div id="sessions-users-container"></div> <!-- ChartJS Graph -->
+            <hr />
+
+            <!--------- Annual Graph --------->
+            <div class="Chartjs">
+                <h3>Annual (by users)</h3>
+                <figure class="Chartjs-figure" id="chart-2-container"></figure>
+                <ol class="Chartjs-legend" id="legend-2-container"></ol>
+            </div>
+
+
+        </div>
+        
 
         
         <!-- fixed green plus button at bottom right -->
@@ -68,32 +101,7 @@
 
 
 
-    <!-- Map and Google API containers -->
-    <div id="view-name"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data -->
-    <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
-    <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
-    <div id="active-users-container"></div> <!-- Active users -->
-    <hr />
-
-    <!----------- Main GRAPH ----------->
-    <h3> Sessions Count </h3>
-    <div id="date-range-selector-container"></div> <!-- Start/End Date selector -->
-    <div id="chart-container"></div> <!-- ChartJS Graph -->
-    <hr />
-
-    <!--- Sessions/Users Graph --->
-    <h3> Site Traffic Sessions vs. Users - last 30 days </h3>
-    <div id="sessions-users-container"></div> <!-- ChartJS Graph -->
-    <hr />
-
-    <!--------- Annual Graph --------->
-    <div class="Chartjs">
-        <h3>Annual (by users)</h3>
-        <figure class="Chartjs-figure" id="chart-2-container"></figure>
-        <ol class="Chartjs-legend" id="legend-2-container"></ol>
-    </div>
-
-
+    
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
