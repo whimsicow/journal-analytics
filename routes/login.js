@@ -8,6 +8,10 @@ router.get('/', function(req, res) {
     let user = '';
     if (req.isAuthenticated()) {
         res.render('login', {
+        ftrlink: '/logout',
+        ftrlinktext: 'Logout',
+        navlink: '/logout',
+        navlinktext: 'Logout',
         message1: "You are already signed in. ",
         link: '/users',
         linktext: "View your analytics."
@@ -15,6 +19,10 @@ router.get('/', function(req, res) {
     
     } else {
         res.render('login', {
+        ftrlink: '/login',
+        ftrlinktext: 'Login',
+        navlink: '/login',
+        navlinktext: 'Login',
         message1: "You are not currently signed in. Please ",
         link: '/auth/google',
         linktext: "sign in with Google."

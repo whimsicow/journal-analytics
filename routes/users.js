@@ -11,12 +11,15 @@ function ensureAuthenticated(req, res, next) {
 
 router.get('/', ensureAuthenticated, function(req, res) {
     let user = '';
-    if (req.isAuthenticated()) {
-        user = JSON.stringify(req.user, null, 4);
-        console.log(user);
-    }
+    user = JSON.stringify(req.user, null, 4);
+    console.log(user);
+
     res.render('users', {
-        title: "The Swan House"
+        title: "The Swan House",
+        ftrlink: '/logout',
+        ftrlinktext: 'Logout',
+        navlink: '/logout',
+        navlinktext: 'Logout'
     });
 });
 
