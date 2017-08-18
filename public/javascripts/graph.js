@@ -1,34 +1,31 @@
 const graph = (function() {
   let EVENTS;
   
-  //helper for googleAnalyticResults
-
+  // helper for googleAnalyticResults
   const makeDate = (min, max) => {
     let arr = [];
     arr.push(min)
-
-
     return []
   }
 
-  const getDates = ({data}) => {
-      console.log(data)
+  const getDates = ({ data }) => {
+    console.log(data)
 
-      // get min and max dates
-      const maxDateLength = data.rows.length
+    // get min and max dates
+    const maxDateLength = data.rows.length
 
-      // first date
-      let minDate = data.rows[0].c[0].v.toString().split(' ')
-      minDate = `${minDate[1]} ${minDate[2]}`
+    // first date
+    let minDate = data.rows[0].c[0].v.toString().split(' ')
+    minDate = `${minDate[1]} ${minDate[2]}`
 
-      // last date
-      let maxDate = data.rows[maxDateLength-1].c[0].v.toString().split(' ')
-      maxDate = `${maxDate[1]} ${maxDate[2]}`
+    // last date
+    let maxDate = data.rows[maxDateLength-1].c[0].v.toString().split(' ')
+    maxDate = `${maxDate[1]} ${maxDate[2]}`
 
-      makeDate(minDate, maxDate)
+    makeDate(minDate, maxDate)
   }
 
-  const getSessions = ({data}) => {
+  const getSessions = ({ data }) => {
     console.log(data.rows[0].c[1].v) // sessions
   }
 
@@ -47,7 +44,6 @@ const graph = (function() {
     mainGraph(result, EVENTS)
     trafficGraph(result, EVENTS)
   }
-
 
   // main graph
   const mainGraph = (googleAnalytics, events) => {
