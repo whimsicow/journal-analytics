@@ -118,7 +118,7 @@ const graph = (function() {
   const trafficGraph = (googleAnalytics, events) => {
       console.log('configuring traffic graph')
       console.log(googleAnalytics, events)
-
+        
       let ga = getDates(googleAnalytics);
 
       Highcharts.chart('traffic-container', {
@@ -272,6 +272,7 @@ const graph = (function() {
     })};
       
     // return public methods exposed globally
+    // can call in other files with graph.mainGraph
   return {
       mainGraph,
       trafficGraph,

@@ -6,6 +6,7 @@ const passport = require('passport');
 
 router.get('/', function(req, res) {
     let user = '';
+    // logged in
     if (req.isAuthenticated()) {
         res.render('login', {
         ftrlink: '/logout',
@@ -18,6 +19,7 @@ router.get('/', function(req, res) {
         });
     
     } else {
+        // not logged in
         res.render('login', {
         ftrlink: '/login',
         ftrlinktext: 'Login',
