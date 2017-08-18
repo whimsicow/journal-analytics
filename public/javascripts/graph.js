@@ -1,15 +1,13 @@
 const graph = (function() {
   let EVENTS;
   
-  //helper for googleAnalyticResults
-
+  // helper for googleAnalyticResults
   const makeDate = (min, max) => {
     let arr = [];
     arr.push(min)
-
-
     return []
   }
+
 
   const getDates = ({data}) => {
       var pushedData1 = [];
@@ -28,9 +26,10 @@ const graph = (function() {
           dates: pushedData1,
           sessions: pushedData2
       }
+
   }
 
-  const getSessions = ({data}) => {
+  const getSessions = ({ data }) => {
     console.log(data.rows[0].c[1].v) // sessions
   }
 
@@ -49,7 +48,6 @@ const graph = (function() {
     mainGraph(result, EVENTS)
     trafficGraph(result, EVENTS)
   }
-
 
   // main graph
   const mainGraph = (googleAnalytics, events, ) => {
