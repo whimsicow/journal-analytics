@@ -9,7 +9,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #394358;
+    background-image: url('../images/navigation.svg');
+    background-repeat: no-repeat;
+    background-size: cover; 
+    border-bottom: 2px 2px 4px darkslategray;
 }
 .navigation-bar-large {
     display: none;
@@ -71,8 +74,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #394358;
-        box-shadow: 2px 2px 4px aquamarine;
+        background-image: url('../images/navigation.svg');
+        background-repeat: no-repeat;
+        background-size: cover; 
+        box-shadow: 2px 2px 4px slategray;
     }
     .nav-menu-large a{
         margin-right: 30px;

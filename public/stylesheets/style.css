@@ -70,12 +70,19 @@ label {
 .selector {
     text-align: right;
 }
+.date-input,
 .FormField {
     font-size: 14px;
-    height: 40px;
-    width: 200px;
+    height: 35px;
+    width: 150px;
+    border-radius: 5px;
 }
-
+.ViewSelector2-item,
+.DateRangeSelector-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 /* ************* */
 /* logged in user information with welcome  */
@@ -230,12 +237,15 @@ label {
 /* footer for all pages */
 .footer-container {
     height: 200px;
-    background-color: #394358;
+    background-image: url('../images/footerbackground.svg');
+    background-repeat: no-repeat;
+    background-size: cover; 
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     color: aquamarine;
+    border-top: 2px solid slategray;
 }
 .menu-footer {
     padding: 0;
