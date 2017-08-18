@@ -103,7 +103,7 @@ const graph = (function() {
           data: ga.sessions
           },
           {
-            name: `User: ${events.user_id}`,
+            name: `User: ${events.email}`,
             marker: {
               symbol: 'circle',
               width: 16,
