@@ -4,7 +4,7 @@ const pg = pg_promise();
 
 const dbConfig = {
     host: process.env.DB_HOST,
-    username: process.env.DB_USER,
+    user: process.env.DB_USER,
     database: process.env.DB_NAME
 };
 
