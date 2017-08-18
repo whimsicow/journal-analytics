@@ -5,6 +5,9 @@
 #D1E8E2 - LIGHT BLUE 
 #75543D - BROWN
 #564133 - DARK BROWN*/
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
@@ -246,4 +249,49 @@ body {
     .main-user-experience {
         margin: 0 auto;
     }
+}
+
+
+
+
+
+/****************** user graph */
+.box {
+  background: white;
+  width: 80%;
+  margin: 2.5rem auto; 
+/*   height: 30rem; */
+box-shadow: 0px 50px 80px -20px rgba(123, 160, 175, 0.70),0 20px 30px 10px rgba(80,180,220,0.2),0 0px 80px 60px rgba(80,180,220,0.2);
+}
+
+.box h3 {
+  font-family: "Kaushan Script", sans-serif;
+  font-size: 32px;
+  font-weight: normal;
+  margin-left: 35px;
+  margin-bottom: 20px;
+  padding-top: 40px;
+}
+
+.date a {
+  color: #9E9E9E;
+  float: right;
+  margin-right: 40px;
+  font-size: 14px;
+  text-decoration: none;
+  line-height: 48px;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+}
+
+.fa-calendar {
+  padding-right: 5px;
+}
+
+.fa-caret-down {
+  padding-left: 5px;
+}
+
+#traffic-container {
+  width: 100%;
+  height: 100%:
 }

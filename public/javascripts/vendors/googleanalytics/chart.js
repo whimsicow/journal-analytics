@@ -108,7 +108,7 @@ $(document).ready(() => {
       }
     }
     const mainGraphDateRange = {
-      'start-date': '14daysAgo',
+      'start-date': '90daysAgo',
       'end-date': '0daysAgo'
     }
 
@@ -121,7 +121,7 @@ $(document).ready(() => {
       .set(
         {
           chart: {
-            container: 'chart-container'
+            container: 'template-container'
           }
         })
 
@@ -256,6 +256,7 @@ function renderYearOverYearChart(ids) {
       console.log(result.response) // raw data of the entire response... )
       console.groupEnd()
       console.groupEnd()
+      graph.captureGoogleAnalyticsData(result)
     })
 
     mainGraph.on('error', (result) => {
@@ -291,7 +292,7 @@ function renderYearOverYearChart(ids) {
       })
       .execute()
 
-      // sessions vs users graph
+      //sessions vs users graph
       sessionsUsers.set({
         query: {
           ids: data.ids
@@ -319,8 +320,4 @@ function renderYearOverYearChart(ids) {
       datefield.textContent = `${data['start-date']} '&mdash' ${data['end-date']}`
     })
   })
-
-
-
-
 })
