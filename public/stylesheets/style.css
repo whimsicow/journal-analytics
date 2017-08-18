@@ -55,19 +55,25 @@ label {
 }
 .chart-navigation {
     width: 100%;
-    background-image: url('../images/background3.png');
+    background-image: url('../images/sidebackground.svg');
     background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    background-size: cover; 
     display: flex;
-    justify-content:space-between;
-    opacity: .9;
+    justify-content: space-between;
     letter-spacing: 1.5px;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 100px;
     padding-bottom: 35px;
     color: white;
+}
+.selector {
+    text-align: right;
+}
+.FormField {
+    font-size: 14px;
+    height: 40px;
+    width: 200px;
 }
 
 
@@ -88,9 +94,13 @@ label {
     margin: 0 auto;
     max-height: 90px;
 }
-
+.box {
+    background: white;
+    width: 100%;
+}
 /* logged in user information with welcome  */
 /* ****************** */
+
 
 
 
@@ -131,7 +141,7 @@ label {
     background: white;
     height: 300px;
     width: 95%;
-    border: 1px solid #384450;
+    border: 1px solid #394358;
     border-radius: 10px;
     z-index: 1000000;
 }
@@ -220,7 +230,7 @@ label {
 /* footer for all pages */
 .footer-container {
     height: 200px;
-    background-color: #384450;
+    background-color: #394358;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -256,6 +266,7 @@ label {
         display: flex;
         justify-content: space-between;
     }
+    /* side chart navigation */
     .chart-navigation {
         width: 25%;
         display: unset;
@@ -266,16 +277,10 @@ label {
         padding-top: 150px;
         color: white;
     }
-    .chart-information-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .selector {
+        text-align: left;
     }
-    .charts-container {
-        width: 70%;
-        text-align: center;
-        margin: 0 auto;
-    }
+    /* company logo */
     .company-logo-container {
         margin: 0 auto;
         margin-top: 100px;
@@ -286,6 +291,21 @@ label {
         margin: 0 auto;
         max-height: 120px;
     }
+    /* all chart container */
+    .charts-container {
+        width: 80%;
+        text-align: center;
+        margin: 0 auto;
+    }
+    /* high charts chart */
+    .box {
+        background: white;
+        width: 80%;
+        margin: 2.5rem auto; 
+        /*   height: 30rem; */
+        box-shadow: 0px 50px 80px -20px rgba(123, 160, 175, 0.70),0 20px 30px 10px rgba(80,180,220,0.2),0 0px 80px 60px rgba(80,180,220,0.2);
+    }
+      
 
 }
 
@@ -293,6 +313,7 @@ label {
 
 /* *************************************************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
 @media only screen and (min-width: 960px){
+    
     .chart-information-container {
         justify-content: flex-start;
     }
@@ -306,13 +327,6 @@ label {
 
 
 /****************** user graph */
-.box {
-  background: white;
-  width: 80%;
-  margin: 2.5rem auto; 
-/*   height: 30rem; */
-box-shadow: 0px 50px 80px -20px rgba(123, 160, 175, 0.70),0 20px 30px 10px rgba(80,180,220,0.2),0 0px 80px 60px rgba(80,180,220,0.2);
-}
 
 .box h3 {
   font-family: "Kaushan Script", sans-serif;
@@ -343,5 +357,5 @@ box-shadow: 0px 50px 80px -20px rgba(123, 160, 175, 0.70),0 20px 30px 10px rgba(
 
 #traffic-container {
   width: 100%;
-  height: 100%:
+  height: 100%;
 }
