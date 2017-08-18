@@ -107,8 +107,9 @@ $(document).ready(() => {
         }
       }
     }
+    // default date range
     const mainGraphDateRange = {
-      'start-date': '90daysAgo',
+      'start-date': '30daysAgo',
       'end-date': '0daysAgo'
     }
 
