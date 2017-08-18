@@ -8,21 +8,25 @@ const graph = (function() {
     return []
   }
 
-  const getDates = ({ data }) => {
-    console.log(data)
 
-    // get min and max dates
-    const maxDateLength = data.rows.length
+  const getDates = ({data}) => {
+      var pushedData1 = [];
+      var pushedData2 = [];
+    //   console.log(data);
+      var newData = data.rows
+    //   console.log(newData)
+      for(var i = 0; i < newData.length; i++){
+         pushedData1.push((newData[i].c[0].v).toString());
+         pushedData2.push(newData[i].c[1].v);
+      }
+    //   console.log(pushedData1)
+    //   console.log(pushedData2)
 
-    // first date
-    let minDate = data.rows[0].c[0].v.toString().split(' ')
-    minDate = `${minDate[1]} ${minDate[2]}`
+      return {
+          dates: pushedData1,
+          sessions: pushedData2
+      }
 
-    // last date
-    let maxDate = data.rows[maxDateLength-1].c[0].v.toString().split(' ')
-    maxDate = `${maxDate[1]} ${maxDate[2]}`
-
-    makeDate(minDate, maxDate)
   }
 
   const getSessions = ({ data }) => {
@@ -46,8 +50,9 @@ const graph = (function() {
   }
 
   // main graph
-  const mainGraph = (googleAnalytics, events) => {
+  const mainGraph = (googleAnalytics, events, ) => {
     console.log('configuring main graph')
+    let ga = getDates(googleAnalytics);
     Highcharts.chart('main-container', {
       chart: {
           type: 'area'
@@ -56,12 +61,11 @@ const graph = (function() {
           title: {
               text: 'Date'
           },
-          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-              'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          categories: ga.dates
       },
       yAxis: {
           title: {
-              text: 'Session'
+              text: "Sessions"
           },
           // labels: {
           //     formatter: function () {
@@ -96,7 +100,7 @@ const graph = (function() {
               width: 16,
               height: 16
           },
-          data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+          data: ga.sessions
           },
           {
             name: `User: ${events.user_id}`,
@@ -114,7 +118,10 @@ const graph = (function() {
   const trafficGraph = (googleAnalytics, events) => {
       console.log('configuring traffic graph')
       console.log(googleAnalytics, events)
-
+      let a = googleAnalytics[0]
+      console.log(a)
+    //   let b = a[0]
+    //   console.log("this is b " + b)
       let ga = getDates(googleAnalytics);
 
       Highcharts.chart('traffic-container', {
@@ -268,6 +275,7 @@ const graph = (function() {
     })};
       
     // return public methods exposed globally
+    // can call in other files with graph.mainGraph
   return {
       mainGraph,
       trafficGraph,
