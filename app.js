@@ -12,7 +12,10 @@ const session = require('express-session');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const login = require('./routes/login');
+
 const db = require('./db');
+const logout = require('./routes/logout');
+const api = require('./routes/api');
 
 require('dotenv').config();
 
@@ -20,11 +23,16 @@ require('dotenv').config();
 const app = express();
 
 
+
 // view engine setup
+=======
+/************************************************************ VIEW ENGINE SETUP *************/
+
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}))
 app.set('view engine', 'hbs');
 
 
+/************************************************************* GOOGLE OAUTH *************/
 passport.serializeUser(function(user, done) {
   // placeholder for custom user serialization
   // null is for errors
@@ -89,6 +97,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+/************************************************************ MIDDLEWARE *******/
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -97,9 +106,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+/************************************************************ ROUTER *******/
 app.use('/', index);
 app.use('/users', users);
 app.use('/login', login);
+app.use('/logout', logout);
+app.use('/api', api);
 
 
 app.get('/auth/google',
@@ -111,15 +124,9 @@ app.get('/auth/google/callback',
         failureRedirect: '/login',
         failureFlash: true }));
 
-app.get('/logout', function(req, res) {
-    console.log('logging out');
-    req.logout();
-    res.redirect('/login');
-});
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+    let err = new Error('Not Found');
     err.status = 404;
     next(err);
 });

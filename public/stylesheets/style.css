@@ -5,6 +5,9 @@
 #D1E8E2 - LIGHT BLUE 
 #75543D - BROWN
 #564133 - DARK BROWN*/
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
@@ -17,9 +20,22 @@ body {
     padding-top: 100px;
     padding-bottom: 100px;
 }
-
-
-
+.index-banner {
+    height: 800px;
+    background-image: url('/../images/backgroundbanner.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.title-message {
+    position: relative;
+    top: 50%;
+    left: 10%;
+    font-size: 30px;
+}
+.parallax {
+    transition: initial;
+}
 
 
 
@@ -32,14 +48,24 @@ body {
 /* Useres logged in page */
 .main-user-experience {
     padding-bottom: 100px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
+label {
+    padding-right: 15px;
+}
 .chart-navigation {
     width: 20%;
-    background: #bbbbbb;
-    padding-left: 40px;
-    padding-top: 70px;
+    background-image: url('../images/background3.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: .9;
+    letter-spacing: 1.5px;
+    padding-left: 20px;
+    padding-top: 200px;
+    color: white;
 }
 /* ************* */
 /* logged in user information with welcome  */
@@ -72,7 +98,7 @@ body {
  
 }
 .company-logo-container img{
-    max-height: 80px;
+    max-height: 90px;
 }
 /* logged in user information with welcome  */
 /* ****************** */
@@ -114,7 +140,7 @@ body {
     background: white;
     height: 300px;
     width: 95%;
-    border: 1px solid black;
+    border: 1px solid #384450;
     border-radius: 10px;
     z-index: 1000000;
 }
@@ -171,11 +197,12 @@ body {
     justify-content: center;
     text-align: center;
 }
+.DateRangeSelector-item,
 .ViewSelector2-item {
-    padding: 14px;
+    padding-top: 25px;
 }
-.DateRangeSelector-item {
-    padding: 14px;
+.sessions-count {
+    padding-top: 40px;
 }
 .gapi-analytics-data-chart {
    
@@ -192,21 +219,26 @@ body {
 
 
 
+
+
+
+
+
+
 /* *************************************************** */
 /* footer for all pages */
 .footer-container {
     height: 200px;
-    background-color: #2C3531;
+    background-color: #384450;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: white;
+    color: aquamarine;
 }
 .menu-footer {
     padding: 0;
 }
-
 
 /* *************************************************** */
 
@@ -246,4 +278,49 @@ body {
     .main-user-experience {
         margin: 0 auto;
     }
+}
+
+
+
+
+
+/****************** user graph */
+.box {
+  background: white;
+  width: 80%;
+  margin: 2.5rem auto; 
+/*   height: 30rem; */
+box-shadow: 0px 50px 80px -20px rgba(123, 160, 175, 0.70),0 20px 30px 10px rgba(80,180,220,0.2),0 0px 80px 60px rgba(80,180,220,0.2);
+}
+
+.box h3 {
+  font-family: "Kaushan Script", sans-serif;
+  font-size: 32px;
+  font-weight: normal;
+  margin-left: 35px;
+  margin-bottom: 20px;
+  padding-top: 40px;
+}
+
+.date a {
+  color: #9E9E9E;
+  float: right;
+  margin-right: 40px;
+  font-size: 14px;
+  text-decoration: none;
+  line-height: 48px;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+}
+
+.fa-calendar {
+  padding-right: 5px;
+}
+
+.fa-caret-down {
+  padding-left: 5px;
+}
+
+#traffic-container {
+  width: 100%;
+  height: 100%:
 }

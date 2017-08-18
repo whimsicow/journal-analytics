@@ -15,7 +15,7 @@
             <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
             <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
             <div id="active-users-container"></div> <!-- Active users -->
-            <h3>Sessions Count</h3>
+            <h3 class="sessions-count">Sessions Count</h3>
             <div id="date-range-selector-container"></div> <!-- Start/End Date selector -->
         </div>
         {{!-- Charts container --}}
@@ -35,13 +35,24 @@
             <div class="all-charts-container">
 
                 <!----------- Main GRAPH ----------->
-                
-                <div id="chart-container"></div> <!-- ChartJS Graph -->
+
+                <div id="template-container"></div>
                 <hr />
+                
+                <div class="box">
+                    <h3>Main Overview</h3>
+                    <div id="main-container"></div>
+                </div>
+                <hr />
+
+                <div class="box">
+                    <h3>Traffic Overview</h3>
+                    <div id="traffic-container"></div>
+                </div>
 
                 <!--- Sessions/Users Graph --->
                 <h3> Site Traffic Sessions vs. Users - last 30 days </h3>
-                <div id="sessions-users-container"></div> <!-- ChartJS Graph -->
+                <div id="sessions-users-container"></div> 
                 <hr />
 
                 <!--------- Annual Graph --------->
@@ -105,24 +116,31 @@
     
 </main>
 
+<!-- CDN: jQuery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
  <!-- CDN: chart -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+<!-- CDN: highcharts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.14/highcharts.js"></script>
  <!-- cdn: moment -->
  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
 <!-- vendor: Google Graph Library -->
 <script src="https://www.google.com/jsapi"></script>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 
-
+<!-- vendor: Google Analytics -->
 <script src="../javascripts/vendors/googleanalytics/authorization.js"></script>
 <script src="../javascripts/vendors/googleanalytics/active-users.js"></script>
 <script src="../javascripts/vendors/googleanalytics/date-range-selector.js"></script>
 <script src="../javascripts/vendors/googleanalytics/view-selector2.js"></script>
 <script src="../javascripts/vendors/googleanalytics/chart.js"></script>
 
-
  <!-- cdn: DDSlick for dropdown icon list -->
 <script src="https://cdn.rawgit.com/prashantchaudhary/ddslick/master/jquery.ddslick.min.js"></script>
 <script src="../javascripts/form.js"></script>
+
+<!-- dev files -->
+<script src="../javascripts/user.js"></script>
+<script src="../javascripts/graph.js"></script>
 
