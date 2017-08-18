@@ -6,7 +6,6 @@ const $CLOSE_POPUP = $('[data-popup="close-event-popup"]');
 
 const saveForm = () => {
     $('[data-popup="form-container"]').submit(() => {
-        event.preventDefault();
         getFormDescription();
         getDate();
         getMethod();

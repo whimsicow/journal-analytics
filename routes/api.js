@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const db = require('../db')
+const db = require('../db')
 
 router.get('/events', (req, res, next) => {
   //pseudo code for db query needs teamid from tables... foreign key to events table then select * .then()
@@ -19,6 +19,18 @@ router.get('/events', (req, res, next) => {
 
 router.post('/event', (req, res, next) => {
   console.log('post event')
+})
+
+router.post('/picture', (req, res, next) => {
+    if(!req) {
+        return res.status(400).send('No files were uploaded.');
+    }
+    db.one(`
+        select picture from users where email = '${req.body.email}';
+      `)
+      .then((result) => {
+        res.send(result);
+        })
 })
 
 module.exports = router;
