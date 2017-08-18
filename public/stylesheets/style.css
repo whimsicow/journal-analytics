@@ -47,59 +47,48 @@ body {
 /* *************************************************** */
 /* Useres logged in page */
 .main-user-experience {
-    padding-bottom: 100px;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+    display: unset;
 }
 label {
     padding-right: 15px;
 }
 .chart-navigation {
-    width: 20%;
+    width: 100%;
     background-image: url('../images/background3.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    display: flex;
+    justify-content:space-between;
     opacity: .9;
     letter-spacing: 1.5px;
-    padding-left: 20px;
-    padding-top: 200px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 100px;
+    padding-bottom: 35px;
     color: white;
 }
+
+
 /* ************* */
 /* logged in user information with welcome  */
 .charts-container {
-    width: 70%;
+    width: 100%;
     text-align: center;
     margin: 0 auto;
 }
-.welcome-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.welcome-user {
-    text-align: center;
-    margin-top: 100px;
-    font-size: 20px;
-    font-family: 'Raleway', sans-serif;
+.company-logo-container {
+    margin: 0 auto;
+    margin-top: 60px;
     margin-bottom: 40px;
+    width: 100%; 
 }
-.loggedin-user-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 20px;
-    padding-bottom: 30px;
-}
-.user-photo-container img{
- 
-}
-.company-logo-container img{
+.company-logo img{
+    margin: 0 auto;
     max-height: 90px;
 }
+
 /* logged in user information with welcome  */
 /* ****************** */
 
@@ -261,12 +250,42 @@ label {
         width: 400px;
     }
 
+    /* charts and side bar */
+    .main-user-experience {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .chart-navigation {
+        width: 25%;
+        display: unset;
+        flex-direction: column;
+        letter-spacing: 1.5px;
+        padding-left: 20px;
+        padding-right: 10px;
+        padding-top: 150px;
+        color: white;
+    }
     .chart-information-container {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    
+    .charts-container {
+        width: 70%;
+        text-align: center;
+        margin: 0 auto;
+    }
+    .company-logo-container {
+        margin: 0 auto;
+        margin-top: 100px;
+        margin-bottom: 40px;
+        width: 100%; 
+    }
+    .company-logo img{
+        margin: 0 auto;
+        max-height: 120px;
+    }
 
 }
 
