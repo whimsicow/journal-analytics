@@ -32,17 +32,18 @@ app.set('view engine', 'hbs');
 
 
 /************************************************************* GOOGLE OAUTH *************/
-passport.serializeUser(function(user, done) {
-  // placeholder for custom user serialization
-  // null is for errors
-  done(null, user);
+passport.serializeUser(function(email, done) {
+    // saves user's email under req.session.passport.user
+    done(null, email);
 });
 
-passport.deserializeUser(function(obj, done) {
-  // placeholder for custom user deserialization.
-  // maybe you are going to get the user from mongo by id?
-  // null is for errors
-  done(null, obj);
+passport.deserializeUser(function(email, done) {
+  // could get entire profile during deserialization, right now just returning email
+    // db.one(`select * from users where email = '${email}'`)
+    //     .then((result) => {
+    //         done(null, result);
+    //     })
+    done(null, email);
 });
 
 
@@ -52,38 +53,18 @@ passport.use(new GoogleStrategy({
     callbackURL: process.env.GOOGLE_CALLBACK
   },
     function(accessToken, refreshToken, profile, done) {
-            done(null, profile);
+        db.one(`
+        insert into users (email, firstname, surname)
+        values ('${profile.emails[0].value}', '${profile.name.givenName}', '${profile.name.familyName}')
+        on conflict (email)
+        do update set (firstname, surname) = ('${profile.name.givenName}', '${profile.name.familyName}')
+        where users.email = '${profile.emails[0].value}';
+        select * from users where email = '${profile.emails[0].value}';
+      `)
+            .then((result) => {
+                done(null, profile.emails[0].value);
+            })
 }))
-        // process.nextTick(function() {
-
-        //     // try to find the user based on their google id
-        //     User.findOne({ 'google.email' : profile.emails[0].value }, function(err, user) {
-        //         if (err)
-        //             return done(err);
-
-        //         if (user) {
-
-        //             // if a user is found, log them in
-        //             return done(null, user);
-        //         } else {
-        //             // if the user isnt in our database, create a new user
-        //             var newUser = new User();
-
-        //             // set all of the relevant information
-        //             newUser.google.email = profile.emails[0].value;
-        //             newUser.google.firstname  = profile.name.givenName;
-        //             newUser.googe.surname = profile.name.familyName;
-        //             newUser.google.photo = req.user.photos[0]['value']; 
-
-        //             // save the user
-        //             newUser.save(function(err) {
-        //                 if (err)
-        //                     throw err;
-        //                 return done(null, newUser);
-        //             });
-        //         }
-        //     });
-        // });
     
 
 // Express and Passport Session

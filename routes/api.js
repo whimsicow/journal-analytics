@@ -33,4 +33,11 @@ router.post('/picture', (req, res, next) => {
         })
 })
 
+router.post('/eventstore', function(req, res, next) {
+    if(!req) {
+        return res.status(400).send('No files were uploaded.');
+    }
+    console.log(req);
+})
+
 module.exports = router;

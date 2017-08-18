@@ -74,7 +74,7 @@
 
 
         <!-- popup form for adding events -->
-        <form method="post" class="form" id="submit-event" data-popup="form-container">
+        <form class="form" id="submit-event" data-popup="form-container">
             <div class="form-container"> 
 
                 <!-- date -->
@@ -91,13 +91,15 @@
             
             <!-- icons to choose from -->
                 <div class="icon-dropdown" id="myDropdown">
-                    <option name="method" class="icon" value="facebook" data-imagesrc="../images/facebook.png" data-description="Facebook Post"></option>
-                    <option name="method" class="icon" value="twitter" data-imagesrc="../images/twitter.png" data-description="Tweet"></option>
-                    <option name="method" class="icon" value="gmail" data-imagesrc="../images/gmail.png" data-description="Google Plus post"></option>
-                    <option name="method" class="icon" value="linkedin" data-imagesrc="../images/linkedin.png" data-description="Linkedin post"></option>
-                    <option name="method" class="icon" value="pintrest" data-imagesrc="../images/pintrest.png" data-description="Pintrest post"></option>
-                    <option name="method" class="icon" value="instagram" data-imagesrc="../images/instagram.png" data-description="Instagram post"></option>
-                    <option name="method" class="icon" value="email" data-imagesrc="../images/email.png" data-description="Email"></option>
+                    <select name="icons">
+                        <option class="icon" value="facebook" data-imagesrc="../images/facebook.png" data-description="Facebook Post"></option>
+                        <option class="icon" value="twitter" data-imagesrc="../images/twitter.png" data-description="Tweet"></option>
+                        <option class="icon" value="gmail" data-imagesrc="../images/gmail.png" data-description="Google Plus post"></option>
+                        <option class="icon" value="linkedin" data-imagesrc="../images/linkedin.png" data-description="Linkedin post"></option>
+                        <option class="icon" value="pintrest" data-imagesrc="../images/pintrest.png" data-description="Pintrest post"></option>
+                        <option class="icon" value="instagram" data-imagesrc="../images/instagram.png" data-description="Instagram post"></option>
+                        <option class="icon" value="email" data-imagesrc="../images/email.png" data-description="Email"></option>
+                    </select>
                 </div>
                 <div class="button-container">
                     <button type="submit" class="submit-event" data-role="submit">Submit</button>
