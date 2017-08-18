@@ -12,6 +12,8 @@ const session = require('express-session');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const login = require('./routes/login');
+
+const db = require('./db');
 const logout = require('./routes/logout');
 const api = require('./routes/api');
 
@@ -21,7 +23,11 @@ require('dotenv').config();
 const app = express();
 
 
+
+// view engine setup
+=======
 /************************************************************ VIEW ENGINE SETUP *************/
+
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}))
 app.set('view engine', 'hbs');
 
@@ -40,17 +46,46 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: process.env.GOOGLE_CALLBACK
   },
     function(accessToken, refreshToken, profile, done) {
-        // placeholder for translating profile into your own custom user object.
-    //     // for now we will just use the profile object returned by Google
-        return done(null, profile);
-    }
-));
+            done(null, profile);
+}))
+        // process.nextTick(function() {
+
+        //     // try to find the user based on their google id
+        //     User.findOne({ 'google.email' : profile.emails[0].value }, function(err, user) {
+        //         if (err)
+        //             return done(err);
+
+        //         if (user) {
+
+        //             // if a user is found, log them in
+        //             return done(null, user);
+        //         } else {
+        //             // if the user isnt in our database, create a new user
+        //             var newUser = new User();
+
+        //             // set all of the relevant information
+        //             newUser.google.email = profile.emails[0].value;
+        //             newUser.google.firstname  = profile.name.givenName;
+        //             newUser.googe.surname = profile.name.familyName;
+        //             newUser.google.photo = req.user.photos[0]['value']; 
+
+        //             // save the user
+        //             newUser.save(function(err) {
+        //                 if (err)
+        //                     throw err;
+        //                 return done(null, newUser);
+        //             });
+        //         }
+        //     });
+        // });
+    
 
 // Express and Passport Session
 app.use(session({
