@@ -10,7 +10,9 @@ const saveForm = () => {
         getFormDescription();
         getDate();
         getMethod();
+        getAccount();
         dbStoreEvent();
+        
     })
 }
 
@@ -18,6 +20,18 @@ const dbStoreEvent = () => {
     $.post('/api/eventstore', eventData);
 }
 
+
+const getAccount = () => {
+    var infoArray = $('#view-selector-container2 > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
+    var accountName = infoArray[0]['text'];
+    var accountId = infoArray[0]['value'];
+    var propertyName = infoArray[1]['text'];
+    var propertyId = infoArray[1]['value'];
+    setLocalStorageValues('accountName', accountName);
+    setLocalStorageValues('accountId', accountId);
+    setLocalStorageValues('propertyName', propertyName);
+    setLocalStorageValues('propertyId', propertyId);
+}
 
 const getFormDescription = () => {
     var description = 'description';
