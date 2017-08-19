@@ -27,4 +27,33 @@ router.post('/event', (req, res, next) => {
   console.log('post event')
 })
 
+// Store larger image provided by google analytics auth
+router.post('/picture', (req, res, next) => {
+    if(!req.body) {
+        return res.status(400).send('No information provided.');
+    }
+    db.one(`
+        select picture from users where email = '${req.body.email}';
+      `)
+      .then((result) => {
+        res.send(result);
+        })
+})
+
+// Store an event in database upon form submission
+router.post('/eventstore', function(req, res, next) {
+    if(!req.body) {
+        return res.status(400).send('No information provided.');
+    }
+     db.none(`insert into events (event_date, description, method, email)
+        values ('${req.body.date}', '${req.body.description}', '${req.body.method}', '${req.user}');
+    `)
+        .catch((err) => {
+            console.log(err);
+            res.render('error', {
+                message: err.message
+            })
+        }) 
+})
+
 module.exports = router;
