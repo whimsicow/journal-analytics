@@ -17,7 +17,10 @@ const saveForm = () => {
 }
 
 const dbStoreEvent = () => {
-    $.post('/api/eventstore', eventData);
+    $.post('/api/eventstore', eventData)
+        .then((res)=> {
+            console.log(res);
+        })
 }
 
 const getLink = () => {
