@@ -1,15 +1,4 @@
-<!-- large screens navigation bar -->
-<nav class="navigation-bar-large">
-    
-    <div class="logo">
-        <a href="#"><h4>Journal Analytics</h4></a>
-    </div>
-    <menu type="context" class="nav-menu-large">
-        <span><a href="/user">Welcome, {{name}}</a></span>
-        <span><a href="/">Home</a></span>
-        <span><a href="{{navlink}}">{{navlinktext}}</a></span>
-    </menu>
-</nav>
+
 <!-- small screens navigation bar -->
 
 <div class="nav-mobile-container">
@@ -26,20 +15,24 @@
 
 <div class="mobile-menu">
     <menu type="context" class="nav-menu-mobile">
-        <span><a href="/user">Welcome, {{name}}</a></span>
+        <span><a href="/users">Welcome, {{name}}</a></span>
         <span><a href="/">Home</a></span>
         <span><a href="{{navlink}}">{{navlinktext}}</a></span>
-
-        {{!-- <div class="mobile-info-container">
-            
-            <!-- Map and Google API containers -->
-            <div id="mobile-view-name"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data -->
-            <div id="mobile-view-selector-container"></div> <!-- Account, Property, View dropdowns -->
-        </div>
-        <div class="mobile-selector">
-            <div id="mobile-active-users-container"></div> <!-- Active users -->
-            <h3 class="mobile-sessions-count">Date Range</h3>
-            <div id="mobile-date-range-selector-container"></div> <!-- Start/End Date selector -->
-        </div> --}}
     </menu>
 </div>
+
+
+
+
+<!-- large screens navigation bar -->
+<nav class="navigation-bar-large">
+    
+    <div class="logo">
+        <a href="#"><h4>Journal Analytics</h4></a>
+    </div>
+    <menu type="context" class="nav-menu-large">
+        <span><a href="/users">Welcome, {{name}}</a></span>
+        <span><a href="/">Home</a></span>
+        <span><a href="{{navlink}}">{{navlinktext}}</a></span>
+    </menu>
+</nav>

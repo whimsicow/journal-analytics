@@ -68,7 +68,7 @@ label {
     padding-right: 20px; */
     padding-top: 100px;
     padding-bottom: 35px;
-    color: white;
+    color: lightblue;
 }
 .selector-container,
 .user-info-container{
@@ -77,6 +77,9 @@ label {
 }
 .large-user-photo {
     display: none;
+}
+.sessions-count-container {
+    text-align: right;
 }
 .selector-container {
     text-align: right;
@@ -99,6 +102,7 @@ label {
 }
 
 /* Chart section */
+
 .chart-date-range-container,
 .chart-selection-container {
     display: flex;
@@ -324,6 +328,7 @@ label {
         display: flex;
         flex-direction: column;
     }
+    .sessions-count-container,
     .selector-container,
     .user-info-container {
         text-align: center;
@@ -337,7 +342,7 @@ label {
         background-repeat: no-repeat;
         background-size: cover; 
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         letter-spacing: 1.5px;
         color: lightblue;
         width: 30%;
@@ -396,6 +401,7 @@ label {
         display: flex;
         flex-direction: row;
     }
+    .sessions-count-container,
     .selector-container,
     .user-info-container {
         text-align: left;
