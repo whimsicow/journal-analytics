@@ -25,6 +25,7 @@ const app = express();
 
 
 // view engine setup
+
 /************************************************************ VIEW ENGINE SETUP *************/
 
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}))
