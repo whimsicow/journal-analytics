@@ -2,7 +2,7 @@ const $ADD_EVENT = $('[data-type="open-event-popup"]');
 const $FORM_CONTAINER = $('[data-popup="form-container"]');
 const $CLOSE_POPUP = $('[data-popup="close-event-popup"]');
 
-// create class and export to main.js
+var eventData = {};
 
 const saveForm = () => {
     $('[data-popup="form-container"]').submit(() => {
@@ -10,11 +10,13 @@ const saveForm = () => {
         getFormDescription();
         getDate();
         getMethod();
-        console.log("saved form");
+        dbStoreEvent();
     })
 }
 
-var theDataz = {};
+const dbStoreEvent = () => {
+    $.post('/api/eventstore', eventData);
+}
 
 
 const getFormDescription = () => {
@@ -25,13 +27,17 @@ const getFormDescription = () => {
 
 const getDate = () => {
     var date = 'date';
-    var dateValue = new Date($('input[type="date"]').val());
-    dateValue = new Date( dateValue.getTime() - dateValue.getTimezoneOffset() * -60000 );
-    if (isNaN(dateValue) === true) {
-        dateValue = new Date();
-    }
-    
+    var dateValue = new Date($('input[name="date"]').val());
+    dateValue = new Date( dateValue.getTime() - dateValue.getTimezoneOffset() * -60000 ).toUTCString();
+    // could take off timestamps:
+    // dateValue=dateValue.split(' ').slice(0, 4).join(' ')
+  
     setLocalStorageValues(date, dateValue);
+}
+
+const setDefaultDate = () => {
+    var d = new Date();
+    document.getElementById('date').valueAsDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12);
 }
 
 function getMethod() {
@@ -42,7 +48,7 @@ function getMethod() {
 
 const setLocalStorageValues = (key, keyValue) => {
     localStorage.setItem(key, keyValue);
-    theDataz[key] = keyValue;
+    eventData[key] = keyValue;
 };
 
 
@@ -80,4 +86,5 @@ $FORM_CONTAINER.hide();
 closePopupButton();
 plusSignButton();
 saveForm();
-document.getElementById('date').valueAsDate = new Date();
+setDefaultDate();
+

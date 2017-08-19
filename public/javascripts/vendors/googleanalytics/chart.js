@@ -82,10 +82,15 @@ $(document).ready(() => {
     // return user info to console when they sign in... (name, email, profilePic)
     gapi.analytics.auth.on('signIn', function() {
       console.groupCollapsed(`User has been authenticated and has signed in.`)
-      console.log(gapi.analytics.auth.getUserProfile())
       console.groupEnd()
+      var profile = gapi.analytics.auth.getUserProfile();
+      $.post('/users/profile', profile);
+      $.post('/api/picture', profile)
+        .then(setPicture)
     })
-
+    function setPicture(result) {
+        $('[data-role="profilepic"]').attr("src", result.picture); 
+    }
 
 /******************************************************************
                             MAIN GRAPH
