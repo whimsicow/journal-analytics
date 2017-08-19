@@ -47,8 +47,9 @@ router.post('/eventstore', function(req, res, next) {
     }
     var description = req.body.description;
     description = description.replace("'", "''");
-    db.none(`insert into events (event_date, description, method, email)
-        values ('${req.body.date}', '${description}', '${req.body.method}', '${req.user}');
+    
+;    db.none(`insert into events (event_date, description, method, accountname, accountid, propertyname, propertyid, email)
+        values ('${req.body.date}', '${description}', '${req.body.method}', '${req.body.accountName}', '${req.body.accountId}', '${req.body.propertyName}', '${req.body.propertyId}', '${req.user}');
     `)
         .catch((err) => {
             console.log(err);

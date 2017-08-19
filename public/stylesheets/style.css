@@ -37,6 +37,10 @@ body {
     transition: initial;
 }
 
+#view-selector-container2 > .ViewSelector2:nth-child(3) {
+    display: none;
+}
+
 
 
 
