@@ -70,21 +70,29 @@ Chart.defaults.global.maintainAspectRatio = false;
                 GOOGLE ANALYTICS AUTHENTICATION
 ******************************************************************/
 $(document).ready(() => {
-    gapi.analytics.ready(() => {
 
-        gapi.analytics.auth.authorize({
-            // auth-container is dom element that hosts the sign-in button during a sessions first load. sign in button can also contain an event listener to do something     else as well
-            container: 'embed-api-auth-container',
-            //client ID of our project from developers console (using Sarahs)
-            clientid: CLIENT_ID,
-        })
+  gapi.analytics.ready(() => {
+    
+    gapi.analytics.auth.authorize({
+        // auth-container is dom element that hosts the sign-in button during a sessions first load. sign in button can also contain an event listener to do something     else as well
+        container: 'embed-api-auth-container',
+        //client ID of our project from developers console (using Sarahs)
+        clientid: CLIENT_ID,
+    })
 
-        // return user info to console when they sign in... (name, email, profilePic)
-        gapi.analytics.auth.on('signIn', function () {
-            console.groupCollapsed(`User has been authenticated and has signed in.`)
-            console.log(gapi.analytics.auth.getUserProfile())
-            console.groupEnd()
-        })
+    // return user info to console when they sign in... (name, email, profilePic)
+    gapi.analytics.auth.on('signIn', function() {
+      console.groupCollapsed(`User has been authenticated and has signed in.`)
+      console.groupEnd()
+      var profile = gapi.analytics.auth.getUserProfile();
+      $.post('/users/profile', profile);
+      $.post('/api/picture', profile)
+        .then(setPicture)
+    })
+    function setPicture(result) {
+        $('[data-role="profilepic"]').attr("src", result.picture); 
+    }
+
 
 
         /******************************************************************
