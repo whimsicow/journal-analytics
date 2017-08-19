@@ -11,15 +11,22 @@ const saveForm = () => {
         getDate();
         getMethod();
         getAccount();
+        getLink();
         dbStoreEvent();
-        
     })
 }
 
 const dbStoreEvent = () => {
-    $.post('/api/eventstore', eventData);
+    $.post('/api/eventstore', eventData)
+        .then((res)=> {
+            console.log(res);
+        })
 }
 
+const getLink = () => {
+    var link = $('[name="link"]').val();
+    setLocalStorageValues('eventlink', link);
+}
 
 const getAccount = () => {
     var infoArray = $('#view-selector-container2 > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
