@@ -45,11 +45,12 @@ router.post('/eventstore', function(req, res, next) {
     if(!req.body) {
         return res.status(400).send('No information provided.');
     }
+    
     var description = req.body.description;
     description = description.replace("'", "''");
     
-;    db.none(`insert into events (event_date, description, method, accountname, accountid, propertyname, propertyid, email)
-        values ('${req.body.date}', '${description}', '${req.body.method}', '${req.body.accountName}', '${req.body.accountId}', '${req.body.propertyName}', '${req.body.propertyId}', '${req.user}');
+    db.none(`insert into events (event_date, description, method, accountname, accountid, propertyname, propertyid, email, eventlink)
+        values ('${req.body.date}', '${description}', '${req.body.method}', '${req.body.accountName}', '${req.body.accountId}', '${req.body.propertyName}', '${req.body.propertyId}', '${req.user}', NULLIF('${req.body.eventlink}',''));
     `)
         .catch((err) => {
             console.log(err);
