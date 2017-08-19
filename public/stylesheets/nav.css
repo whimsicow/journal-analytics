@@ -19,7 +19,6 @@
 }
 .logo {
     margin-left: 20px;
-    
 }
 .hamburger-icon {
     margin-right: 20px;
@@ -43,7 +42,6 @@
     align-items: center;
     font-size: 25px;
     background: #394358;
-    opacity: .8;
 }
 .nav-menu-mobile span{
     margin-top: 40px;
@@ -80,6 +78,7 @@
         background-repeat: no-repeat;
         background-size: cover; 
         box-shadow: 2px 2px 4px slategray;
+        font-size: 18px;
     }
     .nav-menu-large a{
         margin-right: 30px;

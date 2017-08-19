@@ -11,7 +11,7 @@
 
 body {
     margin: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 /* *************************************************** */
@@ -65,11 +65,14 @@ label {
     display: flex;
     justify-content: space-between;
     letter-spacing: 1.5px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     padding-top: 100px;
     padding-bottom: 35px;
     color: white;
+}
+.mobile-welcome {
+    padding-bottom: 40px;
 }
 .selector {
     text-align: right;
@@ -122,6 +125,8 @@ label {
 .hidden {
     display: none;
 }
+
+
 /* ******************* */
 /* green plus sign fixed to bottom right to add events */
 .add-event-button {
@@ -142,6 +147,9 @@ label {
 .add-event-button img:active {
     box-shadow: 1px 3px 1px slategray;
 }
+/* ******************* */
+
+
 
 /* ********************* */
 /* Popup form to add events */
@@ -239,9 +247,6 @@ label {
 
 
 
-
-
-
 /* *************************************************** */
 /* footer for all pages */
 .footer-container {
@@ -261,6 +266,11 @@ label {
 }
 
 /* *************************************************** */
+
+
+
+
+
 
 
 
@@ -293,7 +303,9 @@ label {
         border-radius: 5px;
     } */
     /* side chart navigation */
-
+    .mobile-welcome {
+        display: none;
+    }
     .DateRangeSelector-item,
     .ViewSelector2-item {
         display: flex;
@@ -335,7 +347,7 @@ label {
     /* high charts chart */
     .box {
         background: white;
-        width: 80%;
+        width: 90%;
         margin: 2.5rem auto; 
         /*   height: 30rem; */
         box-shadow: 0px 50px 80px -20px rgba(123, 160, 175, 0.70),0 20px 30px 10px rgba(80,180,220,0.2),0 0px 80px 60px rgba(80,180,220,0.2);
@@ -348,7 +360,9 @@ label {
 
 /* *************************************************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
 @media only screen and (min-width: 1200px){
-    
+    .box {
+        width: 80%;
+    }
     .chart-information-container {
         justify-content: flex-start;
     }
