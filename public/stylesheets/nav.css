@@ -26,14 +26,27 @@
 .hamburger-icon:hover {
     cursor: pointer;
 }
+
+.mobile-user-photo {
+    height: 50px;
+    margin-right: 20px;
+    border-radius: 2px;
+}
+/* drop down menu */
 .mobile-menu {
     padding-top: 70px;
     position: fixed;
     top: 0;
     z-index: 1000;
     min-width: 350px;
+    overflow: scroll;
+}
+.mobile-menu,
+.nav-mobile-container{
+    display: unset;
 }
 .nav-menu-mobile {
+    width: 350px;
     padding-left: 0;
     padding-bottom: 80px;
     margin: 0 auto;
@@ -46,11 +59,14 @@
     background-size: cover; 
     box-shadow: 2px 2px 4px slategray;
     overflow: scroll;
+    max-height: 800px;
 }
 .nav-menu-mobile span{
     margin-top: 30px;
 }
-
+.mobile-info-container {
+    padding-top: 40px;
+}
 .mobile-info-container,
 .mobile-selector,
 .logo a, 
@@ -60,13 +76,14 @@
     text-decoration: none;
     color: lightblue;
 }
-.nav-menu-large a:hover,
-.logo a:hover,
-.nav-menu-mobile a:hover {
-    cursor: pointer;
-    color:  white;
-}
 
+.date-input,
+.FormField {
+    font-size: 12px;
+    height: 30px;
+    width: 130px;
+    border-radius: 5px;
+}
 
 
 
@@ -90,13 +107,17 @@
     .nav-menu-large a{
         margin-right: 30px;
     }
+    .nav-menu-large a:hover,
+    .logo a:hover,
+    .nav-menu-mobile a:hover {
+        cursor: pointer;
+        color:  white;
+    }
     .logo {
         margin-left: 30px;
     }
     .mobile-menu,
-    .nav-mobile-container,
-    .chart-navigation,
-    .sessions-count {
+    .nav-mobile-container{
         display: none;
     }
     .logo a, 

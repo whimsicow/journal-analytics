@@ -5,9 +5,9 @@
 #D1E8E2 - LIGHT BLUE 
 #75543D - BROWN
 #564133 - DARK BROWN*/
-* {
+/* * {
     box-sizing: border-box;
-}
+} */
 
 body {
     margin: 0;
@@ -58,7 +58,8 @@ label {
     padding-right: 15px;
 }
 .chart-navigation {
-    width: 100%;
+    visibility: hidden;
+    /* width: 100%;
     background-image: url('../images/sidebackground.svg');
     background-repeat: no-repeat;
     background-size: cover; 
@@ -69,7 +70,7 @@ label {
     padding-right: 20px;
     padding-top: 100px;
     padding-bottom: 35px;
-    color: white;
+    color: white; */
 }
 .mobile-welcome {
     padding-bottom: 40px;
@@ -279,11 +280,6 @@ label {
 
 
 /* *************************************************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
-@media only screen and (min-width: 550px){
-    .user-photo {
-        display: none;
-    }
-}
 
 
 @media only screen and (min-width: 768px){
@@ -310,9 +306,9 @@ label {
         border-radius: 5px;
     }
     /* side chart navigation */
-    .mobile-welcome {
-        display: none;
-    }
+    .chart-navigation {
+        visibility: visible;
+    } 
     .DateRangeSelector-item,
     .ViewSelector2-item {
         display: flex;
@@ -323,10 +319,16 @@ label {
         text-align: center;
     }
     .chart-navigation {
-        width: 30%;
+        display: flex;
+        background-image: url('../images/sidebackground.svg');
+        background-repeat: no-repeat;
+        background-size: cover; 
         display: unset;
         flex-direction: column;
+        justify-content: space-between;
         letter-spacing: 1.5px;
+        color: lightblue;
+        width: 30%;
         padding-left: 20px;
         padding-right: 10px;
         padding-top: 150px;
