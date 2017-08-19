@@ -201,13 +201,20 @@ label {
 .form-container {
     margin: 10px;
 }
+.form .event-link,
 .form .date,
 .form .descripbe-event,
 .form .icon-dropdown {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 .form .icon-dropdown {
-    height: 40px;
+    padding-top: 20px;
+    height: 30px;
+}
+.event-link input {
+    margin-top: 10px;
+    width: 300px;
+    height: 30px;
 }
 /* icon dropdown */
 .dd-selected {
@@ -338,10 +345,10 @@ main {
 @media only screen and (min-width: 768px){
 
     .form {
-        top: 40%;
+        top: 30%;
         left: 40%;
         background: white;
-        min-height: 300px;
+        min-height: 500px;
         width: 400px;
     }
 
