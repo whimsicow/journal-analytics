@@ -19,6 +19,7 @@
 }
 .logo {
     margin-left: 20px;
+    
 }
 .hamburger-icon {
     margin-right: 20px;
@@ -52,7 +53,7 @@
 .nav-menu-large a {
     margin-right: 10px;
     text-decoration: none;
-    color: aquamarine;
+    color: lightblue;
 }
 .nav-menu-large a:hover,
 .logo a:hover,
@@ -60,6 +61,7 @@
     cursor: pointer;
     color:  white;
 }
+
 
 
 
@@ -93,6 +95,6 @@
     .nav-menu a {
         margin-left: 10px;
         text-decoration: none;
-        color: aquamarine;
+        color: lightblue;
     }
 }

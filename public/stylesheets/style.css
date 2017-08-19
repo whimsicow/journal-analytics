@@ -111,6 +111,13 @@ label {
 
 
 
+
+/* class that hides things */
+#template-container,
+#sessions-users-container,
+.hidden {
+    display: none;
+}
 /* ******************* */
 /* green plus sign fixed to bottom right to add events */
 .add-event-button {
@@ -119,24 +126,17 @@ label {
     right: 0;
     margin-right: 15px;
     margin-bottom: 15px;
-    z-index: 75;
+    z-index: 1000;
 }
 .add-event-button img {
     height: 40px;
     box-shadow: 1px 5px 5px slategray;
-    border-radius: 50%;
 }
 .add-event-button img:hover {
     cursor: pointer;
 }
 .add-event-button img:active {
     box-shadow: 1px 3px 1px slategray;
-}
-/* class that hides things */
-#template-container,
-#sessions-users-container,
-.hidden {
-    display: none;
 }
 
 /* ********************* */
@@ -161,7 +161,7 @@ label {
     margin-bottom: 10px;
 }
 .form .icon-dropdown {
-    height: 50px;
+    height: 40px;
 }
 /* icon dropdown */
 .dd-selected {
@@ -175,6 +175,12 @@ label {
     align-items: center;
     font-size: 100px;
 }
+.dd-option img,
+.dd-selected img {
+    height: 20px;
+}
+
+/* submit and reset buttons */
 .button-container{ 
     position: absolute;
     display: flex;
@@ -183,13 +189,12 @@ label {
     bottom: 0;
     right: 0;
     margin-bottom: 10px;
+    z-index: 1000
 }
 .button-container button {
     background: none;
     border-radius: 10px;
     margin-right: 30px;
-    width: 70px;
-    height: 30px;
 }
 /* ********************** */
 /* ********************** */
@@ -244,7 +249,7 @@ label {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: aquamarine;
+    color: lightblue;
     border-top: 2px solid slategray;
 }
 .menu-footer {
