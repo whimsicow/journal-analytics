@@ -48,7 +48,6 @@ body {
 /* Useres logged in page */
 .main-user-experience {
     width: 100%;
-    display: unset;
 }
 /* top options on mobile and left column options on large */
 .user-info-container img{
@@ -58,39 +57,65 @@ label {
     padding-right: 15px;
 }
 .chart-navigation {
-    visibility: hidden;
-    /* width: 100%;
+    width: 100%;
     background-image: url('../images/sidebackground.svg');
     background-repeat: no-repeat;
     background-size: cover; 
     display: flex;
-    justify-content: space-between;
-    letter-spacing: 1.5px;
-    padding-left: 20px;
-    padding-right: 20px;
+    justify-content: space-around;
+    letter-spacing: 1px;
+    /* padding-left: 20px;
+    padding-right: 20px; */
     padding-top: 100px;
     padding-bottom: 35px;
-    color: white; */
+    color: white;
 }
-.mobile-welcome {
-    padding-bottom: 40px;
+.selector-container,
+.user-info-container{
+    padding-left: 20px;
+    padding-right: 20px;
 }
-.selector {
+.large-user-photo {
+    display: none;
+}
+.selector-container {
     text-align: right;
+    padding-bottom: 20px;
 }
 .date-input,
 .FormField {
-    font-size: 14px;
-    height: 35px;
-    width: 150px;
-    border-radius: 5px;
+    font-size: 12px;
+    height: 30px;
+    width: 100px;
+    border-radius: 2px;
 }
 .ViewSelector2-item,
 .DateRangeSelector-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: column;
+    padding-top: 25px;
 }
+
+/* Chart section */
+.chart-date-range-container,
+.chart-selection-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+#chart-container {
+    padding-top: 90px;
+    padding-bottom: 20px;
+}
+/* Chart section */
+/* *************************************************** */
+
+
+
+
 
 /* ************* */
 /* logged in user information with welcome  */
@@ -215,30 +240,7 @@ label {
 
 
 
-/* *************************************************** */
-/* Chart section */
-.chart-date-range-container,
-.chart-selection-container {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-}
-.DateRangeSelector-item,
-.ViewSelector2-item {
-    padding-top: 25px;
-}
-.sessions-count {
-    padding-top: 40px;
-}
-.gapi-analytics-data-chart {
-   
-}
-#chart-container {
-    padding-top: 90px;
-    padding-bottom: 20px;
-}
-/* Chart section */
-/* *************************************************** */
+
 /* End of user  */
 
 
@@ -280,8 +282,15 @@ label {
 
 
 /* *************************************************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
-
-
+@media only screen and (min-width: 500px){
+    .DateRangeSelector-item,
+    .ViewSelector2-item {
+        flex-direction: row;
+    }
+    .chart-navigation {
+        justify-content: space-around;
+    }
+}
 @media only screen and (min-width: 768px){
 
     .form {
@@ -306,24 +315,27 @@ label {
         border-radius: 5px;
     }
     /* side chart navigation */
-    .chart-navigation {
-        visibility: visible;
-    } 
+    .large-user-photo {
+        display: unset;
+        border-radius: 5px;
+    }
     .DateRangeSelector-item,
     .ViewSelector2-item {
         display: flex;
         flex-direction: column;
     }
-    .selector,
+    .selector-container,
     .user-info-container {
         text-align: center;
+    }
+    .selector-container {
+        padding-top: 40px;
     }
     .chart-navigation {
         display: flex;
         background-image: url('../images/sidebackground.svg');
         background-repeat: no-repeat;
         background-size: cover; 
-        display: unset;
         flex-direction: column;
         justify-content: space-between;
         letter-spacing: 1.5px;
@@ -333,7 +345,7 @@ label {
         padding-right: 10px;
         padding-top: 150px;
     }
-    .selector {
+    .selector-container {
         text-align: left;
     }
     /* company logo */
@@ -375,6 +387,7 @@ label {
     .chart-information-container {
         justify-content: flex-start;
     }
+
     .main-user-experience {
         margin: 0 auto;
     }
@@ -383,9 +396,11 @@ label {
         display: flex;
         flex-direction: row;
     }
-    .selector,
+    .selector-container,
     .user-info-container {
         text-align: left;
+        max-width: 300px;
+        padding-left: 10%;
     }
 }
 
