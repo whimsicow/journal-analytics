@@ -22,17 +22,17 @@ const CLIENT_ID = '456569075688-n6uo0irm3rf0pjticr9ntjir3qmfa9uh.apps.googleuser
 /******************************************************************
                             HELPER
 ******************************************************************/
-  function query(params) {
-    return new Promise(function(resolve, reject) {
-      var data = new gapi.analytics.report.Data({query: params});
-      data.once('success', function(response) { resolve(response); })
-          .once('error', function(response) { reject(response); })
-          .execute();
+function query(params) {
+    return new Promise(function (resolve, reject) {
+        var data = new gapi.analytics.report.Data({ query: params });
+        data.once('success', function (response) { resolve(response); })
+            .once('error', function (response) { reject(response); })
+            .execute();
     });
-  }
+}
 
 
-  function makeCanvas(id) {
+function makeCanvas(id) {
     var container = document.getElementById(id);
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
@@ -43,33 +43,34 @@ const CLIENT_ID = '456569075688-n6uo0irm3rf0pjticr9ntjir3qmfa9uh.apps.googleuser
     container.appendChild(canvas);
 
     return ctx;
-  }
+}
 
-  function generateLegend(id, items) {
+function generateLegend(id, items) {
     var legend = document.getElementById(id);
-    legend.innerHTML = items.map(function(item) {
-      var color = item.color || item.fillColor;
-      var label = item.label;
-      return '<li><i class="annual-legend" style="background:' + color + '"></i>' +
-          escapeHtml(label) + '</li>';
+    legend.innerHTML = items.map(function (item) {
+        var color = item.color || item.fillColor;
+        var label = item.label;
+        return '<li><i class="annual-legend" style="background:' + color + '"></i>' +
+            escapeHtml(label) + '</li>';
     }).join('');
-  }
+}
 
-  function escapeHtml(str) {
+function escapeHtml(str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
-  }
+}
 
-  Chart.defaults.global.animationSteps = 60;
-  Chart.defaults.global.animationEasing = 'easeInOutQuart';
-  Chart.defaults.global.responsive = true;
-  Chart.defaults.global.maintainAspectRatio = false;
+Chart.defaults.global.animationSteps = 60;
+Chart.defaults.global.animationEasing = 'easeInOutQuart';
+Chart.defaults.global.responsive = true;
+Chart.defaults.global.maintainAspectRatio = false;
 
 /******************************************************************
                 GOOGLE ANALYTICS AUTHENTICATION
 ******************************************************************/
 $(document).ready(() => {
+
   gapi.analytics.ready(() => {
     
     gapi.analytics.auth.authorize({
@@ -92,237 +93,240 @@ $(document).ready(() => {
         $('[data-role="profilepic"]').attr("src", result.picture); 
     }
 
-/******************************************************************
-                            MAIN GRAPH
-******************************************************************/
-    /******************************* CONFIG */
-    const mainGraphConfig = {
-      query: {
-        metrics: 'ga:sessions',
-        dimensions: 'ga:date'
-      },
-      chart: {
-        type: 'LINE',
-        options: {
-            color: 'red',
-            legend: 'middle',
-            is3D: true,
-            width: '100%',
-            fontSize: 16 // font size for pop-up window when hovering over a data plot from the graph
-        }
-      }
-    }
-    const mainGraphDateRange = {
-      'start-date': '90daysAgo',
-      'end-date': '0daysAgo'
-    }
 
-    /******************************* GRAPH CONSTRUCTOR */
-    const mainGraph = new gapi.analytics.googleCharts.DataChart(mainGraphConfig)
-      .set(
-        {
-          query: mainGraphDateRange
-        })
-      .set(
-        {
-          chart: {
-            container: 'template-container'
-          }
-        })
 
-/******************************************************************
-                            ANNUAL GRAPH
-******************************************************************/
-function renderYearOverYearChart(ids) {
-  
-      // Adjust `now` to experiment with different days, for testing only...
-      var now = moment(); // .subtract(3, 'day');
-  
-      var thisYear = query({
-        'ids': ids,
-        'dimensions': 'ga:month,ga:nthMonth',
-        'metrics': 'ga:users',
-        'start-date': moment(now).date(1).month(0).format('YYYY-MM-DD'),
-        'end-date': moment(now).format('YYYY-MM-DD')
-      });
-  
-      var lastYear = query({
-        'ids': ids,
-        'dimensions': 'ga:month,ga:nthMonth',
-        'metrics': 'ga:users',
-        'start-date': moment(now).subtract(1, 'year').date(1).month(0)
-            .format('YYYY-MM-DD'),
-        'end-date': moment(now).date(1).month(0).subtract(1, 'day')
-            .format('YYYY-MM-DD')
-      });
-  
-      Promise.all([thisYear, lastYear]).then(function(results) {
-        var data1 = results[0].rows.map(function(row) { return +row[2]; });
-        var data2 = results[1].rows.map(function(row) { return +row[2]; });
-        var labels = ['Jan','Feb','Mar','Apr','May','Jun',
-                      'Jul','Aug','Sep','Oct','Nov','Dec'];
-  
-        // Ensure the data arrays are at least as long as the labels array.
-        // Chart.js bar charts don't (yet) accept sparse datasets.
-        for (var i = 0, len = labels.length; i < len; i++) {
-          if (data1[i] === undefined) data1[i] = null;
-          if (data2[i] === undefined) data2[i] = null;
-        }
-  
-        var data = {
-          labels : labels,
-          datasets : [
-            {
-              label: 'Last Year',
-              fillColor : '#BDDAF5',
-              strokeColor : '#BDDAF5',
-              data : data2
+        /******************************************************************
+                                    MAIN GRAPH
+        ******************************************************************/
+        /******************************* CONFIG */
+        const mainGraphConfig = {
+            query: {
+                metrics: 'ga:sessions',
+                dimensions: 'ga:date'
             },
-            {
-              label: 'This Year',
-              fillColor : '#808F9E',
-              strokeColor : 'rgba(151,187,205,1)',
-              data : data1
+            chart: {
+                type: 'LINE',
+                options: {
+                    color: 'red',
+                    legend: 'middle',
+                    is3D: true,
+                    width: '100%',
+                    fontSize: 16 // font size for pop-up window when hovering over a data plot from the graph
+                }
             }
-          ]
-        };
-  
-        const annualGraph = new Chart(makeCanvas('chart-2-container')).Bar(data);
-      })
-      .catch(function(err) {
-        console.error(err.stack);
-      });
-    }
-
-/******************************************************************
-                    SESSIONS VS USERS GRAPH
-******************************************************************/
-
-    var sessionsUsers = new gapi.analytics.googleCharts.DataChart({
-    query: {
-      'start-date': '30daysAgo',
-      'end-date': 'yesterday',
-      'metrics': 'ga:sessions,ga:users',
-      'dimensions': 'ga:date'
-    },
-    chart: {
-      'container': 'sessions-users-container',
-      'type': 'LINE',
-      'options': {
-        'width': '100%'
-      }
-    }
-  });
-  sessionsUsers.execute();
-
-
-/******************************************************************
-                    GOOGLE ANALYTICS HEADER INFO
-******************************************************************/
-
-   /*********************************** ACTIVE USERS */
-    const activeUsers = new gapi.analytics.ext.ActiveUsers(
-      {
-        container: 'active-users-container',
-        pollingInterval: 5
-      })
-
-    /********************************** VIEWSELECTOR CONSTRUCTOR*/
-    const viewSelector = new gapi.analytics.ext.ViewSelector2(
-      {
-        container: 'view-selector-container'
-      })
-    .execute()
-
-    /********************************** DATERANGE CONSTRUCTOR*/
-    const dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector(
-      {
-        container: 'date-range-selector-container'
-      })
-      .set(mainGraphDateRange)
-      .execute()
-
-
-
-/******************************************************************
-                            LISTENERS
-******************************************************************/
-
-   /***************************************** MAIN GRAPH */
-    mainGraph.on('success', (result) => {
-      console.groupCollapsed('Query was successful and Graph has been rendered')
-      console.group('Raw Data')
-      console.log(result.data) // raw data of the graph values (x, y, and graph points)
-      console.groupEnd()
-      console.group('Chart Info')
-      console.log(result.chart) // gives info of chart.. can manipulate chart using js/jquery with this info )
-      console.groupEnd()
-      console.group('Entire Raw Response')
-      console.log(result.response) // raw data of the entire response... )
-      console.groupEnd()
-      console.groupEnd()
-      graph.captureGoogleAnalyticsData(result)
-    })
-
-    mainGraph.on('error', (result) => {
-      console.log('Error occured during query or rendering')
-    })
-
-    /***************************************** ACTIVE USERS */
-    activeUsers.once('success', function() {
-    var element = this.container.firstChild;
-    var timeout;
-
-    this.on('change', function(data) {
-      var element = this.container.firstChild;
-      var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
-      element.className += (' ' + animationClass);
-
-      clearTimeout(timeout);
-      timeout = setTimeout(function() {
-        element.className =
-            element.className.replace(/ is-(increasing|decreasing)/g, '');
-      }, 3000);
-    });
-  });
-
-    /************************************** VIEW SELECTORS */
-    viewSelector.on('viewChange', (data) => {
-
-      // main graph
-      mainGraph.set({
-        query: {
-          ids: data.ids
         }
-      })
-      .execute()
-
-      //sessions vs users graph
-      sessionsUsers.set({
-        query: {
-          ids: data.ids
+        // default date range
+        const mainGraphDateRange = {
+            'start-date': '30daysAgo',
+            'end-date': '0daysAgo'
         }
-      })
 
-      // annual graph
-      renderYearOverYearChart(data.ids);
+        /******************************* GRAPH CONSTRUCTOR */
+        const mainGraph = new gapi.analytics.googleCharts.DataChart(mainGraphConfig)
+            .set(
+            {
+                query: mainGraphDateRange
+            })
+            .set(
+            {
+                chart: {
+                    container: 'template-container'
+                }
+            })
 
-      // updates title 
-      const title = document.getElementById('view-name')
-      title.textContent = `${data.property.name} ${data.view.name}`
+        /******************************************************************
+                                    ANNUAL GRAPH
+        ******************************************************************/
+        function renderYearOverYearChart(ids) {
+
+            // Adjust `now` to experiment with different days, for testing only...
+            var now = moment(); // .subtract(3, 'day');
+
+            var thisYear = query({
+                'ids': ids,
+                'dimensions': 'ga:month,ga:nthMonth',
+                'metrics': 'ga:users',
+                'start-date': moment(now).date(1).month(0).format('YYYY-MM-DD'),
+                'end-date': moment(now).format('YYYY-MM-DD')
+            });
+
+            var lastYear = query({
+                'ids': ids,
+                'dimensions': 'ga:month,ga:nthMonth',
+                'metrics': 'ga:users',
+                'start-date': moment(now).subtract(1, 'year').date(1).month(0)
+                    .format('YYYY-MM-DD'),
+                'end-date': moment(now).date(1).month(0).subtract(1, 'day')
+                    .format('YYYY-MM-DD')
+            });
+
+            Promise.all([thisYear, lastYear]).then(function (results) {
+                var data1 = results[0].rows.map(function (row) { return +row[2]; });
+                var data2 = results[1].rows.map(function (row) { return +row[2]; });
+                var labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+                // Ensure the data arrays are at least as long as the labels array.
+                // Chart.js bar charts don't (yet) accept sparse datasets.
+                for (var i = 0, len = labels.length; i < len; i++) {
+                    if (data1[i] === undefined) data1[i] = null;
+                    if (data2[i] === undefined) data2[i] = null;
+                }
+
+                var data = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Last Year',
+                            fillColor: '#BDDAF5',
+                            strokeColor: '#BDDAF5',
+                            data: data2
+                        },
+                        {
+                            label: 'This Year',
+                            fillColor: '#808F9E',
+                            strokeColor: 'rgba(151,187,205,1)',
+                            data: data1
+                        }
+                    ]
+                };
+
+                const annualGraph = new Chart(makeCanvas('chart-2-container')).Bar(data);
+            })
+                .catch(function (err) {
+                    console.error(err.stack);
+                });
+        }
+
+        /******************************************************************
+                            SESSIONS VS USERS GRAPH
+        ******************************************************************/
+
+        var sessionsUsers = new gapi.analytics.googleCharts.DataChart({
+            query: {
+                'start-date': '30daysAgo',
+                'end-date': 'yesterday',
+                'metrics': 'ga:sessions,ga:users',
+                'dimensions': 'ga:date'
+            },
+            chart: {
+                'container': 'sessions-users-container',
+                'type': 'LINE',
+                'options': {
+                    'width': '100%'
+                }
+            }
+        });
+        sessionsUsers.execute();
+
+
+        /******************************************************************
+                            GOOGLE ANALYTICS HEADER INFO
+        ******************************************************************/
+
+        /*********************************** ACTIVE USERS */
+        const activeUsers = new gapi.analytics.ext.ActiveUsers(
+            {
+                container: 'active-users-container',
+                pollingInterval: 5
+            })
+
+        /********************************** VIEWSELECTOR CONSTRUCTOR*/
+        const viewSelector = new gapi.analytics.ext.ViewSelector2(
+            {
+                container: 'view-selector-container'
+            })
+            .execute()
+
+        /********************************** DATERANGE CONSTRUCTOR*/
+        const dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector(
+            {
+                container: 'date-range-selector-container'
+            })
+            .set(mainGraphDateRange)
+            .execute()
+
+
+
+        /******************************************************************
+                                    LISTENERS
+        ******************************************************************/
+
+        /***************************************** MAIN GRAPH */
+        mainGraph.on('success', (result) => {
+            console.groupCollapsed('Query was successful and Graph has been rendered')
+            console.group('Raw Data')
+            console.log(result.data) // raw data of the graph values (x, y, and graph points)
+            console.groupEnd()
+            console.group('Chart Info')
+            console.log(result.chart) // gives info of chart.. can manipulate chart using js/jquery with this info )
+            console.groupEnd()
+            console.group('Entire Raw Response')
+            console.log(result.response) // raw data of the entire response... )
+            console.groupEnd()
+            console.groupEnd()
+            graph.captureGoogleAnalyticsData(result)
+        })
+
+        mainGraph.on('error', (result) => {
+            console.log('Error occured during query or rendering')
+        })
+
+        /***************************************** ACTIVE USERS */
+        activeUsers.once('success', function () {
+            var element = this.container.firstChild;
+            var timeout;
+
+            this.on('change', function (data) {
+                var element = this.container.firstChild;
+                var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
+                element.className += (' ' + animationClass);
+
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    element.className =
+                        element.className.replace(/ is-(increasing|decreasing)/g, '');
+                }, 3000);
+            });
+        });
+
+        /************************************** VIEW SELECTORS */
+        viewSelector.on('viewChange', (data) => {
+
+            // main graph
+            mainGraph.set({
+                query: {
+                    ids: data.ids
+                }
+            })
+                .execute()
+
+            //sessions vs users graph
+            sessionsUsers.set({
+                query: {
+                    ids: data.ids
+                }
+            })
+
+            // annual graph
+            renderYearOverYearChart(data.ids);
+
+            // updates title 
+            const title = document.getElementById('view-name')
+            title.textContent = `${data.property.name} ${data.view.name}`
+        })
+
+        /************************************* DATE RANGE SELECTOR*/
+        dateRangeSelector1.on('change', (data) => {
+            console.log(data)
+            // updates graph
+            mainGraph.set({
+                query: data // new start date and end date
+            }).execute()
+
+            // Update the "from" dates text.
+            const datefield = document.getElementById('from-dates')
+            datefield.textContent = `${data['start-date']} '&mdash' ${data['end-date']}`
+        })
     })
-
-    /************************************* DATE RANGE SELECTOR*/
-    dateRangeSelector1.on('change', (data) => {
-      console.log(data)
-      // updates graph
-      mainGraph.set({
-        query: data // new start date and end date
-      }).execute()
-
-      // Update the "from" dates text.
-      const datefield = document.getElementById('from-dates')
-      datefield.textContent = `${data['start-date']} '&mdash' ${data['end-date']}`
-    })
-  })
 })
