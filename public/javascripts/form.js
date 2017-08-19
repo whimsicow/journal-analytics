@@ -28,12 +28,16 @@ const getFormDescription = () => {
 const getDate = () => {
     var date = 'date';
     var dateValue = new Date($('input[name="date"]').val());
-    dateValue = new Date( dateValue.getTime() - dateValue.getTimezoneOffset() * -60000 );
-    if (isNaN(dateValue) === true) {
-        dateValue = new Date();
-    }
+    dateValue = new Date( dateValue.getTime() - dateValue.getTimezoneOffset() * -60000 ).toUTCString();
+    // could take off timestamps:
+    // dateValue=dateValue.split(' ').slice(0, 4).join(' ')
   
     setLocalStorageValues(date, dateValue);
+}
+
+const setDefaultDate = () => {
+    var d = new Date();
+    document.getElementById('date').valueAsDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12);
 }
 
 function getMethod() {
@@ -82,4 +86,5 @@ $FORM_CONTAINER.hide();
 closePopupButton();
 plusSignButton();
 saveForm();
-document.getElementById('date').valueAsDate = new Date();
+setDefaultDate();
+
