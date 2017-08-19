@@ -238,19 +238,55 @@ label {
     border-radius: 10px;
     margin-right: 30px;
 }
+/* End of user  */
 /* ********************** */
 /* ********************** */
-
-
-
-
-
+/* ********************** */
+/* ********************** */
+/* ********************** */
 /* End of user  */
 
 
 
-
-
+/* login page */
+/* ********************** */
+/* ********************** */
+/* ********************** */
+/* ********************** */
+/* login page */
+main {
+    display: flex;
+}
+.image-pannel {
+    width: 40%;
+    height: 100%;
+    padding-top: 70px;
+}
+.image-pannel img {
+    margin-top: 3px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 4px 4px 5px slategray;
+}
+.login-container {
+    width: 60%;
+}
+.login-information-container h2 {
+    padding-bottom: 30px;
+}
+.login-information-container {
+    padding-top: 120px;
+}
+.login-google,
+.login-information-container {
+    text-align: justify;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.login-google span{ 
+    padding: 10px;
+    border: 2px solid #394358;
+}
 
 
 
