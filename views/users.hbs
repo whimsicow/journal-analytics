@@ -70,7 +70,7 @@
         
         <!-- fixed green plus button at bottom right -->
         <div class="add-event-button">
-            <img src="../images/plusadd.png" alt="green plus button for adding event" data-type="open-event-popup">
+            <img src="../images/plussqareicon.png" alt="green plus button for adding event" data-type="open-event-popup">
         </div>
 
 
@@ -86,26 +86,28 @@
 
                 <!-- describe event box -->
                 <div class="describe-event">
-                    <textarea data-type="form-description" name= "event-description" rows="10" cols="50" placeholder="Describe your event" required></textarea>
+
+                    <textarea data-type="form-description" name = "event-description" rows="3" cols="50" placeholder="Describe your event" required></textarea>
+
                 </div>
                 
             
             <!-- icons to choose from -->
                 <div class="icon-dropdown" id="myDropdown">
-                    <select name="icons">
-                        <option class="icon" value="facebook" data-imagesrc="../images/facebook.png" data-description="Facebook Post"></option>
-                        <option class="icon" value="twitter" data-imagesrc="../images/twitter.png" data-description="Tweet"></option>
-                        <option class="icon" value="gmail" data-imagesrc="../images/gmail.png" data-description="Google Plus post"></option>
-                        <option class="icon" value="linkedin" data-imagesrc="../images/linkedin.png" data-description="Linkedin post"></option>
-                        <option class="icon" value="pintrest" data-imagesrc="../images/pintrest.png" data-description="Pintrest post"></option>
-                        <option class="icon" value="instagram" data-imagesrc="../images/instagram.png" data-description="Instagram post"></option>
-                        <option class="icon" value="email" data-imagesrc="../images/email.png" data-description="Email"></option>
-                    </select>
+
+                    <option class="icon" value="email" data-imagesrc="../images/email.png" data-description="Email"></option>
+                    <option class="icon" value="facebook" data-imagesrc="https://cdn.worldvectorlogo.com/logos/facebook-icon.svg" data-description="Facebook"></option>
+                    <option class="icon" value="twitter" data-imagesrc="https://cdn.worldvectorlogo.com/logos/twitter-4.svg" data-description="Tweet"></option>
+                    <option class="icon" value="gmail" data-imagesrc="../images/google-plus.svg" data-description="Google Plus"></option>
+                    <option class="icon" value="linkedin" data-imagesrc="../images/linkedin.png" data-description="Linkedin"></option>
+                    <option class="icon" value="instagram" data-imagesrc="https://cdn.worldvectorlogo.com/logos/instagram-2016.svg" data-description="Instagram"></option>
+
                 </div>
                 <div class="button-container">
                     <button type="submit" class="submit-event" data-role="submit">Submit</button>
                     <button type="reset">Reset</button>
                     <button class="exit-popup" data-popup="close-event-popup"> Close </button>
+
                 </div>
             </div>
         </form>
