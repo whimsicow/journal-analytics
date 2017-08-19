@@ -45,8 +45,10 @@ router.post('/eventstore', function(req, res, next) {
     if(!req.body) {
         return res.status(400).send('No information provided.');
     }
-     db.none(`insert into events (event_date, description, method, email)
-        values ('${req.body.date}', '${req.body.description}', '${req.body.method}', '${req.user}');
+    var description = req.body.description;
+    description = description.replace("'", "''");
+    db.none(`insert into events (event_date, description, method, email)
+        values ('${req.body.date}', '${description}', '${req.body.method}', '${req.user}');
     `)
         .catch((err) => {
             console.log(err);
