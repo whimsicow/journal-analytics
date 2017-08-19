@@ -1,15 +1,4 @@
-<!-- large screens navigation bar -->
-<nav class="navigation-bar-large">
-    
-    <div class="logo">
-        <a href="#"><h4>Journal Analytics</h4></a>
-    </div>
-    <menu type="context" class="nav-menu-large">
-        <span><a href="/user">Welcome, {{name}}</a></span>
-        <span><a href="/">Home</a></span>
-        <span><a href="{{navlink}}">{{navlinktext}}</a></span>
-    </menu>
-</nav>
+
 <!-- small screens navigation bar -->
 
 <div class="nav-mobile-container">
@@ -18,6 +7,7 @@
             <a href="#"><h4>Journal Analytics</h4></a>
         </div>
         <div class="hamburger-icon">
+            <img data-role="profilepic" class="mobile-user-photo" src='{{pic}}' alt='profile picture'>
             <img src="/../../images/HamburgerIcon.svg" alt="hamburger icon">
         </div>
     </nav>
@@ -25,8 +15,24 @@
 
 <div class="mobile-menu">
     <menu type="context" class="nav-menu-mobile">
-        <span><a href="/user">Welcome, {{name}}</a></span>
+        <span><a href="/users">Welcome, {{name}}</a></span>
         <span><a href="/">Home</a></span>
         <span><a href="{{navlink}}">{{navlinktext}}</a></span>
     </menu>
 </div>
+
+
+
+
+<!-- large screens navigation bar -->
+<nav class="navigation-bar-large">
+    
+    <div class="logo">
+        <a href="#"><h4>Journal Analytics</h4></a>
+    </div>
+    <menu type="context" class="nav-menu-large">
+        <span><a href="/users">Welcome, {{name}}</a></span>
+        <span><a href="/">Home</a></span>
+        <span><a href="{{navlink}}">{{navlinktext}}</a></span>
+    </menu>
+</nav>
