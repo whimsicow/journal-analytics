@@ -28,15 +28,7 @@ const graph = (function() {
   const catpureEventsData = (result) => {
     EVENTS = result;
   }
-  function dateSifter(date) {
-        if (date === "0daysAgo") {
-            return moment(now).format('YYYY-MM-DD');
-        } else if (date === "30daysAgo") {
-            return moment(now).subtract(30, 'days').format('YYYY-MM-DD');
-        } else {
-            return date;
-        }
-    }
+ 
 
   // from chart.js -- queried from googleAnalytics DB
     const captureGoogleAnalyticsData = (result) => {
