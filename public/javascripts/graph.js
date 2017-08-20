@@ -1,21 +1,13 @@
 const graph = (function() {
   let EVENTS;
-  
-  // helper for googleAnalyticResults
-  const makeDate = (min, max) => {
-    let arr = [];
-    arr.push(min)
-    return []
-  }
-
 
   const getDates = ({data}) => {
-      var pushedData1 = [];
-      var pushedData2 = [];
+      let pushedData1 = [];
+      let pushedData2 = [];
     //   console.log(data);
-      var newData = data.rows
+      const newData = data.rows
     //   console.log(newData)
-      for(var i = 0; i < newData.length; i++){
+      for(let i = 0; i < newData.length; i++){
          pushedData1.push((newData[i].c[0].v).toString());
          pushedData2.push(newData[i].c[1].v);
       }
@@ -26,7 +18,6 @@ const graph = (function() {
           dates: pushedData1,
           sessions: pushedData2
       }
-
   }
 
   const getSessions = ({ data }) => {
@@ -46,13 +37,16 @@ const graph = (function() {
   // render graphs
   const renderGraphs = (result, EVENTS) => {
     mainGraph(result, EVENTS)
+    console.log('main graph has been rendered')
     trafficGraph(result, EVENTS)
+    console.log('traffic graph has been rendered')
   }
 
   // main graph
-  const mainGraph = (googleAnalytics, events, ) => {
-    console.log('configuring main graph')
+  const mainGraph = (googleAnalytics, events) => {
+    console.log('configuring highcharts main graph')
     let ga = getDates(googleAnalytics);
+
     Highcharts.chart('main-container', {
       chart: {
           type: 'area'
@@ -117,11 +111,7 @@ const graph = (function() {
   // traffic graph
   const trafficGraph = (googleAnalytics, events) => {
       console.log('configuring traffic graph')
-      console.log(googleAnalytics, events)
       let a = googleAnalytics[0]
-      console.log(a)
-    //   let b = a[0]
-    //   console.log("this is b " + b)
       let ga = getDates(googleAnalytics);
 
       Highcharts.chart('traffic-container', {
