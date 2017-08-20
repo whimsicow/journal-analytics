@@ -6,9 +6,9 @@ router.get('/events', (req, res, next) => {
     console.log(req.body);
   db.any(`
     SELECT date(event_date), description, method, accountname, propertyname, email, eventlink from events
-    where event_date::date >= '2017-06-20'
-    and event_date::date <= '2017-07-02'
-    and accountid = '61516060'
+    where event_date::date >= '${req.body.startdate}'
+    and event_date::date <= '${req.body.enddate}'
+    and accountid = '${req.body.accountid}'
     and propertyid = 'UA-61516060-1'    
     order by event_date DESC;
   `)

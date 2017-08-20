@@ -46,7 +46,14 @@ const graph = (function() {
         request['startdate'] = ((result.response.query['start-date']));
         request['enddate'] = (result.response.query['end-date']);
         console.log(request);
-        renderGraphs(result, EVENTS)
+        $.get('/api/events', request) 
+            .then((res) => {
+                console.log(res);
+            })
+            .then((result) => {
+                renderGraphs(result, EVENTS)
+            })
+        
   }
 
   // render graphs
