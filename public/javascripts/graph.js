@@ -48,10 +48,10 @@ const graph = (function() {
   }
 
   // render graphs
-  const renderGraphs = (result, EVENTS) => {
-    mainGraph(result, EVENTS)
+  const renderGraphs = (result, events) => {
+    mainGraph(result, events)
     console.log('main graph has been rendered')
-    trafficGraph(result, EVENTS)
+    trafficGraph(result, events)
     console.log('traffic graph has been rendered')
   }
 
