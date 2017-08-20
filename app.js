@@ -11,6 +11,7 @@ const session = require('express-session');
 
 const db = require('./db');
 const index = require('./routes/index');
+const teammembers = require('./routes/teammembers');
 const users = require('./routes/users');
 const login = require('./routes/login');
 const logout = require('./routes/logout');
@@ -86,6 +87,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/login', login);
 app.use('/logout', logout);
+app.use('/teammembers', teammembers);
 app.use('/api', api);
 
 

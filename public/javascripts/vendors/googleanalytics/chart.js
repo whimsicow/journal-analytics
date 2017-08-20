@@ -239,6 +239,7 @@ $(document).ready(() => {
             container: 'view-selector-container2'
         })
             .execute();
+        
 
         /********************************** DATERANGE CONSTRUCTOR*/
         const dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector(
