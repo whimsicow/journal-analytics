@@ -9,25 +9,18 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 
+const db = require('./db');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const login = require('./routes/login');
-
-const db = require('./db');
 const logout = require('./routes/logout');
 const api = require('./routes/api');
 
+
 require('dotenv').config();
-
-
 const app = express();
 
-
-
-// view engine setup
-
 /************************************************************ VIEW ENGINE SETUP *************/
-
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}))
 app.set('view engine', 'hbs');
 
