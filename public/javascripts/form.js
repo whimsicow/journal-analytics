@@ -39,8 +39,10 @@ const resetForm = () => {
 // stores event in database
 const dbStoreEvent = () => {
     $.post('/api/eventstore', eventData)
+        //prints to DOM that submition was successful
         .then((res) => {
-            $('[data-role="status-msg"]').append(res);
+            $('[data-role="status-msg"]').append(res).delay(2000).queue(function() {
+                $('.status-msg').empty(); })
         })
         // catches error if any issues with savinmg 
         .catch((err) => {
@@ -48,10 +50,14 @@ const dbStoreEvent = () => {
                 'text': 'Sorry, your event could not be added at this time. Please try again.',
                 'class': 'status-msg'
             });
-            // prints to DOM that event was successfully submitted
-            $('[data-role="status-msg"]').append($status);
+            // prints to DOM that submition of event was unsuccesful
+            $('[data-role="status-msg"]').append($status).delay(2000).queue(function() {
+                $('.status-msg').empty(); })
         })
 }
+
+
+
 // stores optional link to local storage
 const getLink = () => {
     var link = $('[name="link"]').val();
