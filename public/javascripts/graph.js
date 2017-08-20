@@ -60,15 +60,22 @@ const graph = (function() {
       chart: {
           type: 'area'
       },
+      title: {
+          text: null
+      },
       xAxis: {
           title: {
-              text: `${ga.beginningDate} - ${ga.endingDate}`
+              text: `${ga.beginningDate} - ${ga.endingDate}`,
+              margin: 20
           },
-          categories: ga.dates
+          gridLineColor: '#1C2630',
+          categories: ga.dates,
+          tickInterval: 5
       },
       yAxis: {
           title: {
-              text: "Sessions"
+              text: "Sessions",
+              margin: 20
           },
           tickInterval: 50
           // labels: {
