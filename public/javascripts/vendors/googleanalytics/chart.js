@@ -1,4 +1,4 @@
-/********************************* CLIENT ID FOR USERS TO HAVE ACCESS TO DIGITAL CRAFTS*/
+/********************************* CLIENT ID FOR USERS TO HAVE ACCESS TO GA*/
 const CLIENT_ID = '456569075688-n6uo0irm3rf0pjticr9ntjir3qmfa9uh.apps.googleusercontent.com';
 
 
@@ -24,7 +24,7 @@ const CLIENT_ID = '456569075688-n6uo0irm3rf0pjticr9ntjir3qmfa9uh.apps.googleuser
 ******************************************************************/
 function query(params) {
     return new Promise(function (resolve, reject) {
-        var data = new gapi.analytics.report.Data({ query: params });
+        const data = new gapi.analytics.report.Data({ query: params });
         data.once('success', function (response) { resolve(response); })
             .once('error', function (response) { reject(response); })
             .execute();
@@ -33,9 +33,9 @@ function query(params) {
 
 
 function makeCanvas(id) {
-    var container = document.getElementById(id);
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
+    const container = document.getElementById(id);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
 
     container.innerHTML = '';
     canvas.width = 500;
@@ -46,17 +46,17 @@ function makeCanvas(id) {
 }
 
 function generateLegend(id, items) {
-    var legend = document.getElementById(id);
+    const legend = document.getElementById(id);
     legend.innerHTML = items.map(function (item) {
-        var color = item.color || item.fillColor;
-        var label = item.label;
+        const color = item.color || item.fillColor;
+        const label = item.label;
         return '<li><i class="annual-legend" style="background:' + color + '"></i>' +
             escapeHtml(label) + '</li>';
     }).join('');
 }
 
 function escapeHtml(str) {
-    var div = document.createElement('div');
+    const div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
 }
@@ -83,8 +83,10 @@ $(document).ready(() => {
     // return user info to console when they sign in... (name, email, profilePic)
     gapi.analytics.auth.on('signIn', function() {
       console.groupCollapsed(`User has been authenticated and has signed in.`)
+      console.log(gapi.analytics.auth.getUserProfile());
       console.groupEnd()
-      var profile = gapi.analytics.auth.getUserProfile();
+
+      const profile = gapi.analytics.auth.getUserProfile();
       $.post('/users/profile', profile);
       $.post('/api/picture', profile)
         .then(setPicture)
@@ -140,9 +142,9 @@ $(document).ready(() => {
         function renderYearOverYearChart(ids) {
 
             // Adjust `now` to experiment with different days, for testing only...
-            var now = moment(); // .subtract(3, 'day');
+            const now = moment(); // .subtract(3, 'day');
 
-            var thisYear = query({
+            const thisYear = query({
                 'ids': ids,
                 'dimensions': 'ga:month,ga:nthMonth',
                 'metrics': 'ga:users',
@@ -150,7 +152,7 @@ $(document).ready(() => {
                 'end-date': moment(now).format('YYYY-MM-DD')
             });
 
-            var lastYear = query({
+            const lastYear = query({
                 'ids': ids,
                 'dimensions': 'ga:month,ga:nthMonth',
                 'metrics': 'ga:users',
@@ -161,9 +163,9 @@ $(document).ready(() => {
             });
 
             Promise.all([thisYear, lastYear]).then(function (results) {
-                var data1 = results[0].rows.map(function (row) { return +row[2]; });
-                var data2 = results[1].rows.map(function (row) { return +row[2]; });
-                var labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                const data1 = results[0].rows.map(function (row) { return +row[2]; });
+                const data2 = results[1].rows.map(function (row) { return +row[2]; });
+                const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
                 // Ensure the data arrays are at least as long as the labels array.
@@ -173,7 +175,7 @@ $(document).ready(() => {
                     if (data2[i] === undefined) data2[i] = null;
                 }
 
-                var data = {
+                const data = {
                     labels: labels,
                     datasets: [
                         {
@@ -202,7 +204,7 @@ $(document).ready(() => {
                             SESSIONS VS USERS GRAPH
         ******************************************************************/
 
-        var sessionsUsers = new gapi.analytics.googleCharts.DataChart({
+        const sessionsUsers = new gapi.analytics.googleCharts.DataChart({
             query: {
                 'start-date': '30daysAgo',
                 'end-date': 'yesterday',
@@ -258,7 +260,7 @@ $(document).ready(() => {
 
         /***************************************** MAIN GRAPH */
         mainGraph.on('success', (result) => {
-            console.groupCollapsed('Query was successful and Graph has been rendered')
+            console.groupCollapsed('Query was successful and Google Analytics Default Graph has been rendered -- (display: none)')
             console.group('Raw Data')
             console.log(result.data) // raw data of the graph values (x, y, and graph points)
             console.groupEnd()
@@ -278,12 +280,12 @@ $(document).ready(() => {
 
         /***************************************** ACTIVE USERS */
         activeUsers.once('success', function () {
-            var element = this.container.firstChild;
-            var timeout;
+            const element = this.container.firstChild;
+            let timeout;
 
             this.on('change', function (data) {
-                var element = this.container.firstChild;
-                var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
+                const element = this.container.firstChild;
+                const animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
                 element.className += (' ' + animationClass);
 
                 clearTimeout(timeout);
