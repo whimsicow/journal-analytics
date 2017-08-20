@@ -54,7 +54,7 @@ const graph = (function() {
       },
       xAxis: {
           title: {
-              text: 'Date'
+              text: 'Dates'
           },
           categories: ga.dates
       },
@@ -141,6 +141,9 @@ const graph = (function() {
               },
               y: 35
             },
+            title: {
+                text: "Dates"
+            },
             tickColor: '#eeeeee',
             tickmarkPlacement: 'on'
         },
@@ -157,6 +160,9 @@ const graph = (function() {
                   color: '#999999',
                   fontSize: '9px'
               }
+            },
+            title: {
+                text: "Visits"
             },
             plotLines: [{
                 value: 0,
