@@ -47,6 +47,7 @@ const graph = (function() {
   const mainGraph = (googleAnalytics, events) => {
     console.log('configuring highcharts main graph')
     let ga = getDates(googleAnalytics);
+    console.log(events)
 
     Highcharts.chart('main-container', {
       chart: {
