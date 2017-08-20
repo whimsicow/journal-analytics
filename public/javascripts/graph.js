@@ -4,19 +4,26 @@ const graph = (function() {
   const getDates = ({data}) => {
       let pushedData1 = [];
       let pushedData2 = [];
-    //   console.log(data);
+      let beginningDate;
+      let endingDate;
       const newData = data.rows
-    //   console.log(newData)
+
       for(let i = 0; i < newData.length; i++){
-         pushedData1.push((newData[i].c[0].v).toString());
-         pushedData2.push(newData[i].c[1].v);
+        if ((i === 0)) {
+            beginningDate = newData[i].c[0].v.toString().split(' ').splice(1, 3).join(' ')
+        }
+        if (i === newData.length-1) {
+            endingDate = newData[i].c[0].v.toString().split(' ').splice(1, 3).join(' ')
+        }
+        pushedData1.push(newData[i].c[0].v.toString().split(' ').splice(0, 3).splice(1, 3).join(' '));
+        pushedData2.push(newData[i].c[1].v);
       }
-    //   console.log(pushedData1)
-    //   console.log(pushedData2)
 
       return {
           dates: pushedData1,
-          sessions: pushedData2
+          sessions: pushedData2,
+          beginningDate,
+          endingDate
       }
   }
 
@@ -59,21 +66,30 @@ const graph = (function() {
   const mainGraph = (googleAnalytics, events) => {
     console.log('configuring highcharts main graph')
     let ga = getDates(googleAnalytics);
+    console.log(events)
 
     Highcharts.chart('main-container', {
       chart: {
           type: 'area'
       },
+      title: {
+          text: null
+      },
       xAxis: {
           title: {
-              text: 'Date'
+              text: `${ga.beginningDate} - ${ga.endingDate}`,
+              margin: 20
           },
-          categories: ga.dates
+          gridLineColor: '#1C2630',
+          categories: ga.dates,
+          tickInterval: 5
       },
       yAxis: {
           title: {
-              text: "Sessions"
+              text: "Sessions",
+              margin: 20
           },
+          tickInterval: 50
           // labels: {
           //     formatter: function () {
           //         return this.value + 'Count';
@@ -98,10 +114,31 @@ const graph = (function() {
                   [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
               ]
           }
+        },
+        series: {
+            cursor: 'pointer',
+            point: {
+                events: {
+                    click: (e) => {
+                        console.log(e)
+                        hs.htmlExpand(null, {
+                            pageOrigin: {
+                                x: e.pageX || e.clientX,
+                                y: e.pageY || e.clientY
+                            },
+                            headingText: `${e.point.category} Events`,
+                            maincontentText: `
+                                Date: ${e.point.category}` + '<br/ >' + `Total Sessions: ${e.point.y} <hr />
+                            `,
+                            width: 250,
+                            height: 400
+                    })
+                }
+            }
         }
-      },
+      }},
       series: [{
-          name: `Team: ${events.team_id}`,
+          name: `Team: ${events[0].accountname}`,
           marker: {
               symbol: 'circle',
               width: 16,
@@ -110,7 +147,7 @@ const graph = (function() {
           data: ga.sessions
           },
           {
-            name: `User: ${events.email}`,
+            name: `User: ${gapi.analytics.auth.getUserProfile().name.split(' ').map(x => { let maxLength = x.length; return x[0].toUpperCase() + x.slice(1, maxLength)}).join(' ')}`,
             marker: {
               symbol: 'circle',
               width: 16,
@@ -152,6 +189,9 @@ const graph = (function() {
               },
               y: 35
             },
+            title: {
+                text: "Dates"
+            },
             tickColor: '#eeeeee',
             tickmarkPlacement: 'on'
         },
@@ -168,6 +208,9 @@ const graph = (function() {
                   color: '#999999',
                   fontSize: '9px'
               }
+            },
+            title: {
+                text: "Visits"
             },
             plotLines: [{
                 value: 0,
