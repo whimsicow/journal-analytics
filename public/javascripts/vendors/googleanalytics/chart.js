@@ -1,7 +1,3 @@
-/********************************* CLIENT ID FOR USERS TO HAVE ACCESS TO GA*/
-const CLIENT_ID = '456569075688-n6uo0irm3rf0pjticr9ntjir3qmfa9uh.apps.googleusercontent.com';
-
-
 /****************************************************************** 
                           READ ME STUFF
 *******************************************************************
