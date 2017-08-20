@@ -27,7 +27,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 });
 
 router.post('/profile', function(req, res, next) {
-    if(!req) {
+    if(!req.body) {
         return res.status(400).send('No files were uploaded.');
     }
     db.one(`

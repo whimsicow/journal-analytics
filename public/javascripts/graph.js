@@ -37,13 +37,12 @@ const graph = (function() {
         request['propertyid'] = (result.response.profileInfo.webPropertyId);
         request['startdate'] = ((result.response.query['start-date']));
         request['enddate'] = (result.response.query['end-date']);
-        console.log(request);
+        
         $.post('/api/events', request) 
             .then((res) => {
-                console.log(res);
-            })
-            .then((result) => {
-                renderGraphs(result, EVENTS)
+                var events = res;
+                console.log(events);
+                renderGraphs(result, events)
             })
         
   }

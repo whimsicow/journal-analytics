@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 const db = require('../db')
 
 function dateSifter(date) {
     if (date === "0daysAgo") {
-        date = moment(now).format('YYYY-MM-DD');
+        date = moment().format('YYYY-MM-DD');
         return date;
     } else if (date === "30daysAgo") {
-        date = moment(now).subtract(30, 'days').format('YYYY-MM-DD');
+        date = moment().subtract(30, 'days').format('YYYY-MM-DD');
         return date;
     } else {
         return date;
@@ -17,8 +18,7 @@ function dateSifter(date) {
 router.post('/events', (req, res, next) => {
     var startdate = dateSifter(req.body.startdate);
     var enddate = dateSifter(req.body.enddate);
-    console.log(startdate);
-    console.log(enddate);
+    
     db.any(`
     SELECT date(event_date), description, method, accountname, propertyname, email, eventlink from events
     where event_date::date >= '${startdate}'
