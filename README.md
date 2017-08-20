@@ -10,7 +10,7 @@
 <img src="http://i.imgur.com/inGZEQZ.jpg" width="300" height="300" />
 <img src="http://i.imgur.com/twnfl4F.jpg" width="300" height="300" />
 <img src="http://i.imgur.com/z76cu9F.jpg" width="300" height="300" />
-<img src="http://i.imgur.com/MxpQJtZ.jpg" width="300" height="300" />
+<img src="http://i.imgur.com/MazOj1Z.jpg" width="300" height="300" />
 
 <h3>Mobile</h3>
 
