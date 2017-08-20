@@ -89,8 +89,10 @@ const getDate = () => {
     var date = 'date';
     var dateValue = new Date($('input[name="date"]').val());
     dateValue = new Date( dateValue.getTime() - dateValue.getTimezoneOffset() * -60000 ).toUTCString();
+
     // could take off timestamps:
     // dateValue=dateValue.split(' ').slice(0, 4).join(' ')
+
     setLocalStorageValues(date, dateValue);
 }
 
