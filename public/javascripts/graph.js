@@ -46,7 +46,7 @@ const graph = (function() {
         request['startdate'] = ((result.response.query['start-date']));
         request['enddate'] = (result.response.query['end-date']);
         console.log(request);
-        $.get('/api/events', request) 
+        $.post('/api/events', request) 
             .then((res) => {
                 console.log(res);
             })

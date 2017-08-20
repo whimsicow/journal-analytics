@@ -2,21 +2,23 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db')
 
-router.get('/events', (req, res, next) => {
-    console.log(req.body);
-  db.any(`
+router.post('/events', (req, res, next) => {
+    
+    db.any(`
     SELECT date(event_date), description, method, accountname, propertyname, email, eventlink from events
     where event_date::date >= '${req.body.startdate}'
     and event_date::date <= '${req.body.enddate}'
     and accountid = '${req.body.accountid}'
-    and propertyid = 'UA-61516060-1'    
+    and propertyid = '${req.body.propertyid}'    
     order by event_date DESC;
-  `)
-  .then(results => {
-    res.send(results)
-  })
-  .catch(console.log)
-  });
+    `)
+    .then(results => {
+        res.send(results)
+    })
+    .catch((err) => {
+        console.log(err.message);
+    })
+})
 
 // Store larger image provided by google analytics auth
 router.post('/picture', (req, res, next) => {
