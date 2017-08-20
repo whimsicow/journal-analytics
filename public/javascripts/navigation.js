@@ -1,3 +1,4 @@
+// controls hamburger menu on small navigation
 const hamburgerMenu = () => {
     $(".hamburger-icon").on('click', (event) => {
         event.preventDefault();
@@ -10,6 +11,7 @@ const hamburgerMenu = () => {
     })
 }
 
-
+// starts out with menu hidden
 $('.nav-menu-mobile').hide();
+// initializes
 hamburgerMenu();
