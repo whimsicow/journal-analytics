@@ -28,10 +28,25 @@ const graph = (function() {
   const catpureEventsData = (result) => {
     EVENTS = result;
   }
+  function dateSifter(date) {
+        if (date === "0daysAgo") {
+            return moment(now).format('YYYY-MM-DD');
+        } else if (date === "30daysAgo") {
+            return moment(now).subtract(30, 'days').format('YYYY-MM-DD');
+        } else {
+            return date;
+        }
+    }
 
   // from chart.js -- queried from googleAnalytics DB
-  const captureGoogleAnalyticsData = (result) => {
-    renderGraphs(result, EVENTS)
+    const captureGoogleAnalyticsData = (result) => {
+        var request = {};
+        request['accountid'] =(result.response.profileInfo.accountId);
+        request['propertyid'] = (result.response.profileInfo.webPropertyId);
+        request['startdate'] = ((result.response.query['start-date']));
+        request['enddate'] = (result.response.query['end-date']);
+        console.log(request);
+        renderGraphs(result, EVENTS)
   }
 
   // render graphs

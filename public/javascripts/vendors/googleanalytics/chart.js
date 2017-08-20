@@ -267,29 +267,18 @@ $(document).ready(() => {
             console.log(result.response) // raw data of the entire response... )
             console.groupEnd()
             console.groupEnd()
-            var request = {};
-            request['accountid'] =(result.response.profileInfo.accountId);
-            request['propertyid'] = (result.response.profileInfo.webPropertyId);
-            request['startdate'] = dateSifter((result.response.query['start-date']));
-            request['enddate'] = dateSifter((result.response.query['end-date']));
-            console.log(request);
+            
             graph.captureGoogleAnalyticsData(result)
             
-            $.get('/api/events', request)
-                .then((res) => {
-                    console.log(res);
-                })
-                .then(results => {
-                graph.catpureEventsData(results[0]);
-            })
+            // $.get('/api/events', request)
+            //     .then((res) => {
+            //         console.log(res);
+            //     })
+            //     .then(results => {
+            //     graph.catpureEventsData(results[0]);
+            // })
         })
-        function dateSifter(date) {
-            if (date === "0daysAgo") {
-                return moment(now).format('YYYY-MM-DD');
-            } else if (date === "30daysAgo") {
-                return moment(now).subtract(30, 'days').format('YYYY-MM-DD')
-            }
-        }
+        
         mainGraph.on('error', (result) => {
             console.log('Error occured during query or rendering')
         })
