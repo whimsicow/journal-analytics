@@ -56,6 +56,8 @@ const getLink = () => {
 
 const getAccount = () => {
     var infoArray = $('#view-selector-container2 > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
+    // var accInfo = $('#view-selector-container > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
+    // console.log(accInfo);
     var accountName = infoArray[0]['text'];
     var accountId = infoArray[0]['value'];
     var propertyName = infoArray[1]['text'];

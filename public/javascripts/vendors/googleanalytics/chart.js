@@ -267,7 +267,20 @@ $(document).ready(() => {
             console.log(result.response) // raw data of the entire response... )
             console.groupEnd()
             console.groupEnd()
+            console.log(result.response.profileInfo.accountId);
+            console.log(result.response.profileInfo.webPropertyId);
+            console.log(result.response.query['start-date']);
+            console.log(result.response.query['end-date']);
             graph.captureGoogleAnalyticsData(result)
+            var request = {};
+            
+            $.get('/api/events', request)
+                .then((res) => {
+                    console.log(res);
+                })
+                .then(results => {
+                graph.catpureEventsData(results[0]);
+            })
         })
 
         mainGraph.on('error', (result) => {
@@ -294,7 +307,6 @@ $(document).ready(() => {
 
         /************************************** VIEW SELECTORS */
         viewSelector.on('viewChange', (data) => {
-            console.log(data);
             // main graph
             mainGraph.set({
                 query: {
@@ -320,7 +332,6 @@ $(document).ready(() => {
 
         /************************************* DATE RANGE SELECTOR*/
         dateRangeSelector1.on('change', (data) => {
-            console.log(data)
             // updates graph
             mainGraph.set({
                 query: data // new start date and end date
