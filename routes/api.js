@@ -53,15 +53,13 @@ router.post('/eventstore', function(req, res, next) {
         values ('${req.body.date}', '${description}', '${req.body.method}', '${req.body.accountName}', '${req.body.accountId}', '${req.body.propertyName}', '${req.body.propertyId}', '${req.user}', NULLIF('${req.body.eventlink}',''));
     `)
         .then((result) => {
-            res.status(200).send('Thank you! Your event has been added.');
+            res.status(202).send('<span class="status-msg">Thank you! Your event has been added.</span>');
             res.end();
         }) 
 
         .catch((err) => {
-            console.log(err);
-            res.render('error', {
-                message: err.message
-            })
+            res.status(500).send('<span class="status-msg">Sorry, your event could not be added at this time. Please try again.</span>');
+            res.end();
         })
 })
 

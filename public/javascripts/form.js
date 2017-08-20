@@ -5,21 +5,47 @@ const $CLOSE_POPUP = $('[data-popup="close-event-popup"]');
 var eventData = {};
 
 const saveForm = () => {
-    $('[data-popup="form-container"]').submit(() => {
+    $FORM_CONTAINER.submit(() => {
         event.preventDefault();
+        if($('[data-role="status-msg"]').children()) {
+            $('[data-role="status-msg"]').empty();
+        }
         getFormDescription();
         getDate();
         getMethod();
         getAccount();
         getLink();
         dbStoreEvent();
+        resetForm();
     })
+}
+
+const resetButton = () => {
+    $('[data-role="reset"]').click(() => {
+        event.preventDefault();
+        if($('[data-role="status-msg"]').children()) {
+            $('[data-role="status-msg"]').empty();
+        }
+        resetForm();
+    })
+}
+
+const resetForm = () => {
+    document.forms["eventform"].reset()
+    setDefaultDate();
 }
 
 const dbStoreEvent = () => {
     $.post('/api/eventstore', eventData)
-        .then((res)=> {
-            console.log(res);
+        .then((res) => {
+            $('[data-role="status-msg"]').append(res);
+        })
+        .catch((err) => {
+            var $status = $('<span></span>', {
+                'text': 'Sorry, your event could not be added at this time. Please try again.',
+                'class': 'status-msg'
+            });
+            $('[data-role="status-msg"]').append($status);
         })
 }
 
@@ -77,6 +103,9 @@ const setLocalStorageValues = (key, keyValue) => {
 const plusSignButton = () => {
     $ADD_EVENT.click((event) => {
         event.preventDefault();
+        if($('[data-role="status-msg"]').children()) {
+            $('[data-role="status-msg"]').empty();
+        }
         openEventAddForm();
     });
 };
@@ -107,5 +136,6 @@ $FORM_CONTAINER.hide();
 closePopupButton();
 plusSignButton();
 saveForm();
+resetButton();
 setDefaultDate();
 
