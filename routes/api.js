@@ -3,6 +3,23 @@ const router = express.Router();
 const moment = require('moment');
 const db = require('../db')
 
+
+router.get('/events/testing', (req, res, next) => {
+    console.log(req.body);
+    db.any(`
+    SELECT * from events
+    where event_date >= '${req.body.startdate}'
+    and event_date <= '${req.body.enddate}'
+    and accountid = '${req.body.accountid}'
+    and propertyid = '${req.body.propertyid}'    
+    order by event_date;
+  `)
+  .then(results => {
+    res.send(results)
+  })
+  .catch(console.log)
+  });
+
 function dateSifter(date) {
     if (date === "0daysAgo") {
         date = moment().format('YYYY-MM-DD');
