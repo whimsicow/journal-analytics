@@ -4,20 +4,25 @@ const db = require('../db')
 
 function dateSifter(date) {
     if (date === "0daysAgo") {
-        return moment(now).format('YYYY-MM-DD');
+        date = moment(now).format('YYYY-MM-DD');
+        return date;
     } else if (date === "30daysAgo") {
-        return moment(now).subtract(30, 'days').format('YYYY-MM-DD');
+        date = moment(now).subtract(30, 'days').format('YYYY-MM-DD');
+        return date;
     } else {
         return date;
     }
 }
 
 router.post('/events', (req, res, next) => {
-
+    var startdate = dateSifter(req.body.startdate);
+    var enddate = dateSifter(req.body.enddate);
+    console.log(startdate);
+    console.log(enddate);
     db.any(`
     SELECT date(event_date), description, method, accountname, propertyname, email, eventlink from events
-    where event_date::date >= '${req.body.startdate}'
-    and event_date::date <= '${req.body.enddate}'
+    where event_date::date >= '${startdate}'
+    and event_date::date <= '${enddate}'
     and accountid = '${req.body.accountid}'
     and propertyid = '${req.body.propertyid}'    
     order by event_date DESC;
@@ -26,7 +31,7 @@ router.post('/events', (req, res, next) => {
         res.send(results)
     })
     .catch((err) => {
-        console.log(err.message);
+        console.log(err);
     })
 })
 
