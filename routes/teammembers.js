@@ -12,9 +12,9 @@ function ensureAuthenticated(req, res, next) {
 }
 
 router.get('/', ensureAuthenticated, function(req, res, next) { 
-    db.one(`select * from users where email = '${req.user}'`)
+    db.any(`select * from users where email = '${req.user}'`)
         .then((result) => {
-            res.render('users', {
+            res.render('teammembers', {
                 title: "Welcome",
                 name: result.firstname,
                 pic: result.picture,
@@ -25,3 +25,5 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
             });
         }) 
 });
+
+module.exports = router;

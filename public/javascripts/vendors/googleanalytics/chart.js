@@ -239,6 +239,11 @@ $(document).ready(() => {
             container: 'view-selector-container2'
         })
             .execute();
+
+        const viewSelectorMembers = new gapi.analytics.ext.ViewSelector2({
+            container: 'members-view-selector-container'
+        })
+            .execute();
         
 
         /********************************** DATERANGE CONSTRUCTOR*/
