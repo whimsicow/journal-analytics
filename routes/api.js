@@ -2,12 +2,15 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db')
 
-router.get('/events', (req, res, next) => {
+router.get('/events/testing', (req, res, next) => {
     console.log(req.body);
-  db.query(`
-    SELECT *
-      from events
-    order by event_date
+    db.any(`
+    SELECT * from events
+    where event_date >= '${req.body.startdate}'
+    and event_date <= '${req.body.enddate}'
+    and accountid = '${req.body.accountid}'
+    and propertyid = '${req.body.propertyid}'    
+    order by event_date;
   `)
   .then(results => {
     res.send(results)
