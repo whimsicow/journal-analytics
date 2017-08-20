@@ -4,20 +4,26 @@ const graph = (function() {
   const getDates = ({data}) => {
       let pushedData1 = [];
       let pushedData2 = [];
-    //   console.log(data);
+      let beginningDate;
+      let endingDate;
       const newData = data.rows
-    //   console.log(newData)
+
       for(let i = 0; i < newData.length; i++){
-         // date format if we want the month to be included newData[i].c[0].v.toString().split(' ').splice(0, 4).join(' '))
-         pushedData1.push(newData[i].c[0].v.toString().split(' ').splice(0, 4).splice(1, 4).join(' '));
-         pushedData2.push(newData[i].c[1].v);
+        if ((i === 0)) {
+            beginningDate = newData[i].c[0].v.toString().split(' ').splice(1, 3).join(' ')
+        }
+        if (i === newData.length-1) {
+            endingDate = newData[i].c[0].v.toString().split(' ').splice(1, 3).join(' ')
+        }
+        pushedData1.push(newData[i].c[0].v.toString().split(' ').splice(0, 3).splice(1, 3).join(' '));
+        pushedData2.push(newData[i].c[1].v);
       }
-    //   console.log(pushedData1)
-    //   console.log(pushedData2)
 
       return {
           dates: pushedData1,
-          sessions: pushedData2
+          sessions: pushedData2,
+          beginningDate,
+          endingDate
       }
   }
 
@@ -48,6 +54,7 @@ const graph = (function() {
     console.log('configuring highcharts main graph')
     let ga = getDates(googleAnalytics);
     console.log(events)
+    console.log(ga.dates)
 
     Highcharts.chart('main-container', {
       chart: {
@@ -55,7 +62,7 @@ const graph = (function() {
       },
       xAxis: {
           title: {
-              text: 'Dates'
+              text: `${ga.beginningDate} - ${ga.endingDate}`
           },
           categories: ga.dates
       },
@@ -91,7 +98,7 @@ const graph = (function() {
         }
       },
       series: [{
-          name: `Team: ${events.team_id}`,
+          name: `Team: ${events[0].accountname}`,
           marker: {
               symbol: 'circle',
               width: 16,
@@ -100,7 +107,7 @@ const graph = (function() {
           data: ga.sessions
           },
           {
-            name: `User: ${events.email}`,
+            name: `User: ${gapi.analytics.auth.getUserProfile().name.split(' ').map(x => { let maxLength = x.length; return x[0].toUpperCase() + x.slice(1, maxLength)}).join(' ')}`,
             marker: {
               symbol: 'circle',
               width: 16,
