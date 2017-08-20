@@ -54,7 +54,6 @@ const graph = (function() {
     console.log('configuring highcharts main graph')
     let ga = getDates(googleAnalytics);
     console.log(events)
-    console.log(ga.dates)
 
     Highcharts.chart('main-container', {
       chart: {
@@ -102,8 +101,29 @@ const graph = (function() {
                   [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
               ]
           }
+        },
+        series: {
+            cursor: 'pointer',
+            point: {
+                events: {
+                    click: (e) => {
+                        console.log(e)
+                        hs.htmlExpand(null, {
+                            pageOrigin: {
+                                x: e.pageX || e.clientX,
+                                y: e.pageY || e.clientY
+                            },
+                            headingText: `${e.point.category} Events`,
+                            maincontentText: `
+                                Date: ${e.point.category}` + '<br/ >' + `Total Sessions: ${e.point.y} <hr />
+                            `,
+                            width: 250,
+                            height: 400
+                    })
+                }
+            }
         }
-      },
+      }},
       series: [{
           name: `Team: ${events[0].accountname}`,
           marker: {
