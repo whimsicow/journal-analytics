@@ -8,7 +8,8 @@ const graph = (function() {
       const newData = data.rows
     //   console.log(newData)
       for(let i = 0; i < newData.length; i++){
-         pushedData1.push(newData[i].c[0].v.toString().split(' ').splice(0, 4).join(' '));
+         // date format if we want the month to be included newData[i].c[0].v.toString().split(' ').splice(0, 4).join(' '))
+         pushedData1.push(newData[i].c[0].v.toString().split(' ').splice(0, 4).splice(1, 4).join(' '));
          pushedData2.push(newData[i].c[1].v);
       }
     //   console.log(pushedData1)
@@ -61,6 +62,7 @@ const graph = (function() {
           title: {
               text: "Sessions"
           },
+          tickInterval: 50
           // labels: {
           //     formatter: function () {
           //         return this.value + 'Count';
