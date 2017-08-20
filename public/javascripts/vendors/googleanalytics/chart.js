@@ -267,12 +267,12 @@ $(document).ready(() => {
             console.log(result.response) // raw data of the entire response... )
             console.groupEnd()
             console.groupEnd()
-            console.log(result.response.profileInfo.accountId);
-            console.log(result.response.profileInfo.webPropertyId);
-            console.log(result.response.query['start-date']);
-            console.log(result.response.query['end-date']);
-            graph.captureGoogleAnalyticsData(result)
             var request = {};
+            request['accountid'] =(result.response.profileInfo.accountId);
+            request['propertyid'] = (result.response.profileInfo.webPropertyId);
+            request['startdate'] = (result.response.query['start-date']);
+            request['enddate'] = (result.response.query['end-date']);
+            graph.captureGoogleAnalyticsData(result)
             
             $.get('/api/events', request)
                 .then((res) => {
