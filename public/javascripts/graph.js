@@ -8,7 +8,7 @@ const graph = (function() {
       const newData = data.rows
     //   console.log(newData)
       for(let i = 0; i < newData.length; i++){
-         pushedData1.push((newData[i].c[0].v).toString());
+         pushedData1.push(newData[i].c[0].v.toString().split(' ').splice(0, 4).join(' '));
          pushedData2.push(newData[i].c[1].v);
       }
     //   console.log(pushedData1)
