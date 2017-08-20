@@ -28,17 +28,30 @@ const graph = (function() {
   const catpureEventsData = (result) => {
     EVENTS = result;
   }
+ 
 
   // from chart.js -- queried from googleAnalytics DB
-  const captureGoogleAnalyticsData = (result) => {
-    renderGraphs(result, EVENTS)
+    const captureGoogleAnalyticsData = (result) => {
+        var request = {};
+        request['accountid'] =(result.response.profileInfo.accountId);
+        request['propertyid'] = (result.response.profileInfo.webPropertyId);
+        request['startdate'] = ((result.response.query['start-date']));
+        request['enddate'] = (result.response.query['end-date']);
+        
+        $.post('/api/events', request) 
+            .then((res) => {
+                var events = res;
+                console.log(events);
+                renderGraphs(result, events)
+            })
+        
   }
 
   // render graphs
-  const renderGraphs = (result, EVENTS) => {
-    mainGraph(result, EVENTS)
+  const renderGraphs = (result, events) => {
+    mainGraph(result, events)
     console.log('main graph has been rendered')
-    trafficGraph(result, EVENTS)
+    trafficGraph(result, events)
     console.log('traffic graph has been rendered')
   }
 

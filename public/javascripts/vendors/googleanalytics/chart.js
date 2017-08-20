@@ -240,6 +240,12 @@ $(document).ready(() => {
         })
             .execute();
 
+        const viewSelectorMembers = new gapi.analytics.ext.ViewSelector2({
+            container: 'members-view-selector-container'
+        })
+            .execute();
+        
+
         /********************************** DATERANGE CONSTRUCTOR*/
         const dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector(
             {
@@ -267,9 +273,18 @@ $(document).ready(() => {
             console.log(result.response) // raw data of the entire response... )
             console.groupEnd()
             console.groupEnd()
+            
             graph.captureGoogleAnalyticsData(result)
+            
+            // $.get('/api/events', request)
+            //     .then((res) => {
+            //         console.log(res);
+            //     })
+            //     .then(results => {
+            //     graph.catpureEventsData(results[0]);
+            // })
         })
-
+        
         mainGraph.on('error', (result) => {
             console.log('Error occured during query or rendering')
         })
@@ -294,7 +309,6 @@ $(document).ready(() => {
 
         /************************************** VIEW SELECTORS */
         viewSelector.on('viewChange', (data) => {
-            console.log(data);
             // main graph
             mainGraph.set({
                 query: {
@@ -320,7 +334,6 @@ $(document).ready(() => {
 
         /************************************* DATE RANGE SELECTOR*/
         dateRangeSelector1.on('change', (data) => {
-            console.log(data)
             // updates graph
             mainGraph.set({
                 query: data // new start date and end date

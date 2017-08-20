@@ -1,22 +1,38 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 const db = require('../db')
 
-router.get('/events', (req, res, next) => {
-    console.log(req.body);
-  db.query(`
-    SELECT *
-      from events
-    order by event_date
-  `)
-  .then(results => {
-    res.send(results)
-  })
-  .catch(console.log)
-  });
+function dateSifter(date) {
+    if (date === "0daysAgo") {
+        date = moment().format('YYYY-MM-DD');
+        return date;
+    } else if (date === "30daysAgo") {
+        date = moment().subtract(30, 'days').format('YYYY-MM-DD');
+        return date;
+    } else {
+        return date;
+    }
+}
 
-router.post('/event', (req, res, next) => {
-  console.log('post event')
+router.post('/events', (req, res, next) => {
+    var startdate = dateSifter(req.body.startdate);
+    var enddate = dateSifter(req.body.enddate);
+    
+    db.any(`
+    SELECT date(event_date), description, method, accountname, propertyname, email, eventlink from events
+    where event_date::date >= '${startdate}'
+    and event_date::date <= '${enddate}'
+    and accountid = '${req.body.accountid}'
+    and propertyid = '${req.body.propertyid}'    
+    order by event_date DESC;
+    `)
+    .then(results => {
+        res.send(results)
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 })
 
 // Store larger image provided by google analytics auth
