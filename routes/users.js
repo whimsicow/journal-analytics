@@ -4,7 +4,7 @@ const passport = require('passport');
 const db = require('../db');
 
 
-/* GET users listing. */
+// Ensures users are authenticated before allowing them to access page
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
