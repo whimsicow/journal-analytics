@@ -72,7 +72,7 @@
 
 
         <!-- popup form for adding events -->
-        <form class="form" id="submit-event" data-popup="form-container">
+        <form class="form" name="eventform" data-popup="form-container">
             <div class="form-container"> 
 
                 <!-- date -->
@@ -105,9 +105,11 @@
                     <option class="icon" value="outdoorevent" data-imagesrc="../images/tent.png" data-description="Event"></option>
 
                 </div>
+                <div class="status-msg" data-role="status-msg">
+                </div>
                 <div class="button-container">
                     <button type="submit" class="submit-event" data-role="submit">Submit</button>
-                    <button type="reset">Reset</button>
+                    <button data-role="reset">Reset</button>
                     <button class="exit-popup" data-popup="close-event-popup"> Close </button>
 
                 </div>

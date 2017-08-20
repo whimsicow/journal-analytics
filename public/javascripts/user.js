@@ -1,8 +1,12 @@
 $(document).ready(() => {
   //fetch events data from db
-  window.fetch('http://localhost:3737/api/events', { mode: 'cors' })
-  .then(response => response.json())
-  .then(results => {
-    graph.catpureEventsData(results[0])
-  })
+    var request = {};
+    var accInfo = $('#view-selector-container > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
+    // var max = $('#data-range-selector-container > .DataRangeSelector > .input').max();
+    
+    $.get('/api/events', request)
+        .then(response => response.json())
+        .then(results => {
+            graph.catpureEventsData(results[0]);
+        })
 })

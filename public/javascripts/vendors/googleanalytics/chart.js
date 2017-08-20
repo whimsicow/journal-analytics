@@ -294,7 +294,7 @@ $(document).ready(() => {
 
         /************************************** VIEW SELECTORS */
         viewSelector.on('viewChange', (data) => {
-
+            console.log(data);
             // main graph
             mainGraph.set({
                 query: {
