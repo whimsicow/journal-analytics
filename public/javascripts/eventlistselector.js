@@ -67,6 +67,7 @@ function formatDates(result) {
 
 // Groups all events with same event_date together in an array
 function createGroups(result) {
+    console.log(result);
     let temparr = [];
     let finalarr = [];
     let tempdate = "";
@@ -88,8 +89,9 @@ function createGroups(result) {
 
 function createList(result) {
     if($EVENTLIST.children()) {
-            $EVENTLIST.empty();
+        $EVENTLIST.empty();
     }
+    console.log(result);
     var $eventcontainer = $('<div></div>', {
             "class" : "event-container"
         });
@@ -116,21 +118,50 @@ function createList(result) {
             })
             $event.append($dateadded);
             let $icondiv = $('<div></div>', {});
-            let icon = chooseIcon(event.method);
+            // let icon = chooseIcon(event.method);
             let $icon = $('<img>', {
-                'src': icon,
+                'src': 'https://upload.wikimedia.org/wikipedia/en/3/35/Information_icon.svg',
                 'alt': "icon"
             })
             $icondiv.append($icon);
             $event.append($icondiv);
-            
-    
-            let $email = $('<span></span>', {
-                'text': `${member.email}`
-            })
-            $member.append($email);
-            $memberscontainer.append($member);
+            $datecontainer.append($event);
         })
+        $eventcontainer.append($datecontainer)
     })
-    $MEMBERLIST.append($memberscontainer);
+    $EVENTLIST.append($eventcontainer);
 }
+
+// function chooseIcon(method) {
+//      let image = “”;
+//      if (method === “Default”){
+//          image = “../images/defaulticon.svg”
+//      } else if (method === “Email”){
+//          image = “../images/email.png”
+//      } else if (method === “Facebook Post”){
+//          image = “https://cdn.worldvectorlogo.com/logos/facebook-icon.svg”
+//      } else if (method === “Tweet”){
+//          image = “https://cdn.worldvectorlogo.com/logos/twitter-4.svg”
+//      } else if (method === “Google Plus”){
+//          image = “../images/google-plus.svg”
+//      } else if (method === “Linkedin post”){
+//          image = “../images/linkedin.png”
+//      } else if (method === “Instagram Post”){
+//          image = “https://cdn.worldvectorlogo.com/logos/instagram-2016.svg”
+//      } else if (method === “Event”){
+//          image = “../images/tent.png”
+//      } else if (method === “Pinterest post”){
+//         image = “../images/pintrest.png”
+//      } else if (method === “General”){
+//         image = “../images/defaulticon.svg”
+//      } else if (method === “Important”) {
+//          image = “../importanticon.svg”
+//      } else if (method === “Outdoor”) {
+//          image = “../images/tent.png”
+//      } else if (method === “Multiplatform”) {
+//          image = “../images/multipleplatform.png”
+//      } else if (method === “Social”) {
+//          image = “../images/socialevent.png”
+//      }
+//      return image
+//  }
