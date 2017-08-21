@@ -40,15 +40,13 @@ const graph = (function() {
         
         $.post('/api/events', request) 
             .then((res) => {
-
                 let userEvents = res.map(x => {
-                    let modifiedDate = x.date.slice(0, 10)
-                    x.date = moment(modifiedDate).format('MMM DD YYYY')
+                    let modifiedDate = x.event_date.slice(0, 10)
+                    x.event_date = moment(modifiedDate).format('MMM DD YYYY')
                     return x
                 })
+                console.log(userEvents);
                 renderGraphs(googleAnalytics, userEvents)
-                var events = res;
-                renderGraphs(result, events)
             })
         
     }
@@ -57,7 +55,7 @@ const graph = (function() {
   const renderEvents = (googleAnalytics, userEvents, userDateClicked) => {
 
       // match date requested
-      let filteredEventsByDate = userEvents.filter(x => x.date === userDateClicked)
+      let filteredEventsByDate = userEvents.filter(x => x.event_date === userDateClicked)
 
       // early return for no events
       if (filteredEventsByDate.length === 0) {
