@@ -20,12 +20,16 @@ router.post('/events', (req, res, next) => {
     var enddate = dateSifter(req.body.enddate);
     
     db.any(`
-    SELECT date(event_date), description, method, accountname, propertyname, email, eventlink from events
-    where event_date::date >= '${startdate}'
-    and event_date::date <= '${enddate}'
-    and accountid = '${req.body.accountid}'
-    and propertyid = '${req.body.propertyid}'    
-    order by event_date DESC;
+    SELECT evs.event_date, evs.description, evs.method, evs.accountname, evs.propertyname, evs.email, evs.eventlink, evs.date_added, urs.firstname, urs.picture 
+	from events evs
+		inner join users urs
+		on urs.email = evs.email
+    where 
+    	evs.event_date::date >= '${startdate}'
+    	and evs.event_date::date <= '${enddate}'
+    	and evs.accountid = '${req.body.accountid}'
+    	and evs.propertyid = '${req.body.propertyid}'    
+    	order by evs.event_date DESC;
     `)
     .then(results => {
         res.send(results)
