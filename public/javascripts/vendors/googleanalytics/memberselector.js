@@ -1,4 +1,5 @@
-$MEMBERLIST = $()
+$MEMBERLIST = $('[data-role="member-list"]');
+
 gapi.analytics.ready(() => {
     
     gapi.analytics.auth.authorize({
@@ -31,6 +32,15 @@ function createList(result) {
     var $memberscontainer = $('<div></div>', {
             "class" : "picture-box"
         });
+    result.forEach(function(member) {
+        var $member = $('<span></span>', {});
+        var $profpic = $('<img>', {
+            'src': `${member.picture}`,
+            'alt': "profile photo"
+        })
+    })
+    
+
 }
 
 
