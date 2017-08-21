@@ -15,4 +15,9 @@ gapi.analytics.ready(() => {
         container: 'members-view-selector-container'
         })
             .execute();
+
+    viewSelectorMembers.on('viewChange', (data) => {
+          console.log(data);
+            title.textContent = `${data.property.name} ${data.view.name}`
+        })
 })
