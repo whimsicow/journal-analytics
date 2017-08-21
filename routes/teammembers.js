@@ -28,7 +28,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
         }) 
 });
 
-router.get('/search?', function(req, res, next) {
+router.get('/search?', ensureAuthenticated, function(req, res, next) {
     if(!req.body) {
         return res.status(400).send('No files were uploaded.');
     }
@@ -44,8 +44,18 @@ router.get('/search?', function(req, res, next) {
             order by evs.email;
     `)
         .then((result) => {
-            console.log(result);
-        })
+            res.render('teammembers', {
+                navmessage: 'Welcome, ',
+                name: result.firstname,
+                pic: result.picture,
+                ftrlink: '/logout',
+                ftrlinktext: 'Logout',
+                navlink1: "/",
+                navlinktext1: "Home",
+                navlink2: '/logout',
+                navlinktext2: 'Logout'
+            });
+        }) 
 
         .catch((error) => {
             console.log(error);
