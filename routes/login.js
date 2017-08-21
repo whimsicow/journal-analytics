@@ -5,12 +5,14 @@ const passport = require('passport');
 
 
 router.get('/', function(req, res) {
-    let user = '';
     // logged in
     if (req.isAuthenticated()) {
         res.render('login', {
         ftrlink: '/logout',
         ftrlinktext: 'Logout',
+        navmessage: 'Welcome, ',
+        name: result.firstname,
+        pic: result.picture,
         navlink1: "/",
         navlinktext1: "Home",
         navlink2: '/logout',
@@ -25,10 +27,8 @@ router.get('/', function(req, res) {
         res.render('login', {
         ftrlink: '/login',
         ftrlinktext: 'Login',
-        navlink1: "/",
-        navlinktext1: "Home",
-        navlink2: '/login',
-        navlinktext2: 'Login',
+        navlink2: "/",
+        navlinktext2: "Home",
         message1: "You are not currently signed in. Please ",
         link: '/auth/google',
         linktext: "sign in with Google."
