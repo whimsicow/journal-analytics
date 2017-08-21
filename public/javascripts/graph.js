@@ -82,14 +82,11 @@ const graph = (function() {
                 let userEvents = res.map(x => {
                     let modifiedDate = x.event_date.slice(0, 10)
                     x.event_date = moment(modifiedDate).format('MMM DD YYYY')
-<<<<<<< HEAD
                     return x
                 })
                 userEvents = res.map(x => {
                     let modifiedDate = x.date_added.slice(0, 10)
                     x.date_added = moment(modifiedDate).format('MMM DD YYYY')
-=======
->>>>>>> d32554ba57b5454e2f1b5a756899e1d6dd500f09
                     return x
                 })
                 
@@ -103,10 +100,7 @@ const graph = (function() {
 
       // match date requested
       let filteredEventsByDate = userEvents.filter(x => x.event_date === userDateClicked)
-<<<<<<< HEAD
 
-=======
->>>>>>> d32554ba57b5454e2f1b5a756899e1d6dd500f09
       // early return for no events
 
       // sets date at top of modal. emptys .top-modal-info span if has been appended before

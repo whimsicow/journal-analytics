@@ -11,6 +11,11 @@ gapi.analytics.ready(() => {
     gapi.analytics.auth.on('signIn', function() {
      
     })
+    // const mainGraphDateRange = {
+    //     'start-date': '7daysAgo',
+    //     'end-date': '0daysAgo'
+    // }
+
     const viewSelectorEvents = new gapi.analytics.ext.ViewSelector2({
         container: 'events-view-selector-container'
         })
@@ -19,7 +24,7 @@ gapi.analytics.ready(() => {
         {
             container: 'date-range-selector-container-events'
         })
-            .set(mainGraphDateRange)
+            // .set(mainGraphDateRange)
             .execute()
     viewSelectorEvents.on('viewChange', (data) => {
         // var request = {};
