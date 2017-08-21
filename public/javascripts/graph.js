@@ -118,7 +118,6 @@ const graph = (function() {
         let firstname = capitalizeFirstLetter(x.firstname)
         let title = document.querySelector('.top-modal-info')
         let parent = document.querySelector('.modal-list')
-        // let linkWrapperContainer = document.createElement('div')
         let linkWrapper = document.createElement('a')
         linkWrapper.href = ""
         let wrapper = document.createElement('div')
@@ -126,7 +125,7 @@ const graph = (function() {
         wrapper.classList.add('event-item')
         wrapper2.classList.add('icon-image-modal')
         let name = document.createElement('p')
-        name.textContent = `Posted By: ${firstname}`
+        name.textContent = `Posted by: ${firstname}`
         let method = document.createElement('p')
         method.textContent = `Method: ${x.method}`
         let img = document.createElement('img')
@@ -149,28 +148,20 @@ const graph = (function() {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   const chooseImgForMethod = (method) => {
-      let image = "";
-      console.log(method)
-      if (method === "Default"){
-          image = "../images/defaulticon.svg"
-      } else if (method === "Email"){
-          image = "../images/email.png"
-      } else if (method === "Facebook Post"){
-          image = "https://cdn.worldvectorlogo.com/logos/facebook-icon.svg"
-      } else if (method === "Tweet"){
-          image = "https://cdn.worldvectorlogo.com/logos/twitter-4.svg"
-      } else if (method === "Google Plus"){
-          image = "../images/google-plus.svg"
-      } else if (method === "Linkedin post"){
-          image = "../images/linkedin.png"
-      } else if (method === "Instagram Post"){
-          image = "https://cdn.worldvectorlogo.com/logos/instagram-2016.svg"
-      } else if (method === "Event"){
-          image = "../images/tent.png"
-      } else if (method === "Pinterest post"){
-        image = "../images/pintrest.png"
-
-      return image
+      let newImage = {
+          "General": "../images/defaulticon.svg",
+          "Email": "../images/email.png",
+          "Facebook": "https://cdn.worldvectorlogo.com/logos/facebook-icon.svg",
+          "Tweet": "https://cdn.worldvectorlogo.com/logos/twitter-4.svg",
+          "Google Plus": "../images/google-plus.svg",
+          "Linkedin": "../images/linkedin.png",
+          "Instagram" : "https://cdn.worldvectorlogo.com/logos/instagram-2016.svg",
+          "Important" : "../importanticon.svg",
+          "Outdoor" : "../images/tent.png",
+          "Multiplatform" : "../images/multipleplatform.png",
+          "Social" : "../images/socialevent.png"
+      }
+      return newImage[method]
   }
   // remove events
   const removeEvents = () => {
