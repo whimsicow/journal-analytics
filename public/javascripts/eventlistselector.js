@@ -64,10 +64,21 @@ function formatDates(result) {
 
 function createGroups(result) {
     let temparr = [];
-    let tempdte = "";
+    let finalarr = [];
+    let tempdate = "";
     result.forEach(function(event, i) {
-        
+        if (event.event_date === tempdate) {
+            temparr.push(event);
+        } else {
+            if (temparr.length !== 0) {
+                finalarr.push(temparr);
+                temparr = [];
+            }
+            tempdate = event.event_date;
+            temparr.push(event);
+        }
     })
+    return finalarr;
 }
 
 
