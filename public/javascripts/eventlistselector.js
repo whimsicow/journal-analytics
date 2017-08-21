@@ -67,7 +67,6 @@ function formatDates(result) {
 
 // Groups all events with same event_date together in an array
 function createGroups(result) {
-    console.log(result);
     let temparr = [];
     let finalarr = [];
     let tempdate = "";
@@ -92,7 +91,6 @@ function createList(result) {
     if($EVENTLIST.children()) {
         $EVENTLIST.empty();
     }
-    console.log(result);
     var $eventcontainer = $('<div></div>', {
             "class" : "event-container"
         });
@@ -107,7 +105,7 @@ function createList(result) {
             })
             $event.append($description);
             let $link = $('<a></a>', {
-                'src': event.eventlink,
+                'href': event.eventlink,
                 'text': 'Link to event'
             })
             let $name = $('<span></span>', {
@@ -126,6 +124,11 @@ function createList(result) {
             })
             $icondiv.append($icon);
             $event.append($icondiv);
+            let $update = $('<a></a>', {
+                'text': 'Edit',
+                'href': `/eventslist/${event.event_id}/edit`
+            })
+            $event.append($update);
             $datecontainer.append($event);
         })
         $eventcontainer.append($datecontainer)

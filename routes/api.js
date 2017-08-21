@@ -23,7 +23,7 @@ router.post('/events', (req, res, next) => {
     var enddate = dateSifter(req.body.enddate);
     
     db.any(`
-    SELECT evs.event_date, evs.description, evs.method, evs.accountname, evs.propertyname, evs.email, evs.eventlink, evs.date_added, urs.firstname, urs.picture 
+    SELECT evs.event_date, evs.event_id, evs.description, evs.method, evs.accountname, evs.propertyname, evs.email, evs.eventlink, evs.date_added, urs.firstname, urs.picture 
 	from events evs
 		inner join users urs
 		on urs.email = evs.email
