@@ -14,7 +14,7 @@ function ensureAuthenticated(req, res, next) {
 router.get('/', ensureAuthenticated, function(req, res, next) { 
     db.one(`select firstname, picture from users where email = '${req.user}'`)
         .then((result) => {
-            res.render('users', {
+            res.render('teammembers', {
                 navmessage: 'Welcome, ',
                 name: result.firstname,
                 pic: result.picture,
@@ -32,7 +32,8 @@ router.post('/search', function(req, res, next) {
     if(!req.body) {
         return res.status(400).send('No files were uploaded.');
     }
-    
+    console.log(req);
+
 })
 
 module.exports = router;
