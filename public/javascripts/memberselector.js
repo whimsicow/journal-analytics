@@ -1,4 +1,4 @@
-$MEMBERLIST = $('[data-role="member-list"]');
+const $MEMBERLIST = $('[data-role="member-list"]');
 
 gapi.analytics.ready(() => {
     
@@ -33,14 +33,24 @@ function createList(result) {
             "class" : "picture-box"
         });
     result.forEach(function(member) {
-        var $member = $('<span></span>', {});
-        var $profpic = $('<img>', {
+        let $member = $('<span></span>', {});
+        let $profpic = $('<img>', {
             'src': `${member.picture}`,
-            'alt': "profile photo"
+            'alt': "profile picture"
         })
+        $member.append($profpic);
+        let $link = $('<a></a>', {
+            'src': `/teammembers/${member.email}`,
+            'text': `${member.firstname}`
+        })
+        $member.append($link);
+        let $email = $('<span></span>', {
+            'text': `${member.email}`
+        })
+        $member.append($email);
+        $memberscontainer.append($member);
     })
-    
-
+    $MEMBERLIST.append($memberscontainer);
 }
 
 
