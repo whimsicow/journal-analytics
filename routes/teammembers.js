@@ -16,28 +16,27 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
         .then((result) => {
             res.render('teammembers', {
                 navmessage: 'Welcome, ',
-                name: result.firstname,
-                pic: result.picture,
                 ftrlink: '/logout',
                 ftrlinktext: 'Logout',
                 navlink1: "/",
                 navlinktext1: "Home",
                 navlink2: '/logout',
-                navlinktext2: 'Logout'
+                navlinktext2: 'Logout',
+                members: result
             });
         }) 
 });
 
-router.get('/search?', function(req, res, next) {
+router.get('/search?', ensureAuthenticated, function(req, res, next) {
     if(!req.body) {
         return res.status(400).send('No files were uploaded.');
     }
     
-    db.any(`
-        SELECT distinct evs.email, evs.accountname, evs.eventlink, urs.firstname, urs.picture 
-        from events evs
-            inner join users urs
-            on urs.email = evs.email
+    db.many(`
+        SELECT distinct on (evs.email) evs.email, evs.accountname, urs.firstname, urs.picture 
+	    from events evs
+		    inner join users urs
+		    on urs.email = evs.email
         where 
             evs.accountid = '${req.query.accountid}'
             and evs.propertyid = '${req.query.propertyid}'   
@@ -45,7 +44,8 @@ router.get('/search?', function(req, res, next) {
     `)
         .then((result) => {
             console.log(result);
-        })
+            // res.redirect('/teammembers');
+        }) 
 
         .catch((error) => {
             console.log(error);

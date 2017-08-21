@@ -1,10 +1,17 @@
 <div id="embed-api-auth-container2" class="hidden"></div> 
 
-<form name="member-selection">
-    <div class="user-info-container">
-        <div id="members-view-selector-container"></div>
-    </div>
-</form>
+<div class="user-info-container">
+    <div id="members-view-selector-container"></div>
+</div>
+
+{{#each members}}
+    <span class="member-list">
+        <img src='{{picture}}' alt='profile photo'>
+        <a href="/teammembers/{{email}}">{{firstname}} </a>
+        {{email}} 
+    </span> 
+{{/each}}
+
 
 
 
