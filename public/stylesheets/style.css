@@ -137,13 +137,14 @@ label {
 }
 .company-logo-container {
     margin: 0 auto;
-    margin-top: 60px;
-    margin-bottom: 40px;
+    padding-top: 60px;
+    padding-bottom: 40px;
     width: 100%; 
 }
-.company-logo img{
+.company-logo{
     margin: 0 auto;
-    max-height: 90px;
+    font-size: 40px;
+    font-family: 'Cinzel', serif;
 }
 .box {
     background: white;
@@ -163,7 +164,96 @@ label {
     display: none;
 }
 
+/****************** user graph modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000000;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.8);
+}
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #888;
+    width: 90%;
+    height: 50%;
+    overflow: scroll;
+    background-image: url('../images/footerbackground.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0;
+}
+.modal-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ADD8E6;
+    font-weight: bolder;
+}
+/* The Close Button */
+.close {
+    color: #ADD8E6;
+    padding-right: 20px;
+    font-size: 40px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: #eee;
+    text-decoration: none;
+    cursor: pointer;
+}
+.top-modal-info {
+    padding-top: 10px;
+    padding-left: 20px;
+    text-align: center;
+    font-size: 20px;
+}
 
+
+.event-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 1rem;
+    background-color: #395062;
+    border-radius: 8px;
+    padding: 1rem;
+    line-height: 30px;
+}
+
+.event-item p {
+    margin: 0;
+    text-align: left;
+}
+
+.event-item a {
+    text-decoration: none;
+    color: #eee;
+}
+.event-item a:hover {
+    color: #ADD8E6;
+}
+/* modal */
+/* ******************* */
+/* ******************* */
+/* ******************* */
+
+
+
+/* ******************* */
+/* ******************* */
 /* ******************* */
 /* green plus sign fixed to bottom right to add events */
 .add-event-button {
@@ -431,9 +521,16 @@ label {
         background: white;
         width: 90%;
         margin: 4.5rem auto; 
-        /*   height: 30rem; */
+
         box-shadow: 0px 50px 80px -20px rgba(123, 160, 175, 0.70),0 20px 30px 10px rgba(80,180,220,0.2),0 0px 80px 60px rgba(80,180,220,0.2);
     }
+    .modal-content {
+        width: 50%;
+        height: 50%;
+    }
+
+
+
     /* ************************ */
     /* login page */
     .login-main {
@@ -474,6 +571,8 @@ label {
         padding: 0px;
         border: none;
     }
+    /* end of login page */
+    /* ******************** */
     
 }
       
@@ -495,14 +594,16 @@ label {
         display: flex;
         flex-direction: row;
     }
-    .sessions-count-container,
+    
     .selector-container,
     .user-info-container {
         text-align: left;
         max-width: 300px;
         padding-left: 10%;
     }
-
+    .sessions-count-container {
+        text-align: left;
+    }
     .image-pannel {
         padding-left: 0px;
     }
@@ -548,75 +649,4 @@ label {
   height: 100%;
 }
 
-/****************** user graph modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.8);
-}
 
-/* Modal Content */
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #888;
-    width: 40%;
-    height: 50%;
-}
-
-/* The Close Button */
-.close {
-    color: #273948;
-    float: right;
-    padding-right: 5px;
-    font-size: 40px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #eee;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-content {
-    overflow: scroll;
-    background-color: #8B98A5;
-    padding: 0;
-}
-
-.event-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem;
-    background-color: #395062;
-    border-radius: 8px;
-    padding: 1rem;
-}
-
-.event-item p {
-    margin: 0;
-    text-align: center;
-}
-
-.event-item a {
-    text-decoration: none;
-    color: #eee;
-}
-.event-item a:hover {
-    color: #ADD8E6;
-}

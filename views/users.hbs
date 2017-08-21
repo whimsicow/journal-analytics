@@ -9,7 +9,7 @@
             <div class="user-info-container">
                 <img data-role="profilepic" class="large-user-photo" src='{{pic}}' alt='profile picture'>
                 <!-- Map and Google API containers -->
-                <div id="view-name" class="hidden"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data -->
+                {{!-- <div id="view-name" class="hidden"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data --> --}}
                 <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
                 <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
             </div>
@@ -25,7 +25,8 @@
         <div class="charts-container">
             <div class="company-logo-container">
                 <div class="company-logo">
-                    <img class="company-logo" src="../images/digitalcraftslogo.png" alt="company-logo">
+                    <div id="view-name" class="company-logo"></div>
+                    {{!-- <img class="company-logo" src="../images/digitalcraftslogo.png" alt="company-logo"> --}}
                     {{!-- <img class="company-logo" src='{{{companylogo}}}'alt="company-logo"> --}}
                 </div>
             </div>
@@ -122,8 +123,13 @@
     
   <!-- Modal content -->
   <div class="modal-content">
-    <span class="top-modal-info"></span>
-    <span class="close">&times;</span>
+      
+      <div class="modal-title">
+          
+          <div class="top-modal-info"></div>
+          <span class="close">&times;</span>
+      </div>
+    
     <div class="modal-list">
     </div>
   </div>
