@@ -16,6 +16,7 @@ const users = require('./routes/users');
 const login = require('./routes/login');
 const logout = require('./routes/logout');
 const api = require('./routes/api');
+const eventlist = require('./routes/eventrendering');
 
 
 require('dotenv').config();
@@ -88,6 +89,7 @@ app.use('/users', users);
 app.use('/login', login);
 app.use('/logout', logout);
 app.use('/teammembers', teammembers);
+app.use('/eventlist', eventlist);
 app.use('/api', api);
 
 

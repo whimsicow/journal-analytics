@@ -94,19 +94,28 @@ const graph = (function() {
 
       // match date requested
       let filteredEventsByDate = userEvents.filter(x => x.event_date === userDateClicked)
-
       // early return for no events
+
+      // sets date at top of modal. emptys .top-modal-info span if has been appended before
+      let title = $('.top-modal-info')
+      title.html("")
+      let date = `Date: ${userDateClicked}`
+      title.append(date)
+
+
       if (filteredEventsByDate.length === 0) {
+        
         let parent = document.querySelector('.modal-list')
         let message = document.createElement('h2')
         message.textContent = 'No events for this date :('
-        message.style.textAlign = 'center'
+        message.style.textAlign = 'left'
         parent.appendChild(message)
         return;
       }
 
       // render to modal
       filteredEventsByDate.forEach(x => {
+        let title = document.querySelector('.top-modal-info')
         let parent = document.querySelector('.modal-list')
         let linkWrapper = document.createElement('a')
         linkWrapper.href = ""
@@ -124,6 +133,7 @@ const graph = (function() {
         wrapper.appendChild(linkWrapper)
         parent.appendChild(wrapper)
       })
+      
   }
 
   // remove events
@@ -245,7 +255,7 @@ const graph = (function() {
             name: 'Events',
             data: getGraphEvents(userEvents, ga),
             marker: {
-                symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)'
+                symbol: 'url(../images/plusgraphicon.svg)'
             }
           }
         ]
