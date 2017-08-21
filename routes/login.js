@@ -7,20 +7,23 @@ const passport = require('passport');
 router.get('/', function(req, res) {
     // logged in
     if (req.isAuthenticated()) {
-        res.render('login', {
-        ftrlink: '/logout',
-        ftrlinktext: 'Logout',
-        navmessage: 'Welcome, ',
-        name: result.firstname,
-        pic: result.picture,
-        navlink1: "/",
-        navlinktext1: "Home",
-        navlink2: '/logout',
-        navlinktext2: 'Logout',
-        message1: "You are already signed in. ",
-        link: '/users',
-        linktext: "View your analytics."
-        });
+        db.one(`select firstname, picture from users where email = '${req.user}'`)
+            .then((result) => {
+                res.render('login', {
+                ftrlink: '/logout',
+                ftrlinktext: 'Logout',
+                navmessage: 'Welcome, ',
+                name: result.firstname,
+                pic: result.picture,
+                navlink1: "/",
+                navlinktext1: "Home",
+                navlink2: '/logout',
+                navlinktext2: 'Logout',
+                message1: "You are already signed in. ",
+                link: '/users',
+                linktext: "View your analytics."
+                });
+            })
     
     } else {
         // not logged in
