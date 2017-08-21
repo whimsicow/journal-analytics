@@ -36,13 +36,12 @@ gapi.analytics.ready(() => {
     })
     
     dateRangeSelectorEvents.on('change', (data) => {
-        console.log(data);
         var request = {}
         request['start-date'] = data['start-date'];
         request['end-date'] = data['end-date'];
         var infoArray = $('#events-view-selector-container > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
-
-        
-
+        request['accountid'] = infoArray[0].attributes[1].value;
+        request['propertyid'] = infoArray[1].attributes[1].value;
+        console.log(request);
     })
 })

@@ -7,6 +7,9 @@ function dateSifter(date) {
     if (date === "0daysAgo") {
         date = moment().format('YYYY-MM-DD');
         return date;
+    } else if (date === "7daysAgo") {
+        date = moment().subtract(7, 'days').format('YYYY-MM-DD');
+        return date;
     } else if (date === "30daysAgo") {
         date = moment().subtract(30, 'days').format('YYYY-MM-DD');
         return date;
