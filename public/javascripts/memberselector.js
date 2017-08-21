@@ -36,7 +36,7 @@ function createList(result) {
             $MEMBERLIST.empty();
     }
     var $memberscontainer = $('<div></div>', {
-            "class" : "picture-box"
+            "class" : "members-container"
         });
     result.forEach(function(member) {
         let $member = $('<div></div>', {});

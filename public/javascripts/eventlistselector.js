@@ -1,4 +1,4 @@
-$EVENTCONTAINER = $('[data-role="events-container"]');
+$EVENTLIST = $('[data-role="events-container"]');
 
 gapi.analytics.ready(() => {
     
@@ -37,9 +37,7 @@ gapi.analytics.ready(() => {
         request['startdate'] = dateArray[1].attributes[2].value;
 
         $.post('/api/events', request)
-            .then((results) => {
-                console.log(results);
-            })
+            // .then(createList)
     })
     
     dateRangeSelectorEvents.on('change', (data) => {
@@ -51,8 +49,59 @@ gapi.analytics.ready(() => {
         request['propertyid'] = idArray[1].attributes[1].value;
 
         $.post('/api/events', request)
-            .then((results) => {
-                console.log(results);
-            })
+            .then(formatDates)
+            .then(createGroups)
     })
 })
+
+function formatDates(result) {
+    result.forEach(function(event) {
+        event.date_added = moment(event.date_added).format('MMM DD YYYY');
+        event.event_date = moment(event.event_date).format('MMM DD YYYY');
+    })
+    return result
+}
+
+function createGroups(result) {
+    let temparr = [];
+    let tempdte = "";
+    result.forEach(function(event, i) {
+        
+    })
+}
+
+
+// function createList(result) {
+//     if($EVENTLIST.children()) {
+//             $EVENTLIST.empty();
+//     }
+//     var $eventcontainer = $('<div></div>', {
+//             "class" : "event-container"
+//         });
+//     result.forEach(function(event) {
+//         date_added = moment(event.date_added).format('MMM DD YYYY');
+//         event_date = moment(event.event_date).format('MMM DD YYYY');
+
+//         let $event = $('<div></div>', {});
+//         let $evtdate = $('<span></span>', {
+//             'text': `${event_date}`
+//         })
+        
+//         let $profpic = $('<img>', {
+//             'src': `${member.picture}`,
+//             'alt': "profile picture"
+//         })
+//         $member.append($profpic);
+//         let $link = $('<a></a>', {
+//             'src': `/teammembers/${member.email}`,
+//             'text': `${member.firstname}`
+//         })
+//         $member.append($link);
+//         let $email = $('<span></span>', {
+//             'text': `${member.email}`
+//         })
+//         $member.append($email);
+//         $memberscontainer.append($member);
+//     })
+//     $MEMBERLIST.append($memberscontainer);
+// }
