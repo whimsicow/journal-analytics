@@ -28,7 +28,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
         }) 
 });
 
-router.post('/search', function(req, res, next) {
+router.get('/search?', function(req, res, next) {
     if(!req.body) {
         return res.status(400).send('No files were uploaded.');
     }
