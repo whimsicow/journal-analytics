@@ -1,3 +1,5 @@
+$EVENTCONTAINER = $('[data-role="events-container"]');
+
 gapi.analytics.ready(() => {
     
     gapi.analytics.auth.authorize({
