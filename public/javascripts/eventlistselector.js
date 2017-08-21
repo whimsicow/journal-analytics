@@ -29,21 +29,21 @@ gapi.analytics.ready(() => {
             .set(mainGraphDateRange)
             .execute()
     viewSelectorEvents.on('viewChange', (data) => {
-        console.log(data);
         var request = {};
         request['propertyid'] = data.property.id;
         request['accountid'] = data.account.id;
-        console.log(request);
-        $.post('/api/events', request);
+        var dateArray = $('#date-range-selector-container-events > .DateRangeSelector-item > input[type="date"]');
+        console.log(dateArray);
+        // $.post('/api/events', request);
     })
     
     dateRangeSelectorEvents.on('change', (data) => {
         var request = {}
         request['startdate'] = data['start-date'];
         request['enddate'] = data['end-date'];
-        var infoArray = $('#events-view-selector-container > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
-        request['accountid'] = infoArray[0].attributes[1].value;
-        request['propertyid'] = infoArray[1].attributes[1].value;
+        var idArray = $('#events-view-selector-container > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
+        request['accountid'] = idArray[0].attributes[1].value;
+        request['propertyid'] = idArray[1].attributes[1].value;
         $.post('/api/events', request)
             .then((results) => {
                 console.log(results);
