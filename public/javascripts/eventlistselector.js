@@ -32,7 +32,8 @@ gapi.analytics.ready(() => {
         var request = {};
         request['propertyid'] = data.property.id;
         request['accountid'] = data.account.id;
-        var dateArray = $('#date-range-selector-container-events > .DateRangeSelector-item > input[type="date"]');
+        var dateArray = $('#date-range-selector-container-events > .DateRangeSelector > .DateRangeSelector-item').find('input[type="date"]');
+        request['startdate'] = dateArray[0].attributes[2].value;
         console.log(dateArray);
         // $.post('/api/events', request);
     })
