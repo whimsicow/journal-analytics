@@ -12,7 +12,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 router.get('/', ensureAuthenticated, function(req, res, next) { 
-    db.any(`select * from users where email = '${req.user}'`)
+    db.one(`select * from users where email = '${req.user}'`)
         .then((result) => {
             res.render('teammembers', {
                 title: "Welcome",
