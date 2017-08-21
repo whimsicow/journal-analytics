@@ -48,7 +48,6 @@ const graph = (function() {
         $.post('/api/events', request) 
             .then((res) => {
                 var events = res;
-                console.log(events);
                 renderGraphs(result, events)
             })
         
