@@ -39,7 +39,7 @@ function createList(result) {
             "class" : "picture-box"
         });
     result.forEach(function(member) {
-        let $member = $('<span></span>', {});
+        let $member = $('<div></div>', {});
         let $profpic = $('<img>', {
             'src': `${member.picture}`,
             'alt': "profile picture"
