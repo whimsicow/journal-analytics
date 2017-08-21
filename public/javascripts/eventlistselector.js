@@ -35,8 +35,11 @@ gapi.analytics.ready(() => {
         var dateArray = $('#date-range-selector-container-events > .DateRangeSelector > .DateRangeSelector-item').find('input[type="date"]');
         request['enddate'] = dateArray[0].attributes[2].value;
         request['startdate'] = dateArray[1].attributes[2].value;
-        console.log(request);
-        // $.post('/api/events', request);
+
+        $.post('/api/events', request)
+            .then((results) => {
+                console.log(results);
+            })
     })
     
     dateRangeSelectorEvents.on('change', (data) => {
@@ -46,6 +49,7 @@ gapi.analytics.ready(() => {
         var idArray = $('#events-view-selector-container > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
         request['accountid'] = idArray[0].attributes[1].value;
         request['propertyid'] = idArray[1].attributes[1].value;
+
         $.post('/api/events', request)
             .then((results) => {
                 console.log(results);
