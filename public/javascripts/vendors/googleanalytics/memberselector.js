@@ -17,7 +17,10 @@ gapi.analytics.ready(() => {
             .execute();
 
     viewSelectorMembers.on('viewChange', (data) => {
-          console.log(data);
-            title.textContent = `${data.property.name} ${data.view.name}`
+        var request = {};
+        request['propertyid'] = data.property.id;
+        request['accountid'] = data.account.id;
+        console.log(request);
+        title.textContent = `${data.property.name} ${data.view.name}`
         })
 })
