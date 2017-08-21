@@ -45,7 +45,12 @@ const graph = (function() {
                     x.event_date = moment(modifiedDate).format('MMM DD YYYY')
                     return x
                 })
-                console.log(userEvents);
+                userEvents = res.map(x => {
+                    let modifiedDate = x.date_added.slice(0, 10)
+                    x.date_added = moment(modifiedDate).format('MMM DD YYYY')
+                    return x
+                })
+                
                 renderGraphs(googleAnalytics, userEvents)
             })
         
