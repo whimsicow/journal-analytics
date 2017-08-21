@@ -34,17 +34,21 @@ router.get('/search?', function(req, res, next) {
     }
     
     db.any(`
-        SELECT evs.accountname, evs.email, evs.eventlink, urs.firstname, urs.picture 
+        SELECT distinct evs.email, evs.accountname, evs.eventlink, urs.firstname, urs.picture 
         from events evs
             inner join users urs
             on urs.email = evs.email
         where 
-            evs.accountid = '${req.query.propertyid}'
-            and evs.propertyid = '${req.query.accountid}'   
-            order by evs.event_date DESC;
+            evs.accountid = '${req.query.accountid}'
+            and evs.propertyid = '${req.query.propertyid}'   
+            order by evs.email;
     `)
         .then((result) => {
             console.log(result);
+        })
+
+        .catch((error) => {
+            console.log(error);
         })
 
 })
