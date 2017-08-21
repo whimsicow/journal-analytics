@@ -34,10 +34,10 @@ router.get('/search?', function(req, res, next) {
     }
     
     db.any(`
-        SELECT distinct evs.email, evs.accountname, evs.eventlink, urs.firstname, urs.picture 
-        from events evs
-            inner join users urs
-            on urs.email = evs.email
+        SELECT distinct on (evs.email) evs.email, evs.accountname, evs.eventlink, urs.firstname, urs.picture 
+	    from events evs
+		    inner join users urs
+		    on urs.email = evs.email
         where 
             evs.accountid = '${req.query.accountid}'
             and evs.propertyid = '${req.query.propertyid}'   
