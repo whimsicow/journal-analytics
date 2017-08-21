@@ -40,15 +40,13 @@ const graph = (function() {
         
         $.post('/api/events', request) 
             .then((res) => {
-
+                console.log(res)
                 let userEvents = res.map(x => {
-                    let modifiedDate = x.date.slice(0, 10)
-                    x.date = moment(modifiedDate).format('MMM DD YYYY')
+                    let modifiedDate = x.event_date.slice(0, 10)
+                    x.event_date = moment(modifiedDate).format('MMM DD YYYY')
                     return x
                 })
                 renderGraphs(googleAnalytics, userEvents)
-                var events = res;
-                renderGraphs(result, events)
             })
         
     }
