@@ -27,9 +27,12 @@ const graph = (function() {
   }
  
   const getGraphEvents = (userEvents, ga) => {
+    console.log('userevents', userEvents)
+    console.log('ga', ga)
 
     // copy googleanalytics dates arr
     let graphGoogleAnalytics = [...ga.dates]
+    console.log(graphGoogleAnalytics)
 
     // copy userevents arr
     let userEventsArr = [...userEvents]
@@ -50,6 +53,8 @@ const graph = (function() {
     })
     
     arr.reverse()
+    console.log(arr)
+
 
     let finalGraphEventsArr = graphGoogleAnalytics.map((item, index) => {
         if (arr.find(x => {
@@ -60,6 +65,7 @@ const graph = (function() {
         return 'hi';
     })
 
+    console.log(finalGraphEventsArr)
     return finalGraphEventsArr
   }
 
@@ -211,6 +217,7 @@ const graph = (function() {
             point: {
               events: {
                 click: (e) => {
+                    console.log(e)
                   this.modal.style.display = 'block'
                   renderEvents(googleAnalytics, userEvents, e.point.category)
                 }
