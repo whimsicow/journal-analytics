@@ -11,10 +11,10 @@ gapi.analytics.ready(() => {
     gapi.analytics.auth.on('signIn', function() {
      
     })
-    // const mainGraphDateRange = {
-    //     'start-date': '7daysAgo',
-    //     'end-date': '0daysAgo'
-    // }
+    const mainGraphDateRange = {
+        'start-date': '7daysAgo',
+        'end-date': '0daysAgo'
+    }
 
     const viewSelectorEvents = new gapi.analytics.ext.ViewSelector2({
         container: 'events-view-selector-container'
@@ -24,24 +24,19 @@ gapi.analytics.ready(() => {
         {
             container: 'date-range-selector-container-events'
         })
-            // .set(mainGraphDateRange)
+            .set(mainGraphDateRange)
             .execute()
     viewSelectorEvents.on('viewChange', (data) => {
-        // var request = {};
-        // request['propertyid'] = data.property.id;
-        // request['accountid'] = data.account.id;
-        // console.log(request);
-        // $.get('teammembers/search', request);
+        console.log(data);
+        var request = {};
+        request['propertyid'] = data.property.id;
+        request['accountid'] = data.account.id;
+        console.log(request);
+        $.get('events/search', request);
     })
     
     dateRangeSelectorEvents.on('change', (data) => {
-        // updates graph
-        // mainGraph.set({
-        //     query: data // new start date and end date
-        // }).execute()
+        console.log(data);
 
-        // Update the "from" dates text.
-        // const datefield = document.getElementById('from-dates')
-        // datefield.textContent = `${data['start-date']} '&mdash' ${data['end-date']}`
     })
 })
