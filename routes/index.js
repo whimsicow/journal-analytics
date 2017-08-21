@@ -14,16 +14,16 @@ router.get('/', function(req, res, next) {
                 pic: result.picture,
                 ftrlink: '/logout',
                 ftrlinktext: 'Logout',
-                navlink: '/logout',
-                navlinktext: 'Logout'
+                navlink2: '/logout',
+                navlinktext2: 'Logout'
             });
         })
         .catch((error) => {
             res.render('index', {  
                 ftrlink: '/login',
                 ftrlinktext: 'Login',
-                navlink: '/login',
-                navlinktext: 'Login'
+                navlink2: '/login',
+                navlinktext2: 'Login'
             });
         });
 })
