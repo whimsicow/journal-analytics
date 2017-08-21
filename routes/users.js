@@ -15,7 +15,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
     db.one(`select firstname, picture from users where email = '${req.user}'`)
         .then((result) => {
             res.render('users', {
-                title: "Welcome",
+                navmessage: 'Welcome, ',
                 name: result.firstname,
                 pic: result.picture,
                 ftrlink: '/logout',
