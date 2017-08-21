@@ -15,4 +15,12 @@ gapi.analytics.ready(() => {
         container: 'members-view-selector-container'
         })
             .execute();
+
+    viewSelectorMembers.on('viewChange', (data) => {
+        var request = {};
+        request['propertyid'] = data.property.id;
+        request['accountid'] = data.account.id;
+        console.log(request);
+        $.get('teammembers/search', request);
+    })
 })

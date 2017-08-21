@@ -12,16 +12,18 @@ function ensureAuthenticated(req, res, next) {
 }
 
 router.get('/', ensureAuthenticated, function(req, res, next) { 
-    db.one(`select * from users where email = '${req.user}'`)
+    db.one(`select firstname, picture from users where email = '${req.user}'`)
         .then((result) => {
             res.render('users', {
-                title: "Welcome",
+                navmessage: 'Welcome, ',
                 name: result.firstname,
                 pic: result.picture,
                 ftrlink: '/logout',
                 ftrlinktext: 'Logout',
-                navlink: '/logout',
-                navlinktext: 'Logout'
+                navlink1: "/",
+                navlinktext1: "Home",
+                navlink2: '/logout',
+                navlinktext2: 'Logout'
             });
         }) 
 });
