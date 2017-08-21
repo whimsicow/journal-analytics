@@ -71,7 +71,7 @@ function createGroups(result) {
     let temparr = [];
     let finalarr = [];
     let tempdate = "";
-    result.forEach(function(event, i) {
+    result.forEach(function(event) {
         if (event.event_date === tempdate) {
             temparr.push(event);
         } else {
@@ -83,6 +83,7 @@ function createGroups(result) {
             temparr.push(event);
         }
     })
+    finalarr.push(temparr);
     return finalarr;
 }
 
