@@ -5,27 +5,32 @@ const db = require('../db');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-     db.one(`select * from users where email = '${req.user}'`)
-        .then((result) => {
-            console.log(result);
-            res.render('index', {
-                message: "Welcome, ",
-                name: result.firstname,
-                pic: result.picture,
+    if (req.isAuthenticated()) {
+        db.one(`select firstname, picture from users where email = '${req.user}'`)
+            .then((result) => {
+                res.render('index', {
                 ftrlink: '/logout',
                 ftrlinktext: 'Logout',
+                navmessage: 'Welcome, ',
+                name: result.firstname,
+                pic: result.picture,
                 navlink2: '/logout',
                 navlinktext2: 'Logout'
+                });
+            })
+            .catch((error) => {
+                res.render('error', {  
+                error: error
+                });
             });
-        })
-        .catch((error) => {
-            res.render('index', {  
-                ftrlink: '/login',
-                ftrlinktext: 'Login',
-                navlink2: '/login',
-                navlinktext2: 'Login'
-            });
+    } else {
+        res.render('index', {  
+            ftrlink: '/login',
+            ftrlinktext: 'Login',
+            navlink2: '/login',
+            navlinktext2: 'Login'
         });
+    }    
 })
 
 module.exports = router;
