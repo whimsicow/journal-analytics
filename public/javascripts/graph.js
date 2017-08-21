@@ -221,8 +221,9 @@ const graph = (function() {
         series: {
             marker: {
               symbol: 'square',
-              lineColor: '#fff'
+              lineColor: '#3B5369'
             },
+            lineColor: 'lightblue',
             cursor: 'pointer',
             point: {
               events: {
@@ -255,6 +256,7 @@ const graph = (function() {
             name: 'Events',
             data: getGraphEvents(userEvents, ga),
             marker: {
+                lineColor: '#fff',
                 symbol: 'url(../images/plusgraphicon.svg)'
             }
           }
