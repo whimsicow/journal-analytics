@@ -84,6 +84,13 @@ const graph = (function() {
                     x.event_date = moment(modifiedDate).format('MMM DD YYYY')
                     return x
                 })
+                userEvents = res.map(x => {
+                    let modifiedDate = x.date_added.slice(0, 10)
+                    x.date_added = moment(modifiedDate).format('MMM DD YYYY')
+
+                    return x
+                })
+                
                 renderGraphs(googleAnalytics, userEvents)
             })
         
@@ -94,6 +101,7 @@ const graph = (function() {
 
       // match date requested
       let filteredEventsByDate = userEvents.filter(x => x.event_date === userDateClicked)
+
       // early return for no events
 
       // sets date at top of modal. emptys .top-modal-info span if has been appended before
