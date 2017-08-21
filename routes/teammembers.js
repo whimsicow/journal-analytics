@@ -40,7 +40,7 @@ router.get('/search?', ensureAuthenticated, function(req, res, next) {
         where 
             evs.accountid = '${req.query.accountid}'
             and evs.propertyid = '${req.query.propertyid}'   
-            order by evs.email;
+            order by evs.email ASC;
     `)
         .then((result) => {
             res.send(result);
