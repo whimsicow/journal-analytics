@@ -57,6 +57,14 @@ router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
     DELETE from events
     where event_id=${req.params.id};
     `)
+     .then((result) => {
+            res.redirect('/eventlist');
+        })
+      .catch((err) => {
+          res.render('error', {
+            message: err.message
+          })
+      })
 })
 
 router.post('/:id/edit', function(req, res, next) {
