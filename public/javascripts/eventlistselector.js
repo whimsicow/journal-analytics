@@ -51,17 +51,21 @@ gapi.analytics.ready(() => {
         $.post('/api/events', request)
             .then(formatDates)
             .then(createGroups)
+            .then(createList)
     })
 })
 
+// Formats each date ex: Aug 21 2017
 function formatDates(result) {
     result.forEach(function(event) {
         event.date_added = moment(event.date_added).format('MMM DD YYYY');
         event.event_date = moment(event.event_date).format('MMM DD YYYY');
+        event.method = event.method.trim();
     })
     return result
 }
 
+// Groups all events with same event_date together in an array
 function createGroups(result) {
     let temparr = [];
     let finalarr = [];
@@ -82,37 +86,51 @@ function createGroups(result) {
 }
 
 
-// function createList(result) {
-//     if($EVENTLIST.children()) {
-//             $EVENTLIST.empty();
-//     }
-//     var $eventcontainer = $('<div></div>', {
-//             "class" : "event-container"
-//         });
-//     result.forEach(function(event) {
-//         date_added = moment(event.date_added).format('MMM DD YYYY');
-//         event_date = moment(event.event_date).format('MMM DD YYYY');
-
-//         let $event = $('<div></div>', {});
-//         let $evtdate = $('<span></span>', {
-//             'text': `${event_date}`
-//         })
-        
-//         let $profpic = $('<img>', {
-//             'src': `${member.picture}`,
-//             'alt': "profile picture"
-//         })
-//         $member.append($profpic);
-//         let $link = $('<a></a>', {
-//             'src': `/teammembers/${member.email}`,
-//             'text': `${member.firstname}`
-//         })
-//         $member.append($link);
-//         let $email = $('<span></span>', {
-//             'text': `${member.email}`
-//         })
-//         $member.append($email);
-//         $memberscontainer.append($member);
-//     })
-//     $MEMBERLIST.append($memberscontainer);
-// }
+function createList(result) {
+    if($EVENTLIST.children()) {
+            $EVENTLIST.empty();
+    }
+    var $eventcontainer = $('<div></div>', {
+            "class" : "event-container"
+        });
+    result.forEach(function(date) {
+        let $datecontainer = $('<div></div>', {
+            'text': date[0].event_date
+        });
+        date.forEach(function(event) {
+            let $event = $('<div></div>', {});
+            let $description = $('<span></span>', {
+                'text': `Description: ${event.description}`
+            })
+            $event.append($description);
+            let $link = $('<a></a>', {
+                'src': event.eventlink,
+                'text': 'Link to event'
+            })
+            let $name = $('<span></span>', {
+                'text': `Posted by: ${event.firstname}`
+            })
+            $event.append($name);
+            let $dateadded = $('<span></span>', {
+                'text': `Date added: ${event.date_added}`
+            })
+            $event.append($dateadded);
+            let $icondiv = $('<div></div>', {});
+            let icon = chooseIcon(event.method);
+            let $icon = $('<img>', {
+                'src': icon,
+                'alt': "icon"
+            })
+            $icondiv.append($icon);
+            $event.append($icondiv);
+            
+    
+            let $email = $('<span></span>', {
+                'text': `${member.email}`
+            })
+            $member.append($email);
+            $memberscontainer.append($member);
+        })
+    })
+    $MEMBERLIST.append($memberscontainer);
+}
