@@ -32,16 +32,19 @@ gapi.analytics.ready(() => {
         request['propertyid'] = data.property.id;
         request['accountid'] = data.account.id;
         console.log(request);
-        $.get('/events/search', request);
+        $.post('/api/events', request);
     })
     
     dateRangeSelectorEvents.on('change', (data) => {
         var request = {}
-        request['start-date'] = data['start-date'];
-        request['end-date'] = data['end-date'];
+        request['startdate'] = data['start-date'];
+        request['enddate'] = data['end-date'];
         var infoArray = $('#events-view-selector-container > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
         request['accountid'] = infoArray[0].attributes[1].value;
         request['propertyid'] = infoArray[1].attributes[1].value;
-        console.log(request);
+        $.post('/api/events', request)
+            .then((results) => {
+                console.log(results);
+            })
     })
 })
