@@ -578,7 +578,8 @@ label {
 .close {
     color: #273948;
     float: right;
-    font-size: 32px;
+    padding-right: 5px;
+    font-size: 40px;
     font-weight: bold;
 }
 
