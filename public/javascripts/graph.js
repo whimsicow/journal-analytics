@@ -183,6 +183,7 @@ const graph = (function() {
             point: {
               events: {
                 click: (e) => {
+                    console.log(e)
                   this.modal.style.display = 'block'
                   renderEvents(googleAnalytics, userEvents, e.point.category)
                 }
@@ -206,13 +207,13 @@ const graph = (function() {
               height: 16
             }
           },
-          // {
-          //   name: 'Events',
-          //   data: [216.4, 194.1, 95.6, 54.4, 29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5],
-          //   marker: {
-          //       symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)'
-          //   }
-          // }
+          {
+            name: 'Events',
+            data: [216.4, 194.1, 95.6, 54.4, 29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5],
+            marker: {
+                symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)'
+            }
+          }
         ]
   });
   }
