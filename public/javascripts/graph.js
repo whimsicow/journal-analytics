@@ -1,5 +1,4 @@
 const graph = (function() {
-  let EVENTS;
 
   const getDates = ({data}) => {
       let pushedData1 = [];
@@ -12,10 +11,10 @@ const graph = (function() {
         if ((i === 0)) {
             beginningDate = newData[i].c[0].v.toString().split(' ').splice(1, 3).join(' ')
         }
-        if (i === newData.length-1) {
+        else if (i === newData.length-1) {
             endingDate = newData[i].c[0].v.toString().split(' ').splice(1, 3).join(' ')
         }
-        pushedData1.push(newData[i].c[0].v.toString().split(' ').splice(0, 3).splice(1, 3).join(' '));
+        pushedData1.push(newData[i].c[0].v.toString().split(' ').splice(0, 4).splice(1, 4).join(' '));
         pushedData2.push(newData[i].c[1].v);
       }
 
@@ -26,55 +25,120 @@ const graph = (function() {
           endingDate
       }
   }
-
-  const getSessions = ({ data }) => {
-    console.log(data.rows[0].c[1].v) // sessions
-  }
-
-  // from user.js -- queried from restful api via our DB
-  const catpureEventsData = (result) => {
-    EVENTS = result;
-  }
  
+  const getGraphEvents = (userEvents) => {
+    console.log(userEvents)
+  }
 
   // from chart.js -- queried from googleAnalytics DB
-    const captureGoogleAnalyticsData = (result) => {
+    const captureGoogleAnalyticsData = (googleAnalytics) => {
         var request = {};
-        request['accountid'] =(result.response.profileInfo.accountId);
-        request['propertyid'] = (result.response.profileInfo.webPropertyId);
-        request['startdate'] = ((result.response.query['start-date']));
-        request['enddate'] = (result.response.query['end-date']);
+        request['accountid'] =(googleAnalytics.response.profileInfo.accountId);
+        request['propertyid'] = (googleAnalytics.response.profileInfo.webPropertyId);
+        request['startdate'] = ((googleAnalytics.response.query['start-date']));
+        request['enddate'] = (googleAnalytics.response.query['end-date']);
         
         $.post('/api/events', request) 
             .then((res) => {
-                var events = res;
-                console.log(events);
-                renderGraphs(result, events)
+                let userEvents = res.map(x => {
+                    let modifiedDate = x.date.slice(0, 10)
+                    x.date = moment(modifiedDate).format('MMM DD YYYY')
+                    return x
+                })
+                renderGraphs(googleAnalytics, userEvents)
             })
         
+    }
+
+  // render events
+  const renderEvents = (googleAnalytics, userEvents, userDateClicked) => {
+
+      // match date requested
+      let filteredEventsByDate = userEvents.filter(x => x.date === userDateClicked)
+
+      // early return for no events
+      if (filteredEventsByDate.length === 0) {
+        let parent = document.querySelector('.modal-list')
+        let message = document.createElement('h2')
+        message.textContent = 'No events for this date :('
+        message.style.textAlign = 'center'
+        parent.appendChild(message)
+        return;
+      }
+
+      // render to modal
+      filteredEventsByDate.forEach(x => {
+        let parent = document.querySelector('.modal-list')
+        let linkWrapper = document.createElement('a')
+        linkWrapper.href = ""
+        let wrapper = document.createElement('div')
+        wrapper.classList.add('event-item')
+        let email = document.createElement('p')
+        email.textContent = `Email: ${x.email}`
+        let method = document.createElement('p')
+        method.textContent = `Method: ${x.method}`
+        let description = document.createElement('p')
+        description.textContent = `Description: ${x.description}`
+        linkWrapper.appendChild(email)
+        linkWrapper.appendChild(description)
+        linkWrapper.appendChild(method)
+        wrapper.appendChild(linkWrapper)
+        parent.appendChild(wrapper)
+      })
+  }
+
+  // remove events
+  const removeEvents = () => {
+    const myNode = document.querySelector(".modal-list");
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
   }
 
   // render graphs
-  const renderGraphs = (result, events) => {
-    mainGraph(result, events)
+  const renderGraphs = (googleAnalytics, userEvents) => {
+    mainGraph(googleAnalytics, userEvents)
     console.log('main graph has been rendered')
-    trafficGraph(result, events)
+    trafficGraph(googleAnalytics, userEvents)
     console.log('traffic graph has been rendered')
   }
 
   // main graph
-  const mainGraph = (googleAnalytics, events) => {
+  const mainGraph = (googleAnalytics, userEvents) => {
+    let isLoading = false;
+    
     console.log('configuring highcharts main graph')
     let ga = getDates(googleAnalytics);
-    console.log(events)
+    console.log(ga)
+    let graphEvents = getGraphEvents(userEvents)
 
     Highcharts.chart('main-container', {
       chart: {
-          type: 'area'
-      },
+          type: 'area',
+          events: {
+            load: () => {
+                this.points = document.querySelectorAll('.highcharts-point')
+                this.modal = document.getElementById('myModal');
+                this.span= document.getElementsByClassName("close")[0];
+                // when user clicks on [x], close it and remove events
+                this.span.onclick = function() {
+                  modal.style.display = "none"
+                  removeEvents()
+                }
+                // When the user clicks anywhere outside of the modal, close it and remove events
+                window.addEventListener('click', (e) => {
+                  if (e.target == modal) {
+                    this.modal.style.display = 'none'
+                    removeEvents()
+                  }
+                })
+                console.log('highcharts main graph loaded')
+            }
+      }},
       title: {
           text: null
       },
+
       xAxis: {
           title: {
               text: `${ga.beginningDate} - ${ga.endingDate}`,
@@ -90,11 +154,6 @@ const graph = (function() {
               margin: 20
           },
           tickInterval: 50
-          // labels: {
-          //     formatter: function () {
-          //         return this.value + 'Count';
-          //     }
-          // }
       },
       tooltip: {
           crosshairs: true,
@@ -106,39 +165,32 @@ const graph = (function() {
               linearGradient: {
                   x1: 0,
                   y1: 0,
-                  x2: 0,
+                  x2: 1,
                   y2: 1
               },
               stops: [
-                  [0, Highcharts.getOptions().colors[0]],
-                  [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                  [0, '#3B5369'],
+                  [1, '#CBE6F1']
               ]
           }
         },
         series: {
+            marker: {
+              symbol: 'square',
+              lineColor: '#fff'
+            },
             cursor: 'pointer',
             point: {
-                events: {
-                    click: (e) => {
-                        console.log(e)
-                        hs.htmlExpand(null, {
-                            pageOrigin: {
-                                x: e.pageX || e.clientX,
-                                y: e.pageY || e.clientY
-                            },
-                            headingText: `${e.point.category} Events`,
-                            maincontentText: `
-                                Date: ${e.point.category}` + '<br/ >' + `Total Sessions: ${e.point.y} <hr />
-                            `,
-                            width: 250,
-                            height: 400
-                    })
+              events: {
+                click: (e) => {
+                  this.modal.style.display = 'block'
+                  renderEvents(googleAnalytics, userEvents, e.point.category)
                 }
+              }
             }
-        }
       }},
       series: [{
-          name: `Team: ${events[0].accountname}`,
+          name: `${userEvents[0].accountname}`,
           marker: {
               symbol: 'circle',
               width: 16,
@@ -153,13 +205,20 @@ const graph = (function() {
               width: 16,
               height: 16
             }
-          }
+          },
+          // {
+          //   name: 'Events',
+          //   data: [216.4, 194.1, 95.6, 54.4, 29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5],
+          //   marker: {
+          //       symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)'
+          //   }
+          // }
         ]
   });
   }
 
   // traffic graph
-  const trafficGraph = (googleAnalytics, events) => {
+  const trafficGraph = (googleAnalytics, userEvents) => {
       console.log('configuring traffic graph')
       let a = googleAnalytics[0]
       let ga = getDates(googleAnalytics);
@@ -325,8 +384,6 @@ const graph = (function() {
   return {
       mainGraph,
       trafficGraph,
-      catpureEventsData,
       captureGoogleAnalyticsData
   }
-
 })()
