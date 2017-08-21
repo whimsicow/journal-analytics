@@ -19,8 +19,8 @@ gapi.analytics.ready(() => {
         {
             container: 'date-range-selector-container-events'
         })
-        // .set(mainGraphDateRange)
-        .execute()
+            .set(mainGraphDateRange)
+            .execute()
     viewSelectorEvents.on('viewChange', (data) => {
         // var request = {};
         // request['propertyid'] = data.property.id;
