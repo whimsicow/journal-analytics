@@ -32,7 +32,7 @@ gapi.analytics.ready(() => {
         request['propertyid'] = data.property.id;
         request['accountid'] = data.account.id;
         console.log(request);
-        $.get('events/search', request);
+        $.get('/events/search', request);
     })
     
     dateRangeSelectorEvents.on('change', (data) => {
