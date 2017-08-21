@@ -11,7 +11,7 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
-router.get('/', ensureAuthenticated, function(req, res, next) { 
+router.get('/', ensureAuthenticated, function(req, res) { 
     db.one(`select firstname, picture from users where email = '${req.user}'`)
         .then((result) => {
             res.render('teammembers', {
@@ -43,9 +43,8 @@ router.get('/search?', ensureAuthenticated, function(req, res, next) {
             order by evs.email;
     `)
         .then((result) => {
-            console.log(result);
-            // res.redirect('/teammembers');
-        }) 
+            res.send(result);
+        })  
 
         .catch((error) => {
             console.log(error);

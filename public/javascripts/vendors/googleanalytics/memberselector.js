@@ -1,3 +1,4 @@
+$MEMBERLIST = $()
 gapi.analytics.ready(() => {
     
     gapi.analytics.auth.authorize({
@@ -21,6 +22,20 @@ gapi.analytics.ready(() => {
         request['propertyid'] = data.property.id;
         request['accountid'] = data.account.id;
         console.log(request);
-        $.get('teammembers/search', request);
+        $.get('/teammembers/search', request)
+            .then(createList)
     })
 })
+
+function createList(result) {
+    var $memberscontainer = $('<div></div>', {
+            "class" : "picture-box"
+        });
+}
+
+
+// list">
+//         <img src='{{picture}}' alt='profile photo'>
+//         <a href="/teammembers/{{email}}">{{firstname}} </a>
+//         {{email}} 
+//     </span> 
