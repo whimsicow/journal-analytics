@@ -151,9 +151,11 @@ $('#myDropdown').ddslick({
 
 
 ////Initialization
-$FORM_CONTAINER.hide();
-closePopupButton();
-plusSignButton();
-saveForm();
-resetButton();
-setDefaultDate();
+$(document).ready(() => {
+    $FORM_CONTAINER.hide();
+    closePopupButton();
+    plusSignButton();
+    saveForm();
+    resetButton();
+    setDefaultDate();
+})

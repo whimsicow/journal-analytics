@@ -73,9 +73,10 @@ router.post('/eventstore', function(req, res, next) {
     
     var description = req.body.description;
     description = description.replace("'", "''");
+    var date = moment().utc(-240);
     
-    db.none(`insert into events (event_date, description, method, accountname, accountid, propertyname, propertyid, email, eventlink)
-        values ('${req.body.date}', '${description}', '${req.body.method}', '${req.body.accountName}', '${req.body.accountId}', '${req.body.propertyName}', '${req.body.propertyId}', '${req.user}', NULLIF('${req.body.eventlink}',''));
+    db.none(`insert into events (event_date, description, method, accountname, accountid, propertyname, propertyid, email, eventlink, date_added)
+        values ('${req.body.date}', '${description}', '${req.body.method}', '${req.body.accountName}', '${req.body.accountId}', '${req.body.propertyName}', '${req.body.propertyId}', '${req.user}', NULLIF('${req.body.eventlink}',''), '${date}');
     `)
         .then((result) => {
             res.status(202).send('<span class="status-msg">Thank you! Your event has been added.</span>');
