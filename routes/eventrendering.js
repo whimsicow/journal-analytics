@@ -52,8 +52,11 @@ router.get('/search', ensureAuthenticated, function(req, res) {
     }) 
 });
 
-router.post('/:id/delete', function(req, res, next) {
-    
+router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
+    db.none(`
+    DELETE from events
+    where event_id=${req.params.id};
+    `)
 })
 
 router.post('/:id/edit', function(req, res, next) {

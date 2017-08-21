@@ -37,7 +37,9 @@ gapi.analytics.ready(() => {
         request['startdate'] = dateArray[1].attributes[2].value;
 
         $.post('/api/events', request)
-            // .then(createList)
+            .then(formatDates)
+            .then(createGroups)
+            .then(createList)
     })
     
     dateRangeSelectorEvents.on('change', (data) => {
@@ -129,12 +131,12 @@ function createList(result) {
             $event.append($icondiv);
             let $update = $('<a></a>', {
                 'text': 'Edit',
-                'href': `/eventlist/${event.event_id}/edit`
+                'href': `/eventlist/edit/${event.event_id}`
             })
             $event.append($update);
             let $delete = $('<a></a>', {
                 'text': 'Delete',
-                'href': `/eventlist/${event.event_id}/delete`
+                'href': `/eventlist/delete/${event.event_id}`
             })
             $event.append($delete);
             $datecontainer.append($event);
