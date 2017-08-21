@@ -104,10 +104,13 @@ function createList(result) {
                 'text': `Description: ${event.description}`
             })
             $event.append($description);
-            let $link = $('<a></a>', {
-                'href': event.eventlink,
-                'text': 'Link to event'
-            })
+            if (event.eventlink !== null) {
+                let $link = $('<a></a>', {
+                    'href': event.eventlink,
+                    'text': 'Link to event'
+                })
+                $event.append($link);
+            }
             let $name = $('<span></span>', {
                 'text': `Posted by: ${event.firstname}`
             })
@@ -126,7 +129,7 @@ function createList(result) {
             $event.append($icondiv);
             let $update = $('<a></a>', {
                 'text': 'Edit',
-                'href': `/eventslist/${event.event_id}/edit`
+                'href': `/eventlist/${event.event_id}/edit`
             })
             $event.append($update);
             $datecontainer.append($event);
