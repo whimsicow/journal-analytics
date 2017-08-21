@@ -16,10 +16,7 @@ body {
 
 /* *************************************************** */
 /* login page */
-.login-google {
-    padding-top: 100px;
-    padding-bottom: 100px;
-}
+
 .index-banner {
     height: 800px;
     background-image: url('/../images/backgroundbanner.svg');
@@ -271,13 +268,16 @@ label {
 /* ********************** */
 /* ********************** */
 /* login page */
-main {
+.login-main {
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .image-pannel {
-    width: 40%;
+    max-width: 500px;
     height: 100%;
     padding-top: 70px;
+    margin: auto 0;
 }
 .image-pannel img {
     margin-top: 3px;
@@ -285,25 +285,27 @@ main {
     height: 100%;
     box-shadow: 4px 4px 5px slategray;
 }
+.login-google {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
 .login-container {
-    width: 60%;
-}
-.login-information-container h2 {
-    padding-bottom: 30px;
-}
-.login-information-container {
-    padding-top: 120px;
+    margin: auto auto;
+    padding: 20px;
+}  
+.login-container-welcome {
+    margin: 0 auto;
 }
 .login-google,
 .login-information-container {
     text-align: justify;
-    max-width: 600px;
-    margin: 0 auto;
 }
 .login-google span{ 
-    padding: 10px;
-    border: 2px solid #394358;
+    padding: 0px;
+    border: none;
 }
+
 
 
 
@@ -431,11 +433,49 @@ main {
         /*   height: 30rem; */
         box-shadow: 0px 50px 80px -20px rgba(123, 160, 175, 0.70),0 20px 30px 10px rgba(80,180,220,0.2),0 0px 80px 60px rgba(80,180,220,0.2);
     }
-      
-
+    /* ************************ */
+    /* login page */
+    .login-main {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .login-google {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+    .login-container-welcome {
+        padding-top: 70px;
+    }
+    .image-pannel {
+        max-width: 400px;
+        height: 100%;
+        padding-top: 70px;
+        padding-left: 20px;
+        margin: auto 0;
+    }
+    .login-container {
+        width: 40%;
+        margin: auto auto;
+        padding: 20px;
+    }    
+    .login-google,
+    .login-information-container {
+        text-align: justify;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .login-google span{ 
+        padding: 10px;
+        border: 2px solid #394358;
+    }
+    .login-google span{ 
+        padding: 0px;
+        border: none;
+    }
+    
 }
-
-
+      
 
 /* *************************************************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
 @media only screen and (min-width: 1200px){
@@ -461,6 +501,12 @@ main {
         max-width: 300px;
         padding-left: 10%;
     }
+
+    .image-pannel {
+        padding-left: 0px;
+    }
+    
+
 }
 
 
