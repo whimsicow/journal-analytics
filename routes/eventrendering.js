@@ -52,5 +52,13 @@ router.get('/search', ensureAuthenticated, function(req, res) {
     }) 
 });
 
+router.post('/:id/delete', function(req, res, next) {
+    
+})
+
+router.post('/:id/edit', function(req, res, next) {
+
+})
+
 
 module.exports = router;

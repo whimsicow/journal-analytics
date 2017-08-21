@@ -106,7 +106,7 @@ function createList(result) {
             $event.append($description);
             if (event.eventlink !== null) {
                 let $link = $('<a></a>', {
-                    'href': event.eventlink,
+                    'href': `${event.eventlink}`,
                     'text': 'Link to event'
                 })
                 $event.append($link);
@@ -132,6 +132,11 @@ function createList(result) {
                 'href': `/eventlist/${event.event_id}/edit`
             })
             $event.append($update);
+            let $delete = $('<a></a>', {
+                'text': 'Delete',
+                'href': `/eventlist/${event.event_id}/delete`
+            })
+            $event.append($delete);
             $datecontainer.append($event);
         })
         $eventcontainer.append($datecontainer)
