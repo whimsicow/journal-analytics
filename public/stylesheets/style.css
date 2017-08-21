@@ -15,7 +15,7 @@ body {
 }
 
 /* *************************************************** */
-/* login page */
+/* Landing page */
 
 .index-banner {
     height: 800px;
@@ -33,16 +33,16 @@ body {
 .parallax {
     transition: initial;
 }
+/* Landing page */
+/* *************************************************** */
+
 
 #view-selector-container2 > .ViewSelector2 > .ViewSelector2-item {
     display: inline-block;
 }
-
 #view-selector-container2 > .ViewSelector2 > .ViewSelector2-item:nth-child(3) {
     display: none;
 }
-
-
 #members-view-selector-container {
     padding: 100px;
     height: 500px;
@@ -71,8 +71,6 @@ label {
     display: flex;
     justify-content: space-around;
     letter-spacing: 1px;
-    /* padding-left: 20px;
-    padding-right: 20px; */
     padding-top: 100px;
     padding-bottom: 35px;
     color: #ADD8E6;
@@ -105,11 +103,11 @@ label {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    padding-top: 25px;
+    padding-bottom: 20px;
 }
 
+/* *************************************************** */
 /* Chart section */
-
 .chart-date-range-container,
 .chart-selection-container {
     display: flex;
@@ -144,7 +142,8 @@ label {
 .company-logo{
     margin: 0 auto;
     font-size: 40px;
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 2px;
 }
 .box {
     background: white;
@@ -288,14 +287,16 @@ label {
 /* Popup form to add events */
 .form {
     position: fixed;
-    top: 40%;
-    left: 2.5%;
+    top: 0;
+    margin-top: 70px;
+    height: 100%;
     background: white;
-    height: 300px;
-    width: 95%;
+    max-height: 450px;
+    width: 100%;
     border: 1px solid #394358;
     border-radius: 10px;
     z-index: 1000000;
+    overflow: scroll;
 }
 .form-container {
     margin: 10px;
@@ -304,16 +305,16 @@ label {
 .form .date,
 .form .descripbe-event,
 .form .icon-dropdown {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .form .icon-dropdown {
-    padding-top: 20px;
+    padding-top: 10px;
     height: 30px;
 }
 .event-link input {
     margin-top: 10px;
     width: 300px;
-    height: 30px;
+    height: 25px;
 }
 /* icon dropdown */
 .dd-selected {
@@ -321,6 +322,7 @@ label {
     align-content: center;
     align-items: center;
 }
+
 .icon {
     display: flex;
     align-content: center;
@@ -449,13 +451,31 @@ label {
 @media only screen and (min-width: 768px){
 
     .form {
-        top: 30%;
-        left: 40%;
+        margin-left: 40%;
+        margin-top: 100px;
         background: white;
-        min-height: 500px;
-        width: 400px;
+        max-height: 400px;
+        width: 40%;
     }
-
+    .form-container {
+        margin: 20px;
+    }
+    .form .event-link,
+    .form .date,
+    .form .descripbe-event{
+        margin-bottom: 20px;
+    }
+    .icon-dropdown {
+        margin-bottom: 40px;
+    }
+    .form .icon-dropdown {
+        height: 25px;
+    }
+    .event-link input {
+        margin-top: 10px;
+        width: 300px;
+        height: 30px;
+    }
     /* charts and side bar */
     .main-user-experience {
         width: 100%;
