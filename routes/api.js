@@ -3,23 +3,6 @@ const router = express.Router();
 const moment = require('moment');
 const db = require('../db')
 
-
-router.get('/events/testing', (req, res, next) => {
-    console.log(req.body);
-    db.any(`
-    SELECT * from events
-    where event_date >= '${req.body.startdate}'
-    and event_date <= '${req.body.enddate}'
-    and accountid = '${req.body.accountid}'
-    and propertyid = '${req.body.propertyid}'    
-    order by event_date;
-  `)
-  .then(results => {
-    res.send(results)
-  })
-  .catch(console.log)
-  });
-
 function dateSifter(date) {
     if (date === "0daysAgo") {
         date = moment().format('YYYY-MM-DD');
@@ -37,12 +20,16 @@ router.post('/events', (req, res, next) => {
     var enddate = dateSifter(req.body.enddate);
     
     db.any(`
-    SELECT date(event_date), description, method, accountname, propertyname, email, eventlink from events
-    where event_date::date >= '${startdate}'
-    and event_date::date <= '${enddate}'
-    and accountid = '${req.body.accountid}'
-    and propertyid = '${req.body.propertyid}'    
-    order by event_date DESC;
+    SELECT evs.event_date, evs.description, evs.method, evs.accountname, evs.propertyname, evs.email, evs.eventlink, evs.date_added, urs.firstname, urs.picture 
+	from events evs
+		inner join users urs
+		on urs.email = evs.email
+    where 
+    	evs.event_date::date >= '${startdate}'
+    	and evs.event_date::date <= '${enddate}'
+    	and evs.accountid = '${req.body.accountid}'
+    	and evs.propertyid = '${req.body.propertyid}'    
+    	order by evs.event_date DESC;
     `)
     .then(results => {
         res.send(results)
@@ -73,9 +60,10 @@ router.post('/eventstore', function(req, res, next) {
     
     var description = req.body.description;
     description = description.replace("'", "''");
+    var date = moment().utc(-240);
     
-    db.none(`insert into events (event_date, description, method, accountname, accountid, propertyname, propertyid, email, eventlink)
-        values ('${req.body.date}', '${description}', '${req.body.method}', '${req.body.accountName}', '${req.body.accountId}', '${req.body.propertyName}', '${req.body.propertyId}', '${req.user}', NULLIF('${req.body.eventlink}',''));
+    db.none(`insert into events (event_date, description, method, accountname, accountid, propertyname, propertyid, email, eventlink, date_added)
+        values ('${req.body.date}', '${description}', '${req.body.method}', '${req.body.accountName}', '${req.body.accountId}', '${req.body.propertyName}', '${req.body.propertyId}', '${req.user}', NULLIF('${req.body.eventlink}',''), '${date}');
     `)
         .then((result) => {
             res.status(202).send('<span class="status-msg">Thank you! Your event has been added.</span>');
