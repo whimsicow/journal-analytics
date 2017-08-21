@@ -33,8 +33,8 @@ router.get('/search?', function(req, res, next) {
         return res.status(400).send('No files were uploaded.');
     }
     
-    db.any(`
-        SELECT distinct on (evs.email) evs.email, evs.accountname, evs.eventlink, urs.firstname, urs.picture 
+    db.many(`
+        SELECT distinct on (evs.email) evs.email, evs.accountname, urs.firstname, urs.picture 
 	    from events evs
 		    inner join users urs
 		    on urs.email = evs.email
