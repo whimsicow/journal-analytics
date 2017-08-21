@@ -16,14 +16,13 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
         .then((result) => {
             res.render('teammembers', {
                 navmessage: 'Welcome, ',
-                name: result.firstname,
-                pic: result.picture,
                 ftrlink: '/logout',
                 ftrlinktext: 'Logout',
                 navlink1: "/",
                 navlinktext1: "Home",
                 navlink2: '/logout',
-                navlinktext2: 'Logout'
+                navlinktext2: 'Logout',
+                members: result
             });
         }) 
 });
@@ -44,17 +43,8 @@ router.get('/search?', ensureAuthenticated, function(req, res, next) {
             order by evs.email;
     `)
         .then((result) => {
-            res.render('teammembers', {
-                navmessage: 'Welcome, ',
-                name: result.firstname,
-                pic: result.picture,
-                ftrlink: '/logout',
-                ftrlinktext: 'Logout',
-                navlink1: "/",
-                navlinktext1: "Home",
-                navlink2: '/logout',
-                navlinktext2: 'Logout'
-            });
+            console.log(result);
+            // res.redirect('/teammembers');
         }) 
 
         .catch((error) => {
