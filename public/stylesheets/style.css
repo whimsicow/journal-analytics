@@ -74,7 +74,7 @@ label {
     padding-right: 20px; */
     padding-top: 100px;
     padding-bottom: 35px;
-    color: lightblue;
+    color: #ADD8E6;
 }
 .selector-container,
 .user-info-container{
@@ -319,7 +319,7 @@ label {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: lightblue;
+    color: #ADD8E6;
     border-top: 2px solid slategray;
 }
 .menu-footer {
@@ -398,7 +398,7 @@ label {
         flex-direction: column;
         justify-content: flex-start;
         letter-spacing: 1.5px;
-        color: lightblue;
+        color: #ADD8E6;
         width: 30%;
         padding-left: 20px;
         padding-right: 10px;
@@ -425,10 +425,11 @@ label {
         margin: 0 auto;
     }
     /* high charts chart */
+
     .box {
         background: white;
         width: 90%;
-        margin: 2.5rem auto; 
+        margin: 4.5rem auto; 
         /*   height: 30rem; */
         box-shadow: 0px 50px 80px -20px rgba(123, 160, 175, 0.70),0 20px 30px 10px rgba(80,180,220,0.2),0 0px 80px 60px rgba(80,180,220,0.2);
     }
@@ -577,7 +578,8 @@ label {
 .close {
     color: #273948;
     float: right;
-    font-size: 32px;
+    padding-right: 5px;
+    font-size: 40px;
     font-weight: bold;
 }
 
@@ -615,5 +617,5 @@ label {
     color: #eee;
 }
 .event-item a:hover {
-    color: lightblue;
+    color: #ADD8E6;
 }

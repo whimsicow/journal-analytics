@@ -26,8 +26,47 @@ const graph = (function() {
       }
   }
  
-  const getGraphEvents = (userEvents) => {
-    console.log(userEvents)
+  const getGraphEvents = (userEvents, ga) => {
+    console.log('userevents', userEvents)
+    console.log('ga', ga)
+
+    // copy googleanalytics dates arr
+    let graphGoogleAnalytics = [...ga.dates]
+    console.log(graphGoogleAnalytics)
+
+    // copy userevents arr
+    let userEventsArr = [...userEvents]
+    let graphUserEvents = []
+    for (n of userEventsArr) {
+        graphUserEvents.push(n.event_date)
+    }
+
+    // find duplicates from userevents arr
+    let arr = []
+    graphUserEvents.forEach(item => {
+        if (arr.find(x => {
+            return x === item
+        })) {
+            return;
+        }
+        arr.push(item)
+    })
+    
+    arr.reverse()
+    console.log(arr)
+
+
+    let finalGraphEventsArr = graphGoogleAnalytics.map((item, index) => {
+        if (arr.find(x => {
+            return x === item
+        })) {
+            return ga.sessions[index];
+        }
+        return 'hi';
+    })
+
+    console.log(finalGraphEventsArr)
+    return finalGraphEventsArr
   }
 
   // from chart.js -- queried from googleAnalytics DB
@@ -48,6 +87,7 @@ const graph = (function() {
                 userEvents = res.map(x => {
                     let modifiedDate = x.date_added.slice(0, 10)
                     x.date_added = moment(modifiedDate).format('MMM DD YYYY')
+
                     return x
                 })
                 
@@ -63,17 +103,27 @@ const graph = (function() {
       let filteredEventsByDate = userEvents.filter(x => x.event_date === userDateClicked)
 
       // early return for no events
+
+      // sets date at top of modal. emptys .top-modal-info span if has been appended before
+      let title = $('.top-modal-info')
+      title.html("")
+      let date = `Date: ${userDateClicked}`
+      title.append(date)
+
+
       if (filteredEventsByDate.length === 0) {
+        
         let parent = document.querySelector('.modal-list')
         let message = document.createElement('h2')
         message.textContent = 'No events for this date :('
-        message.style.textAlign = 'center'
+        message.style.textAlign = 'left'
         parent.appendChild(message)
         return;
       }
 
       // render to modal
       filteredEventsByDate.forEach(x => {
+        let title = document.querySelector('.top-modal-info')
         let parent = document.querySelector('.modal-list')
         let linkWrapper = document.createElement('a')
         linkWrapper.href = ""
@@ -91,6 +141,7 @@ const graph = (function() {
         wrapper.appendChild(linkWrapper)
         parent.appendChild(wrapper)
       })
+      
   }
 
   // remove events
@@ -104,19 +155,15 @@ const graph = (function() {
   // render graphs
   const renderGraphs = (googleAnalytics, userEvents) => {
     mainGraph(googleAnalytics, userEvents)
-    console.log('main graph has been rendered')
+    console.log('highcharts main graph has been rendered')
     trafficGraph(googleAnalytics, userEvents)
-    console.log('traffic graph has been rendered')
+    console.log('highcharts traffic graph has been rendered')
   }
 
   // main graph
   const mainGraph = (googleAnalytics, userEvents) => {
-    let isLoading = false;
-    
     console.log('configuring highcharts main graph')
-    let ga = getDates(googleAnalytics);
-    console.log(ga)
-    let graphEvents = getGraphEvents(userEvents)
+    let ga = getDates(googleAnalytics)
 
     Highcharts.chart('main-container', {
       chart: {
@@ -138,13 +185,12 @@ const graph = (function() {
                     removeEvents()
                   }
                 })
-                console.log('highcharts main graph loaded')
             }
-      }},
+        }
+      },
       title: {
           text: null
       },
-
       xAxis: {
           title: {
               text: `${ga.beginningDate} - ${ga.endingDate}`,
@@ -215,9 +261,9 @@ const graph = (function() {
           },
           {
             name: 'Events',
-            data: [216.4, 194.1, 95.6, 54.4, 29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5],
+            data: getGraphEvents(userEvents, ga),
             marker: {
-                symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)'
+                symbol: 'url(../images/plusgraphicon.svg)'
             }
           }
         ]
@@ -226,13 +272,13 @@ const graph = (function() {
 
   // traffic graph
   const trafficGraph = (googleAnalytics, userEvents) => {
-      console.log('configuring traffic graph')
+      console.log('configuring highcharts traffic graph')
       let a = googleAnalytics[0]
       let ga = getDates(googleAnalytics);
 
       Highcharts.chart('traffic-container', {
         credits: {
-              enabled: false
+            enabled: false
         },
         chart: {
           type: 'area',
