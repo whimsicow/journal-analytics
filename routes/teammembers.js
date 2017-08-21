@@ -32,7 +32,20 @@ router.get('/search?', function(req, res, next) {
     if(!req.body) {
         return res.status(400).send('No files were uploaded.');
     }
-    console.log(req);
+    
+    db.any(`
+        SELECT evs.accountname, evs.email, evs.eventlink, urs.firstname, urs.picture 
+        from events evs
+            inner join users urs
+            on urs.email = evs.email
+        where 
+            evs.accountid = '${req.query.propertyid}'
+            and evs.propertyid = '${req.query.accountid}'   
+            order by evs.event_date DESC;
+    `)
+        .then((result) => {
+            console.log(result);
+        })
 
 })
 
