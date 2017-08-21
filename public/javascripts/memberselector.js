@@ -25,10 +25,16 @@ gapi.analytics.ready(() => {
         console.log(request);
         $.get('/teammembers/search', request)
             .then(createList)
+            .catch((error) => {
+                $('[data-role="error-msg"]').append(error);
+            }) 
     })
 })
 
 function createList(result) {
+    if($MEMBERLIST.children()) {
+            $MEMBERLIST.empty();
+    }
     var $memberscontainer = $('<div></div>', {
             "class" : "picture-box"
         });
@@ -52,10 +58,3 @@ function createList(result) {
     })
     $MEMBERLIST.append($memberscontainer);
 }
-
-
-// list">
-//         <img src='{{picture}}' alt='profile photo'>
-//         <a href="/teammembers/{{email}}">{{firstname}} </a>
-//         {{email}} 
-//     </span> 
