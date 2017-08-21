@@ -11,8 +11,10 @@ router.get('/', function(req, res) {
         res.render('login', {
         ftrlink: '/logout',
         ftrlinktext: 'Logout',
-        navlink: '/logout',
-        navlinktext: 'Logout',
+        navlink1: "/",
+        navlinktext1: "Home",
+        navlink2: '/logout',
+        navlinktext2: 'Logout',
         message1: "You are already signed in. ",
         link: '/users',
         linktext: "View your analytics."
@@ -23,14 +25,15 @@ router.get('/', function(req, res) {
         res.render('login', {
         ftrlink: '/login',
         ftrlinktext: 'Login',
-        navlink: '/login',
-        navlinktext: 'Login',
+        navlink1: "/",
+        navlinktext1: "Home",
+        navlink2: '/login',
+        navlinktext2: 'Login',
         message1: "You are not currently signed in. Please ",
         link: '/auth/google',
         linktext: "sign in with Google."
         });
-    }
-    
+    }   
 });
 
 // router.get('/auth/google',

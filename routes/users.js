@@ -20,8 +20,10 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
                 pic: result.picture,
                 ftrlink: '/logout',
                 ftrlinktext: 'Logout',
-                navlink: '/logout',
-                navlinktext: 'Logout'
+                navlink1: "/",
+                navlinktext1: "Home",
+                navlink2: '/logout',
+                navlinktext2: 'Logout'
             });
         }) 
 });
