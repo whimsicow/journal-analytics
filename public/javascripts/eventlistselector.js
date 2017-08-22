@@ -261,6 +261,7 @@ function createEventModal(element, parent) {
         'name': 'event-description',
         'rows': '3',
         'cols': '50',
+        'data-type': 'form-description',
         'required': ''
     })
     $descdiv.append($desctxt);
@@ -412,17 +413,23 @@ function saveForm() {
         }
         getFormDescription();
         getDate();
-        getMethod();
-        getAccount();
+        getUpdatedMethod();
         getLink();
-        dbStoreEvent();
-        resetForm();
+        // dbStoreEvent();
+        // resetForm();
 
         // rerender graph
         window.setTimeout(() => {
             graph.gaDataForMainGraph(this.gaData)
         }, 500)
     })
+}
+
+function getUpdatedMethod() {
+    var method = $('#eventDropdown').find(":selected");
+    method = method['prevObject'][0]['innerText'];
+    method = method.trim()
+    setLocalStorageValues('method', method);
 }
 
 function saveForm() {
@@ -436,8 +443,8 @@ function saveForm() {
         getMethod();
         getAccount();
         getLink();
-        dbUpdateEvent();
-
+        console.log(eventData);
+        // dbUpdateEvent();
     })
 }
 
