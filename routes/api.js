@@ -36,7 +36,7 @@ router.post('/events', ensureAuthenticated, (req, res, next) => {
     where 
     	evs.event_date::date >= '${startdate}'
     	and evs.event_date::date <= '${enddate}'
-    	and evs.accountid = '${req.body.account}'
+    	and evs.accountid = '${req.body.accountid}'
     	and evs.propertyid = '${req.body.propertyid}'    
     	order by evs.event_date DESC;
     `)

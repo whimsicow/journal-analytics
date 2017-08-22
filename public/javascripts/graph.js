@@ -92,7 +92,9 @@ const graph = (function() {
                 
                 renderGraphs(googleAnalytics, userEvents)
             })
-        
+            .catch((error) => {
+                renderGraphs(googleAnalytics, [])
+            })
     }
 
   // render events
@@ -190,7 +192,7 @@ const graph = (function() {
   const mainGraph = (googleAnalytics, userEvents) => {
     console.log('configuring highcharts main graph')
     let ga = getDates(googleAnalytics)
-
+    
     Highcharts.chart('main-container', {
       chart: {
           type: 'area',
