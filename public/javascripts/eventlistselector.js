@@ -157,12 +157,13 @@ function createList(result) {
                 $event.append($icondiv);
 
                 let $anchor = $('<div></div>', {})
-                let $update = $('<a></a>', {
+                let $edit = $('<a></a>', {
                     'class': 'event-anchor',
                     'text': 'Edit',
-                    'href': `/eventlist/edit/${event.event_id}`
+                    'data-role': 'edit',
+                    'href': `#`
                 })
-                $anchor.append($update);
+                $anchor.append($edit);
                 let $delete = $('<a></a>', {
                     'class': 'event-anchor',
                     'text': 'Delete',
@@ -186,7 +187,8 @@ function addEditListener() {
         $child = $(event.target);
         $element = $(event.target.parentNode.parentNode);
         $parent = $(event.target.parentNode.parentNode.parentNode);
-       
+       console.log($parent);
+       console.log($element);
     })
 }
 
