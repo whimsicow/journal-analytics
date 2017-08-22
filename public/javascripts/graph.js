@@ -357,8 +357,8 @@ const graph = (function() {
                 text: false
             },
             min: 0,
-            max: 50,
-            tickInterval: 5,
+            max: 10,
+            tickInterval: 1,
             labels: {
               style: {
                   color: '#999999',
@@ -421,7 +421,7 @@ const graph = (function() {
         },
         series: [{
             name: 'Facebook',
-            data: [9, 10, 8],
+            data: [9, 10, 8, 9, 3, 0, 5, 0],
             color: '#6693E5',
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/facebook-icon.svg)',
@@ -430,49 +430,26 @@ const graph = (function() {
             }
         }, {
             name: 'Twitter',
-            data: [0, 6, 0],
+            data: [0, 6, 0, 1, 0, 0, 1, 1],
             color: '#7DCAFD',
-            visible: false,
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/twitter-4.svg)',
                 width: 16,
                 height: 16
             }
         }, {
-            name: 'Youtube',
-            data: [0, 0, 0],
-            color: '#d79e64',
-            marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/youtube-icon.svg)',
-                width: 16,
-                height: 16
-            }
-        },
-        {
             name: 'Reddit',
-            data: [2, 1, 0],
+            data: [2, 1, 0, 0, 0, 0, 0, 0],
             color: '#115EA3',
-            visible: false,
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/reddit-2.svg)',
                 width: 16,
                 height: 16
             }
         }, {
-            name: 'Quora',
-            data: [0, 0, 0],
-            color: '#727272',
-            visible: false,
-            marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/quora-black.svg)',
-                width: 16,
-                height: 16
-            }
-        },{
             name: 'LinkedIn',
-            data: [0, 6, 2],
+            data: [0, 6, 2, 6, 3, 0, 0, 0],
             color: '#D64857',
-            visible: false,
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/linkedin-icon-1.svg)',
                 width: 16,
@@ -480,7 +457,7 @@ const graph = (function() {
             }
         },{
             name: 'Meetup',
-            data: [0, 0, 2],
+            data: [0, 0, 2, 0, 0, 0, 0, 0],
             color: '#6d48d6',
             visible: false,
             marker: {
