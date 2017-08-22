@@ -200,9 +200,11 @@ function addEditListener() {
         createEventModal($element, $parent);
         $EVENTMODAL.css('display', 'block');
         window.addEventListener('click', (e) => {
-            if (e.target == $EVENTMODAL) {
-            $EVENTMODAL.css('display', 'none');
-            // removeEvents()
+            if (e.target === $EVENTMODAL) {
+                $EVENTMODAL.css('display', 'none');
+                if ($EVENTMODALCONT.children()) {
+                    console.log($EVENTMODALCONT.children());
+                }
             }
         })
     })
@@ -212,6 +214,9 @@ function addModalCloseListener() {
     $('[data-role="close"]').on('click', function(event) {
         event.preventDefault();
         $EVENTMODAL.css('display', 'none');
+        if ($EVENTMODALCONT.children()) {
+            $EVENTMODALCONT.empty();
+        }
     })
 }
 
@@ -227,7 +232,6 @@ function addDeleteListener() {
 }
 
 function createEventModal(element, parent) {
-    console.log('hi');
     let $modalform = $('<form></form>', {
         'name': 'edit-event',
         'class': 'modal-content'
@@ -396,3 +400,4 @@ function chooseIcon(method) {
 
 addDeleteListener();
 addEditListener();
+addModalCloseListener();
