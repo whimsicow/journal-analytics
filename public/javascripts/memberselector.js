@@ -39,7 +39,6 @@ gapi.analytics.ready(() => {
 
 // Appends results of search to DOM
 function createList(result) {
-    console.log(result);
     if($MEMBERLIST.children()) {
             $MEMBERLIST.empty();
     }

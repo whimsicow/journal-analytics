@@ -16,13 +16,14 @@ router.get('/', ensureAuthenticated, function(req, res) {
         .then((result) => {
             res.render('teammembers', {
                 navmessage: 'Welcome, ',
+                name: result.firstname,
+                pic: result.picture,
                 ftrlink: '/logout',
                 ftrlinktext: 'Logout',
                 navlink1: "/",
                 navlinktext1: "Home",
                 navlink2: '/logout',
-                navlinktext2: 'Logout',
-                members: result
+                navlinktext2: 'Logout'
             });
         }) 
 });
@@ -47,7 +48,7 @@ router.get('/search?', ensureAuthenticated, function(req, res, next) {
         })  
 
         .catch((error) => {
-            res.status(404).send(`<p class="event-error">Server connection error. Please try your search again</p>`)
+            res.status(404).send(`<p class="event-error">Server connection error. Please try your search again later.</p>`)
         })
 
 })

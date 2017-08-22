@@ -184,8 +184,8 @@ function addEditListener() {
     $EVENTLIST.on('click', "[data-role='edit']", function(event) {
         event.preventDefault();
         $child = $(event.target);
-        $element = $(event.target.parentNode);
-        $parent = $(event.target.parentNode.parentNode);
+        $element = $(event.target.parentNode.parentNode);
+        $parent = $(event.target.parentNode.parentNode.parentNode);
        
     })
 }
@@ -237,3 +237,4 @@ function chooseIcon(method) {
 }
 
 addDeleteListener();
+addEditListener();
