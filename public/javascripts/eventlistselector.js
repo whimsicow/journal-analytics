@@ -58,34 +58,42 @@ gapi.analytics.ready(() => {
 })
 
 // Formats each date ex: Aug 21 2017
-function formatDates(result) {
-    result.forEach(function(event) {
-        event.date_added = moment(event.date_added).format('MMM DD YYYY');
-        event.event_date = moment(event.event_date).format('MMM DD YYYY');
-        event.method = event.method.trim();
-    })
-    return result
+function formatDates(result, request) {
+    if (result.length === 0) {
+        return result;
+    } else {
+        result.forEach(function(event) {
+            event.date_added = moment(event.date_added).format('MMM DD YYYY');
+            event.event_date = moment(event.event_date).format('MMM DD YYYY');
+            event.method = event.method.trim();
+        })
+        return result
+    }
 }
 
 // Groups all events with same event_date together in an array
 function createGroups(result) {
-    let temparr = [];
-    let finalarr = [];
-    let tempdate = "";
-    result.forEach(function(event) {
-        if (event.event_date === tempdate) {
-            temparr.push(event);
-        } else {
-            if (temparr.length !== 0) {
-                finalarr.push(temparr);
-                temparr = [];
+     if (result.length === 0) {
+        return result;
+    } else {
+        let temparr = [];
+        let finalarr = [];
+        let tempdate = "";
+        result.forEach(function(event) {
+            if (event.event_date === tempdate) {
+                temparr.push(event);
+            } else {
+                if (temparr.length !== 0) {
+                    finalarr.push(temparr);
+                    temparr = [];
+                }
+                tempdate = event.event_date;
+                temparr.push(event);
             }
-            tempdate = event.event_date;
-            temparr.push(event);
-        }
-    })
-    finalarr.push(temparr);
-    return finalarr;
+        })
+        finalarr.push(temparr);
+        return finalarr;
+    }
 }
 
 
@@ -93,60 +101,69 @@ function createList(result) {
     if($EVENTLIST.children()) {
         $EVENTLIST.empty();
     }
-    var $eventcontainer = $('<div></div>', {
-            "class" : "event-container"
-        });
-    result.forEach(function(date) {
-        let $datecontainer = $('<div></div>', {
-            'text': date[0].event_date
-        });
-        date.forEach(function(event) {
-            let $event = $('<div></div>', {
-                'id': event.event_id
-            });
-            let $description = $('<span></span>', {
-                'text': `Description: ${event.description}`
-            })
-            $event.append($description);
-            if (event.eventlink !== null) {
-                let $link = $('<a></a>', {
-                    'href': `${event.eventlink}`,
-                    'text': 'Link to event'
-                })
-                $event.append($link);
-            }
-            let $name = $('<span></span>', {
-                'text': `Posted by: ${event.firstname}`
-            })
-            $event.append($name);
-            let $dateadded = $('<span></span>', {
-                'text': `Date added: ${event.date_added}`
-            })
-            $event.append($dateadded);
-            let $icondiv = $('<div></div>', {});
-            let icon = chooseIcon(event.method);
-            let $icon = $('<img>', {
-                'src': icon,
-                'alt': "icon"
-            })
-            $icondiv.append($icon);
-            $event.append($icondiv);
-            let $update = $('<a></a>', {
-                'text': 'Edit',
-                'href': `/eventlist/edit/${event.event_id}`
-            })
-            $event.append($update);
-            let $delete = $('<a></a>', {
-                'text': 'Delete',
-                'href': `#`,
-                'data-role': 'delete'
-            })
-            $event.append($delete);
-            $datecontainer.append($event);
+
+    if (result.length === 0) {
+        $noevents = $('<p></p>', {
+            'text': `No events found for this account/property between the dates searched. Please try your search again.`,
+            'class': 'event-error'
         })
-        $eventcontainer.append($datecontainer)
-    })
-    $EVENTLIST.append($eventcontainer);
+        $EVENTLIST.append($noevents);
+    } else {
+        var $eventcontainer = $('<div></div>', {
+                "class" : "event-container"
+            });
+        result.forEach(function(date) {
+            let $datecontainer = $('<div></div>', {
+                'text': date[0].event_date
+            });
+            date.forEach(function(event) {
+                let $event = $('<div></div>', {
+                    'id': event.event_id
+                });
+                let $description = $('<span></span>', {
+                    'text': `Description: ${event.description}`
+                })
+                $event.append($description);
+                if (event.eventlink !== null) {
+                    let $link = $('<a></a>', {
+                        'href': `${event.eventlink}`,
+                        'text': 'Link to event'
+                    })
+                    $event.append($link);
+                }
+                let $name = $('<span></span>', {
+                    'text': `Posted by: ${event.firstname}`
+                })
+                $event.append($name);
+                let $dateadded = $('<span></span>', {
+                    'text': `Date added: ${event.date_added}`
+                })
+                $event.append($dateadded);
+                let $icondiv = $('<div></div>', {});
+                let icon = chooseIcon(event.method);
+                let $icon = $('<img>', {
+                    'src': icon,
+                    'alt': "icon"
+                })
+                $icondiv.append($icon);
+                $event.append($icondiv);
+                let $update = $('<a></a>', {
+                    'text': 'Edit',
+                    'href': `/eventlist/edit/${event.event_id}`
+                })
+                $event.append($update);
+                let $delete = $('<a></a>', {
+                    'text': 'Delete',
+                    'href': `#`,
+                    'data-role': 'delete'
+                })
+                $event.append($delete);
+                $datecontainer.append($event);
+            })
+            $eventcontainer.append($datecontainer)
+        })
+        $EVENTLIST.append($eventcontainer);
+    }
 }
 
 // Adds click listener to Delete link for each event

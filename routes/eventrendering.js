@@ -55,7 +55,7 @@ router.get('/search', ensureAuthenticated, function(req, res) {
 router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
     db.none(`
     DELETE from events
-    where event_id=${req.params};
+    where event_id=${req.params.id};
     `)
      .then((result) => {
             res.status(202).send('success');
