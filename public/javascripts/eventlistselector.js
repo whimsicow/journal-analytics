@@ -40,6 +40,12 @@ gapi.analytics.ready(() => {
             .then(formatDates)
             .then(createGroups)
             .then(createList)
+            .catch((error) => {
+                if($EVENTLIST.children()) {
+                    $EVENTLIST.empty();
+                }
+                $EVENTLIST.append(error.responseText);
+            })
     })
     
     dateRangeSelectorEvents.on('change', (data) => {
@@ -104,7 +110,7 @@ function createList(result) {
 
     if (result.length === 0) {
         $noevents = $('<p></p>', {
-            'text': `No events found for this account/property between the dates searched. Please try your search again.`,
+            'text': `No events found. Please try your search again.`,
             'class': 'event-error'
         })
         $EVENTLIST.append($noevents);
@@ -173,13 +179,24 @@ function createList(result) {
     }
 }
 
+// Adds click listener to Edit link for each event
+function addEditListener() {
+    $EVENTLIST.on('click', "[data-role='edit']", function(event) {
+        event.preventDefault();
+        $child = $(event.target);
+        $element = $(event.target.parentNode);
+        $parent = $(event.target.parentNode.parentNode);
+       
+    })
+}
+
 // Adds click listener to Delete link for each event
 function addDeleteListener() {
     $EVENTLIST.on('click', "[data-role='delete']", function(event) {
         event.preventDefault();
         $child = $(event.target);
-        $element = $(event.target.parentNode);
-        $parent = $(event.target.parentNode.parentNode);
+        $element = $(event.target.parentNode.parentNode);
+        $parent = $(event.target.parentNode.parentNode.parentNode);
         deleteEvent($child, $element, $parent);
     })
 }

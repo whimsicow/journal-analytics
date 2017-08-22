@@ -78,8 +78,19 @@ const graph = (function() {
                     x.event_date = moment(modifiedDate).format('MMM DD YYYY')
                     return x
                 })
-                renderMainGraph(googleAnalytics, userEvents)
-            })  
+
+                userEvents = res.map(x => {
+                    let modifiedDate = x.date_added.slice(0, 10)
+                    x.date_added = moment(modifiedDate).format('MMM DD YYYY')
+                    return x
+                })
+                
+               renderMainGraph(googleAnalytics, userEvents)
+            })
+                .catch((error) => {
+                    renderMainGraph(googleAnalytics, [])
+                })
+
     }
 
     const gaDataForTrafficGraph = (googleAnalytics) => {
@@ -191,7 +202,7 @@ const graph = (function() {
   const mainGraph = (googleAnalytics, userEvents) => {
     console.log('configuring highcharts main graph')
     let ga = getDates(googleAnalytics)
-
+    
     Highcharts.chart('main-container', {
       chart: {
           type: 'area',

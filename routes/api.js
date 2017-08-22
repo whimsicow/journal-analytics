@@ -44,7 +44,7 @@ router.post('/events', ensureAuthenticated, (req, res, next) => {
         res.send(results)
     })
     .catch((err) => {
-        console.log(err);
+        res.status(500).send(`<p class="event-error">Server connection error. Please try your search again later.</p>`);
     })
 })
 
