@@ -120,9 +120,15 @@ function createList(result) {
             });
         result.forEach(function(date) {
             let $datecontainer = $('<div></div>', {
+                'class' : 'full-date-container'
+            });
+            let $datetext = $('<div></div>' , {
+                'class': 'event-date',
                 'text': date[0].event_date
             });
+            $datecontainer.append($datetext);
             date.forEach(function(event) {
+                let firstname = capitalizeFirstLetter(event.firstname)
                 let $event = $('<div></div>', {
                     'id': event.event_id,
                     'class' : "event-content"
@@ -139,7 +145,7 @@ function createList(result) {
                     $event.append($link);
                 }
                 let $name = $('<span></span>', {
-                    'text': `Posted by: ${event.firstname}`
+                    'text': `Posted by: ${firstname}`
                 })
                 $event.append($name);
                 let $dateadded = $('<span></span>', {
@@ -178,7 +184,9 @@ function createList(result) {
         $EVENTLIST.append($eventcontainer);
     }
 }
-
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 // Adds click listener to Edit link for each event
 function addEditListener() {
     $EVENTLIST.on('click', "[data-role='edit']", function(event) {
@@ -221,7 +229,7 @@ function deleteEvent(child, element, parent) {
 
 function chooseIcon(method) {
     let newImage = {
-         "General": "../images/defaulticon.svg",
+        "General": "../images/defaulticon.svg",
         "Email":"../images/email.png",
         "Facebook": "https://cdn.worldvectorlogo.com/logos/facebook-icon.svg",
         "Tweet": "https://cdn.worldvectorlogo.com/logos/twitter-4.svg",

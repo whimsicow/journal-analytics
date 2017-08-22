@@ -86,7 +86,6 @@
 }
 
 
-
 @media only screen and (min-width: 768px){
     .navigation-bar-large {
         display: unset;
@@ -104,7 +103,7 @@
         background-position: center;
         background-size: cover;
         box-shadow: 2px 2px 4px slategray;
-        font-size: 18px;
+        font-size: 13px;
     }
     .nav-menu-large a{
         margin-right: 30px;
@@ -117,6 +116,7 @@
     }
     .logo {
         margin-left: 30px;
+        font-size: 16px;
     }
     .mobile-menu,
     .nav-mobile-container{
@@ -129,4 +129,12 @@
         color: lightblue;
     }
    
+}
+@media only screen and (min-width: 875px){
+    .navigation-bar-large {
+        font-size: 16px;
+    }
+    .logo {
+        font-size: 20px;
+    }
 }

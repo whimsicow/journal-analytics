@@ -110,10 +110,9 @@ label {
     flex-direction: column;
     padding-bottom: 20px;
 }
-
-
 .ActiveUsers {
     text-align: center;
+    padding-bottom: 20px;
 }
 
 /* *************************************************** */
@@ -139,7 +138,7 @@ label {
 
 
 /* ************* */
-/* logged in user information with welcome  */
+/* logged in charts container user information with welcome  */
 .charts-container {
     width: 100%;
     text-align: center;
@@ -477,6 +476,9 @@ label {
 /* *************************************************** *//* *************************************************** *//* **********************START EVENT MEMBER PAGE************* */
 .icon-events {
     height: 40px;
+    position: absolute;
+    right: 0;
+    top: 30%;
 }
 .search-field h2 {
     padding-bottom: 40px;
@@ -487,10 +489,20 @@ label {
     flex-direction: column;
     padding-bottom: 30px;
     line-height: 25px;
+    position: relative;
+    min-width: 300px;
 }
 .event-anchor {
     padding-right: 20px;
 }
+.event-date {
+    font-size: 22px;
+    font-weight: bold;
+    padding-top: 40px;
+    padding-bottom: 5px;
+    border-bottom: .25px solid #ADD8E6;
+}
+
 
 /* **********************END EVENT MEMBER PAGE*************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
 
@@ -551,6 +563,9 @@ label {
 @media only screen and (min-width: 768px){
     .search-field {
         padding: 100px;
+    }
+    .event-container {
+        min-width: 450px;
     }
     .form {
         margin-left: 40%;
@@ -708,6 +723,9 @@ label {
 
 /* *************************************************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
 @media only screen and (min-width: 1200px){
+    .event-container {
+        min-width: 600px;
+    }
     .box {
         width: 80%;
     }
