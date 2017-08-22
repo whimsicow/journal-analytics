@@ -615,8 +615,12 @@ label {
     }
     .DateRangeSelector-item,
     .ViewSelector2-item {
-        display: flex;
         flex-direction: column;
+    }
+
+    .fixed-container {
+        position: fixed;
+
     }
     .sessions-count-container,
     .selector-container,
@@ -636,7 +640,8 @@ label {
         justify-content: flex-start;
         letter-spacing: 1.5px;
         color: #ADD8E6;
-        width: 30%;
+        min-width: 200px;
+        max-width: 300px;
         padding-left: 20px;
         padding-right: 10px;
         padding-top: 150px;
@@ -720,7 +725,14 @@ label {
     /* ******************** */
     
 }
-      
+@media only screen and (min-width: 940px) {
+    .DateRangeSelector-item,
+    .ViewSelector2-item {
+        display: flex;
+        flex-direction: row;
+    }
+    
+}
 
 /* *************************************************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
 @media only screen and (min-width: 1200px){
@@ -737,12 +749,7 @@ label {
     .main-user-experience {
         margin: 0 auto;
     }
-    .DateRangeSelector-item,
-    .ViewSelector2-item {
-        display: flex;
-        flex-direction: row;
-    }
-    
+
     .selector-container,
     .user-info-container {
         text-align: left;
@@ -754,6 +761,10 @@ label {
     }
     .image-pannel {
         padding-left: 0px;
+    }
+    .search-field{
+        padding: 100px;
+        width: 80%;
     }
     
 
