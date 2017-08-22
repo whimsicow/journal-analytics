@@ -149,6 +149,7 @@ function createList(result) {
     $EVENTLIST.append($eventcontainer);
 }
 
+// Adds click listener to Delete link for each event
 function addDeleteListener() {
     $EVENTLIST.on('click', "[data-role='delete']", function(event) {
         event.preventDefault();
@@ -159,6 +160,7 @@ function addDeleteListener() {
     })
 }
 
+// Deletes event from DOM and makes api call to delete from database
 function deleteEvent(child, element, parent) {
     $.get(`/eventlist/delete/${element[0].id}`)
         .then((result) => {
@@ -167,8 +169,8 @@ function deleteEvent(child, element, parent) {
                 parent.remove();
             } 
         })
+        // Appends server error message to child, removes if it already exists
         .catch((error) => {
-            console.log(child);
             if(child.children()) {
                 child.children().remove();
             }
