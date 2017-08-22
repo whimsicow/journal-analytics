@@ -108,6 +108,10 @@ label {
     padding-top: 25px;
 }
 
+.ActiveUsers {
+    text-align: center;
+}
+
 /* Chart section */
 
 .chart-date-range-container,
