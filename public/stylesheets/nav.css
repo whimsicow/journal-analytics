@@ -18,8 +18,10 @@
 .navigation-bar-large {
     display: none;
 }
-.logo {
+.JALogo{
     margin-left: 20px;
+    padding-top: 15px;
+    height: 40px;
 }
 .hamburger-icon {
     margin-right: 20px;
@@ -69,7 +71,6 @@
 }
 .mobile-info-container,
 .mobile-selector,
-.logo a, 
 .nav-menu-mobile a,
 .nav-menu-large a {
     margin-right: 10px;
@@ -109,20 +110,20 @@
         margin-right: 30px;
     }
     .nav-menu-large a:hover,
-    .logo a:hover,
     .nav-menu-mobile a:hover {
         cursor: pointer;
         color:  white;
     }
-    .logo {
-        margin-left: 30px;
-        font-size: 16px;
+    .JALogo{
+        height: 50px;
+        padding-top: 15px;
     }
+
     .mobile-menu,
     .nav-mobile-container{
         display: none;
     }
-    .logo a, 
+
     .nav-menu a {
         margin-left: 10px;
         text-decoration: none;
@@ -130,11 +131,8 @@
     }
    
 }
-@media only screen and (min-width: 875px){
+@media only screen and (min-width: 975px){
     .navigation-bar-large {
         font-size: 16px;
-    }
-    .logo {
-        font-size: 20px;
     }
 }
