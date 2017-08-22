@@ -129,92 +129,44 @@ $(document).ready(() => {
                     container: 'template-container'
                 }
             })
-
         /******************************************************************
-                                    ANNUAL GRAPH
+                                    TRAFFIC GRAPH
         ******************************************************************/
-        function renderYearOverYearChart(ids) {
-
-            // Adjust `now` to experiment with different days, for testing only...
-            const now = moment(); // .subtract(3, 'day');
-
-            const thisYear = query({
-                'ids': ids,
-                'dimensions': 'ga:month,ga:nthMonth',
-                'metrics': 'ga:users',
-                'start-date': moment(now).date(1).month(0).format('YYYY-MM-DD'),
-                'end-date': moment(now).format('YYYY-MM-DD')
-            });
-
-            const lastYear = query({
-                'ids': ids,
-                'dimensions': 'ga:month,ga:nthMonth',
-                'metrics': 'ga:users',
-                'start-date': moment(now).subtract(1, 'year').date(1).month(0)
-                    .format('YYYY-MM-DD'),
-                'end-date': moment(now).date(1).month(0).subtract(1, 'day')
-                    .format('YYYY-MM-DD')
-            });
-
-            Promise.all([thisYear, lastYear]).then(function (results) {
-                const data1 = results[0].rows.map(function (row) { return +row[2]; });
-                const data2 = results[1].rows.map(function (row) { return +row[2]; });
-                const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-                // Ensure the data arrays are at least as long as the labels array.
-                // Chart.js bar charts don't (yet) accept sparse datasets.
-                for (var i = 0, len = labels.length; i < len; i++) {
-                    if (data1[i] === undefined) data1[i] = null;
-                    if (data2[i] === undefined) data2[i] = null;
-                }
-
-                const data = {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Last Year',
-                            fillColor: '#BDDAF5',
-                            strokeColor: '#BDDAF5',
-                            data: data2
-                        },
-                        {
-                            label: 'This Year',
-                            fillColor: '#808F9E',
-                            strokeColor: 'rgba(151,187,205,1)',
-                            data: data1
-                        }
-                    ]
-                };
-
-                const annualGraph = new Chart(makeCanvas('chart-2-container')).Bar(data);
-            })
-                .catch(function (err) {
-                    console.error(err.stack);
-                });
-        }
-
-        /******************************************************************
-                            SESSIONS VS USERS GRAPH
-        ******************************************************************/
-
-        const sessionsUsers = new gapi.analytics.googleCharts.DataChart({
+        /******************************* CONFIG */
+        const trafficGraphConfig = {
             query: {
-                'start-date': '30daysAgo',
-                'end-date': 'yesterday',
-                'metrics': 'ga:sessions,ga:users',
-                'dimensions': 'ga:date'
+                metrics: 'ga:sessions',
+                dimensions: 'ga:source'
             },
             chart: {
-                'container': 'sessions-users-container',
-                'type': 'LINE',
-                'options': {
-                    'width': '100%'
+                type: 'LINE',
+                options: {
+                    color: 'red',
+                    legend: 'middle',
+                    is3D: true,
+                    width: '100%',
+                    fontSize: 16 // font size for pop-up window when hovering over a data plot from the graph
                 }
             }
-        });
-        sessionsUsers.execute();
+        }
+        // default date range
+        const trafficGraphDateRange = {
+            'start-date': '30daysAgo',
+            'end-date': '0daysAgo'
+        }
 
+        /******************************* GRAPH CONSTRUCTOR */
+        const trafficGraph = new gapi.analytics.googleCharts.DataChart(trafficGraphConfig)
+            .set(
+            {
+                query: trafficGraphDateRange
+            })
+            .set(
+            {
+                chart: {
+                    container: 'template-container-2'
+                }
+            })
 
         /******************************************************************
                             GOOGLE ANALYTICS HEADER INFO
@@ -272,38 +224,33 @@ $(document).ready(() => {
             console.groupEnd()
             console.groupEnd()
             
-            graph.captureGoogleAnalyticsData(result)
-            
-            // $.get('/api/events', request)
-            //     .then((res) => {
-            //         console.log(res);
-            //     })
-            //     .then(results => {
-            //     graph.catpureEventsData(results[0]);
-            // })
+            graph.gaDataForMainGraph(result)
         })
         
         mainGraph.on('error', (result) => {
             console.log('Error occured during query or rendering')
         })
 
-        /***************************************** ACTIVE USERS */
-        activeUsers.once('success', function () {
-            const element = this.container.firstChild;
-            let timeout;
-
-            this.on('change', function (data) {
-                const element = this.container.firstChild;
-                const animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
-                element.className += (' ' + animationClass);
-
-                clearTimeout(timeout);
-                timeout = setTimeout(function () {
-                    element.className =
-                        element.className.replace(/ is-(increasing|decreasing)/g, '');
-                }, 3000);
-            });
-        });
+        /***************************************** TRAFFIC GRAPH */
+        trafficGraph.on('success', (result) => {
+            console.groupCollapsed('Query was successful and Google Analytics Default Graph has been rendered -- (display: none)')
+            console.group('Raw Data')
+            console.log(result.data) // raw data of the graph values (x, y, and graph points)
+            console.groupEnd()
+            console.group('Chart Info')
+            console.log(result.chart) // gives info of chart.. can manipulate chart using js/jquery with this info )
+            console.groupEnd()
+            console.group('Entire Raw Response')
+            console.log(result.response) // raw data of the entire response... )
+            console.groupEnd()
+            console.groupEnd()
+            
+            graph.gaDataForTrafficGraph(result)
+        })
+        
+        trafficGraph.on('error', (result) => {
+            console.log('Error occured during query or rendering')
+        })
 
         /************************************** VIEW SELECTORS */
         viewSelector.on('viewChange', (data) => {
@@ -313,17 +260,19 @@ $(document).ready(() => {
                     ids: data.ids
                 }
             })
-                .execute()
+            .execute()
 
-            //sessions vs users graph
-            sessionsUsers.set({
+            // traffic graph
+            trafficGraph.set({
                 query: {
                     ids: data.ids
                 }
             })
+            .execute()
 
-            // annual graph
-            renderYearOverYearChart(data.ids);
+            // active users
+            activeUsers.set(data)
+            .execute()
 
             // updates title 
             const title = document.getElementById('view-name')
@@ -335,11 +284,36 @@ $(document).ready(() => {
             // updates graph
             mainGraph.set({
                 query: data // new start date and end date
-            }).execute()
+            })
+            .execute()
+
+            trafficGraph.set({
+                query: {
+                    ids: data.ids
+                }
+            })
+            .execute()
 
             // Update the "from" dates text.
             const datefield = document.getElementById('from-dates')
             datefield.textContent = `${data['start-date']} '&mdash' ${data['end-date']}`
         })
+
+        activeUsers.once('success', function() {
+            var element = this.container.firstChild;
+            var timeout;
+        
+            this.on('change', function(data) {
+              var element = this.container.firstChild;
+              var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
+              element.className += (' ' + animationClass);
+        
+              clearTimeout(timeout);
+              timeout = setTimeout(function() {
+                element.className =
+                    element.className.replace(/ is-(increasing|decreasing)/g, '');
+              }, 3000);
+            });
+          });
     })
 })
