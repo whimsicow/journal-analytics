@@ -1,4 +1,5 @@
-$EVENTLIST = $('[data-role="events-container"]');
+const $EVENTLIST = $('[data-role="events-container"]');
+const $EVENTMODAL = $('[data-role="event-modal"]');
 
 gapi.analytics.ready(() => {
     
@@ -189,6 +190,7 @@ function addEditListener() {
         $parent = $(event.target.parentNode.parentNode.parentNode);
        console.log($parent);
        console.log($element);
+        createEventModal($element);
     })
 }
 
@@ -201,6 +203,32 @@ function addDeleteListener() {
         $parent = $(event.target.parentNode.parentNode.parentNode);
         deleteEvent($child, $element, $parent);
     })
+}
+
+function createEventModal(element, parent) {
+    $modalform = $('<form></form>', {
+        'name': 'edit-event'
+    })
+    $datediv = $('<div></div>', {})
+    $datelabel = $('<label></label>', {
+        'text': 'Date:'
+    })
+    $datediv.append($datelabel);
+    $date = $('<input>', {
+        'name': 'date',
+        'type': 'date',
+        'autocomplete': 'on',
+        'required': ''
+    })
+    $datediv.append($date);
+    $modalform.append($datediv);
+    if (element[0].childElementCount === 6) {
+        
+    } else {
+
+    }
+
+    $EVENTMODAL.append($modalform);
 }
 
 // Deletes event from DOM and makes api call to delete from database
