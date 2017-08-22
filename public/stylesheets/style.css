@@ -49,7 +49,7 @@ body {
 }
 
 .search-field {
-    padding: 100px;
+    padding: 20px;
 }
 
 
@@ -71,7 +71,8 @@ label {
     width: 100%;
     background-image: url('../images/sidebackground.svg');
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-position: center;
+    background-size: cover;
     display: flex;
     justify-content: space-around;
     letter-spacing: 1px;
@@ -201,6 +202,7 @@ label {
     overflow: scroll;
     background-image: url('../images/footerbackground.svg');
     background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
     padding: 0;
 }
@@ -238,6 +240,10 @@ label {
     border-radius: 8px;
     padding: 1rem;
     line-height: 30px;
+}
+.modal-list h2 {
+    color: #ADD8E6;
+    padding-left: 20px;
 }
 .event-item p {
     margin: 0;
@@ -424,6 +430,39 @@ label {
     font-size: 16px;
     font-weight: 800;
 }
+/* ******************LOGIN PAGE********************************* *//* *************************************************** *//* *************************************************** */
+
+
+/* *************************************************** *//* *************************************************** *//* **********************START EVENT MEMBER PAGE************* */
+.icon-events {
+    height: 40px;
+}
+.search-field h2 {
+    padding-bottom: 40px;
+}
+.event-content,
+.event-container {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+    line-height: 25px;
+}
+.event-anchor {
+    padding-right: 20px;
+}
+
+/* **********************END EVENT MEMBER PAGE*************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
+
+.individual-member-container,
+.members-container,
+.member-list {
+    padding-top: 30px;
+}
+.individual-member-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
 
 /* *************************************************** */
@@ -432,7 +471,8 @@ label {
     height: 200px;
     background-image: url('../images/footerbackground.svg');
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-position: center;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -468,7 +508,9 @@ label {
     }
 }
 @media only screen and (min-width: 768px){
-
+    .search-field {
+        padding: 100px;
+    }
     .form {
         margin-left: 40%;
         margin-top: 100px;
@@ -496,6 +538,7 @@ label {
         height: 30px;
     }
     /* charts and side bar */
+    .main-teamevents,
     .main-user-experience {
         width: 100%;
         display: flex;
@@ -530,7 +573,8 @@ label {
         display: flex;
         background-image: url('../images/sidebackground.svg');
         background-repeat: no-repeat;
-        background-size: cover; 
+        background-position: center;
+        background-size: cover;
         flex-direction: column;
         justify-content: flex-start;
         letter-spacing: 1.5px;
@@ -546,13 +590,12 @@ label {
     /* company logo */
     .company-logo-container {
         margin: 0 auto;
-        margin-top: 100px;
-        margin-bottom: 40px;
+        margin-top: 80px;
+        margin-bottom: 30px;
         width: 100%; 
     }
     .company-logo img{
         margin: 0 auto;
-        max-height: 120px;
     }
     /* all chart container */
     .charts-container {
