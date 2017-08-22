@@ -191,6 +191,7 @@ const graph = (function() {
   // render graphs
   const renderMainGraph = (googleAnalytics, userEvents) => {
       mainGraph(googleAnalytics, userEvents)
+      pieGraph(googleAnalytics, userEvents)
       console.log('highcharts main graph has been rendered')
   }
   const renderTrafficGraph = (googleAnalytics) => {
@@ -294,6 +295,82 @@ const graph = (function() {
           }
         ]
   });
+  }
+
+  // pie graph
+  const pieGraph = (googleAnalytics, userEvents) => {
+    console.log('configuring highcharts main graph')
+    let ga = getDates(googleAnalytics)
+    console.log('ga', ga)
+    console.log('userEvents', userEvents)
+
+    Highcharts.chart('event-pie-graph', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            backgroundColor: null,
+            height: 300
+        },
+        title: {
+            text: null
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [{
+                name: 'Email',
+                y: 56.33
+            }, {
+                name: 'Social',
+                y: 24.03,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'General',
+                y: 10.38
+            }, {
+                name: 'Outdoor',
+                y: 10.38
+            },{
+                name: 'Important',
+                y: 10.38
+            },{
+                name: 'Google Plus',
+                y: 10.38
+            },{
+                name: 'Facebook',
+                y: 4.77
+            }, {
+                name: 'Important',
+                y: 0.91
+            },
+            {
+                name: 'Multiplatform',
+                y: 0.91
+            },{
+                name: 'LinkedIn',
+                y: 0.2
+            }]
+        }]
+    });
   }
 
   // traffic graph
