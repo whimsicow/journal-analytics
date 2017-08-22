@@ -33,28 +33,6 @@ router.get('/', ensureAuthenticated, function(req, res) {
     }) 
 });
 
-
-router.get('/search', ensureAuthenticated, function(req, res) {
-    db.any(`
-    SELECT evs.event_date, evs.description, evs.method, evs.accountname, evs.propertyname, evs.email, evs.eventlink, evs.date_added, urs.firstname, urs.picture 
-	from events evs
-		inner join users urs
-		on urs.email = evs.email
-    where 
-    	evs.event_date::date >= '${startdate}'
-    	and evs.event_date::date <= '${enddate}'
-    	and evs.accountid = '${req.body.accountid}'
-    	and evs.propertyid = '${req.body.propertyid}'    
-    	order by evs.event_date DESC;
-    `)
-    .then((result) => {
-        res.send(result);
-    })
-    .catch((error) => {
-        res.status(500).send(`<p class="event-error">Server connection error. Please try your search again later.</p>`);
-    })
-});
-
 router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
     db.none(`
     DELETE from events
