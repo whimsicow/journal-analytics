@@ -322,7 +322,7 @@ const graph = (function() {
             plotShadow: false,
             type: 'pie',
             backgroundColor: null,
-            height: 300
+            // height: 300
         },
         title: {
             text: null
@@ -351,12 +351,12 @@ const graph = (function() {
                 y: getPieEvents(userEvents, 'Email')
             }, {
                 name: 'Social',
-                y: getPieEvents(userEvents, 'Social'),
-                sliced: true,
-                selected: true
+                y: getPieEvents(userEvents, 'Social')
             }, {
                 name: 'General',
                 y: getPieEvents(userEvents, 'General'),
+                sliced: true,
+                selected: true
             }, {
                 name: 'Outdoor',
                 y: getPieEvents(userEvents, 'Outdoor'),
