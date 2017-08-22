@@ -109,9 +109,8 @@ const graph = (function() {
       let date = `Date: ${userDateClicked}`
       title.append(date)
 
-
+    // if no events for day selected
       if (filteredEventsByDate.length === 0) {
-        
         let parent = document.querySelector('.modal-list')
         let message = document.createElement('h2')
         message.textContent = 'No events for this date :('
@@ -154,6 +153,8 @@ const graph = (function() {
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+  // object for key/value pairs of methods and images
+  // allows us to add icons to modal
   const chooseImgForMethod = (method) => {
       let newImage = {
           "General": "../images/defaulticon.svg",
@@ -163,7 +164,7 @@ const graph = (function() {
           "Google Plus": "../images/google-plus.svg",
           "Linkedin": "../images/linkedin.png",
           "Instagram" : "https://cdn.worldvectorlogo.com/logos/instagram-2016.svg",
-          "Important" : "../importanticon.svg",
+          "Important" : "../images/importanticon.svg",
           "Outdoor" : "../images/tent.png",
           "Multiplatform" : "../images/multipleplatform.png",
           "Social" : "../images/socialevent.png"
@@ -177,7 +178,6 @@ const graph = (function() {
         myNode.removeChild(myNode.firstChild);
     }
   }
-
   // render graphs
   const renderGraphs = (googleAnalytics, userEvents) => {
     mainGraph(googleAnalytics, userEvents)
