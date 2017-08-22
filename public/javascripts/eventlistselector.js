@@ -1,5 +1,6 @@
 const $EVENTLIST = $('[data-role="events-container"]');
-const $EVENTMODAL = $('[data-role="event-modal"]');
+const $EVENTMODALCONT = $('[data-role="event-modal"]');
+const $EVENTMODAL = $('#event-modal');
 
 gapi.analytics.ready(() => {
     
@@ -61,6 +62,12 @@ gapi.analytics.ready(() => {
             .then(formatDates)
             .then(createGroups)
             .then(createList)
+            .catch((error) => {
+                if($EVENTLIST.children()) {
+                    $EVENTLIST.empty();
+                }
+                $EVENTLIST.append(error.responseText);
+            })
     })
 })
 
@@ -188,9 +195,10 @@ function addEditListener() {
         $child = $(event.target);
         $element = $(event.target.parentNode.parentNode);
         $parent = $(event.target.parentNode.parentNode.parentNode);
-       console.log($parent);
-       console.log($element);
-        createEventModal($element);
+        console.log($parent);
+        console.log($element);
+        createEventModal($element, $parent);
+        $EVENTMODAL.css('display', 'block');
     })
 }
 
@@ -206,8 +214,10 @@ function addDeleteListener() {
 }
 
 function createEventModal(element, parent) {
+    console.log('hi');
     let $modalform = $('<form></form>', {
-        'name': 'edit-event'
+        'name': 'edit-event',
+        'class': 'modal-content'
     });
     let $datediv = $('<div></div>', {});
     let $datelabel = $('<label></label>', {
@@ -238,9 +248,10 @@ function createEventModal(element, parent) {
         'type': 'text',
         'cols': '50'
     })
+    $linkdiv.append($linktxt);
+    $modalform.append($linkdiv);
 
     let $dropdown = $('<div></div>', {
-        'class': 'icon-dropdown',
         'id': 'myDropdown'
     })
     let $option1 = $('<option></option>', {
@@ -294,21 +305,45 @@ function createEventModal(element, parent) {
     $dropdown.append($option7);
     let $option8 = $('<option></option>', {
         'class': 'icon',
-        'value': 'Facebook',
-        'data-imagesrc': 'https://cdn.worldvectorlogo.com/logos/facebook-icon.svg',
-        'data-description': 'Facebook'
+        'value': 'Tweet',
+        'data-imagesrc': 'https://cdn.worldvectorlogo.com/logos/twitter-4.svg',
+        'data-description': 'Tweet'
     })
     $dropdown.append($option8);
-
+    let $option9 = $('<option></option>', {
+        'class': 'icon',
+        'value': 'Google Plus',
+        'data-imagesrc': '../images/google-plus.svg',
+        'data-description': 'Google Plus'
+    })
+    $dropdown.append($option9);
+    let $option10 = $('<option></option>', {
+        'class': 'icon',
+        'value': 'Linkedin',
+        'data-imagesrc': '../images/linkedin.png',
+        'data-description': 'Linkedin'
+    })
+    $dropdown.append($option10);
+    let $option11 = $('<option></option>', {
+        'class': 'icon',
+        'value': 'Instagram',
+        'data-imagesrc': 'https://cdn.worldvectorlogo.com/logos/instagram-2016.svg',
+        'data-description': 'Instagram'
+    })
+    $dropdown.append($option11);
     $modalform.append($dropdown);
-
-    if (element[0].childElementCount === 6) {
-        
-    } else {
-
-    }
-
-    $EVENTMODAL.append($modalform);
+    let $buttondiv = $('<div></div>', {
+        'class': 'button-container'
+    })
+    let $update= $('<button></button>', {
+        'type': 'submit',
+        'class': 'submit-event',
+        'data-role': 'update',
+        'text': 'Update'
+    })
+    $buttondiv.append($update);
+    $modalform.append($buttondiv);
+    $EVENTMODALCONT.append($modalform);
 }
 
 // Deletes event from DOM and makes api call to delete from database
