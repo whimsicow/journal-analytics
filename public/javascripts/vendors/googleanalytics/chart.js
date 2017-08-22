@@ -340,8 +340,8 @@ $(document).ready(() => {
             renderYearOverYearChart(data.ids);
 
             // active users
-            activeUsers.set(data)
-            .execute()
+            // activeUsers.set(data)
+            // .execute()
 
             // updates title 
             const title = document.getElementById('view-name')
