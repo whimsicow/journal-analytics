@@ -632,18 +632,12 @@ label {
         padding-top: 10px;
     }
     .chart-navigation {
-        display: flex;
-        background-image: url('../images/sidebackground.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
         flex-direction: column;
         justify-content: flex-start;
         letter-spacing: 1.5px;
         color: #ADD8E6;
-        min-width: 200px;
-        max-width: 300px;
-        padding-left: 20px;
+        max-width: 270px;
+        padding-left: 10px;
         padding-right: 10px;
         padding-top: 125px;
     }
