@@ -27,12 +27,9 @@ const graph = (function() {
   }
  
   const getGraphEvents = (userEvents, ga) => {
-    console.log('userevents', userEvents)
-    console.log('ga', ga)
 
     // copy googleanalytics dates arr
     let graphGoogleAnalytics = [...ga.dates]
-    console.log(graphGoogleAnalytics)
 
     // copy userevents arr
     let userEventsArr = [...userEvents]
@@ -53,8 +50,6 @@ const graph = (function() {
     })
     
     arr.reverse()
-    console.log(arr)
-
 
     let finalGraphEventsArr = graphGoogleAnalytics.map((item, index) => {
         if (arr.find(x => {
@@ -62,15 +57,14 @@ const graph = (function() {
         })) {
             return ga.sessions[index];
         }
-        return 'hi';
+        return '';
     })
 
-    console.log(finalGraphEventsArr)
     return finalGraphEventsArr
   }
 
-  // from chart.js -- queried from googleAnalytics DB
-    const captureGoogleAnalyticsData = (googleAnalytics) => {
+    // queried from googleAnalytics DB
+    const gaDataForMainGraph = (googleAnalytics) => {
         var request = {};
         request['accountid'] =(googleAnalytics.response.profileInfo.accountId);
         request['propertyid'] = (googleAnalytics.response.profileInfo.webPropertyId);
@@ -84,30 +78,34 @@ const graph = (function() {
                     x.event_date = moment(modifiedDate).format('MMM DD YYYY')
                     return x
                 })
-                userEvents = res.map(x => {
-                    let modifiedDate = x.date_added.slice(0, 10)
-                    x.date_added = moment(modifiedDate).format('MMM DD YYYY')
-                    return x
-                })
-                
-                renderGraphs(googleAnalytics, userEvents)
-            })
-        
+                renderMainGraph(googleAnalytics, userEvents)
+            })  
     }
 
-  // render events
-  const renderEvents = (googleAnalytics, userEvents, userDateClicked) => {
+    const gaDataForTrafficGraph = (googleAnalytics) => {
+        var request = {};
+        request['accountid'] =(googleAnalytics.response.profileInfo.accountId);
+        request['propertyid'] = (googleAnalytics.response.profileInfo.webPropertyId);
+        request['startdate'] = ((googleAnalytics.response.query['start-date']));
+        request['enddate'] = (googleAnalytics.response.query['end-date']);
+            
+        renderTrafficGraph(googleAnalytics)
+    }
+    
+    // render events
+    const renderEvents = (googleAnalytics, userEvents, userDateClicked) => {
 
-      // match date requested
-      let filteredEventsByDate = userEvents.filter(x => x.event_date === userDateClicked)
+        // match date requested
+        let filteredEventsByDate = userEvents.filter(x => x.event_date === userDateClicked)
+        // early return for no events
 
-      // early return for no events
 
-      // sets date at top of modal. emptys .top-modal-info span if has been appended before
-      let title = $('.top-modal-info')
-      title.html("")
-      let date = `Date: ${userDateClicked}`
-      title.append(date)
+        // sets date at top of modal. emptys .top-modal-info span if has been appended before
+        let title = $('.top-modal-info')
+        title.html("")
+        let date = `Date: ${userDateClicked}`
+        title.append(date)
+
 
     // if no events for day selected
       if (filteredEventsByDate.length === 0) {
@@ -171,6 +169,7 @@ const graph = (function() {
       }
       return newImage[method]
   }
+
   // remove events
   const removeEvents = () => {
     const myNode = document.querySelector(".modal-list");
@@ -179,10 +178,12 @@ const graph = (function() {
     }
   }
   // render graphs
-  const renderGraphs = (googleAnalytics, userEvents) => {
-    mainGraph(googleAnalytics, userEvents)
-    console.log('highcharts main graph has been rendered')
-    trafficGraph(googleAnalytics, userEvents)
+  const renderMainGraph = (googleAnalytics, userEvents) => {
+      mainGraph(googleAnalytics, userEvents)
+      console.log('highcharts main graph has been rendered')
+  }
+  const renderTrafficGraph = (googleAnalytics) => {
+    trafficGraph(googleAnalytics)
     console.log('highcharts traffic graph has been rendered')
   }
 
@@ -255,13 +256,13 @@ const graph = (function() {
         series: {
             marker: {
               symbol: 'square',
-              lineColor: '#fff'
+              lineColor: '#3B5369'
             },
+            lineColor: 'lightblue',
             cursor: 'pointer',
             point: {
               events: {
                 click: (e) => {
-                    console.log(e)
                   this.modal.style.display = 'block'
                   renderEvents(googleAnalytics, userEvents, e.point.category)
                 }
@@ -289,6 +290,7 @@ const graph = (function() {
             name: 'Events',
             data: getGraphEvents(userEvents, ga),
             marker: {
+                lineColor: '#fff',
                 symbol: 'url(../images/plusgraphicon.svg)'
             }
           }
@@ -297,10 +299,12 @@ const graph = (function() {
   }
 
   // traffic graph
-  const trafficGraph = (googleAnalytics, userEvents) => {
+  const trafficGraph = (googleAnalytics) => {
       console.log('configuring highcharts traffic graph')
+      console.log(googleAnalytics)
       let a = googleAnalytics[0]
       let ga = getDates(googleAnalytics);
+      console.log(ga)
 
       Highcharts.chart('traffic-container', {
         credits: {
@@ -319,16 +323,18 @@ const graph = (function() {
             text: false,
         },
         xAxis: {
-            lineColor: '#eeeeee',
-            categories: ['18. Sep', '19. Sep', '20. Sep', '21. Sep', '22. Sep', '23. Sep', '24. Sep', '25. Sep'],
+            lineColor: '#eee',
+            categories: ['Aug 15, 2017', 'Aug 16, 2017', 'Aug 17, 2017', 'Aug 18, 2017', 'Aug 19, 2017', 'Aug 20, 2017', 'Aug 21, 2017', 'Aug 22, 2017'],
+            tickInterval: 2,
             labels: {
-              style: {
-                  color: '#999999'
-              },
-              y: 35
+                style: {
+                    color: '#999999'
+                },
+                y: 35
             },
             title: {
-                text: "Dates"
+                text: `${'Aug 15, 2017'} - ${'Aug 22, 2017'}`,
+                margin: 20
             },
             tickColor: '#eeeeee',
             tickmarkPlacement: 'on'
@@ -339,8 +345,8 @@ const graph = (function() {
                 text: false
             },
             min: 0,
-            max: 500,
-            tickInterval: 50,
+            max: 481,
+            tickInterval: 10,
             labels: {
               style: {
                   color: '#999999',
@@ -363,7 +369,7 @@ const graph = (function() {
         },
         legend: {
             layout: 'horizontal',
-            align: 'left',
+            align: 'center',
             verticalAlign: 'top',
             symbolHeight: 11,
             symbolWidth: 11,
@@ -402,17 +408,8 @@ const graph = (function() {
             }
         },
         series: [{
-            name: 'Total Visits',
-            data: [300, 250, 250, 150, 200, 50, 300, 300],
-            color: '#D64857',
-            marker: {
-                symbol: 'url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/252775/graph-red.svg)',
-                width: 16,
-                height: 16
-            },
-        }, {
             name: 'Facebook',
-            data: [500, 495, 395, 400, 422, 484, 320, 120],
+            data: [228, 37, 27, 13, 6, 5, 6, 5],
             color: '#6693E5',
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/facebook-icon.svg)',
@@ -421,41 +418,45 @@ const graph = (function() {
             }
         }, {
             name: 'Twitter',
-            data: [64, 99, 200, 123, 234, 345, 123, 335],
+            data: [19, 5, 4, 2, 3, 1, 1, 1],
             color: '#7DCAFD',
+            visible: false,
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/twitter-4.svg)',
                 width: 16,
                 height: 16
             }
         }, {
-            name: 'Tumblr',
-            data: [150, 200, 349, 500, 400, 259, 200, 50],
-            color: '#115EA3',
-            marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/tumblr-icon.svg)',
-                width: 16,
-                height: 16
-            }
-        }, {
-            name: 'Linkedin',
-            data: [30, 30, 40, 210, 100, 300, 450, 500],
-            color: '#727272',
-            marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/linkedin-icon-1.svg)',
-                width: 16,
-                height: 16
-            }
-        }, {
-            name: 'Instagram',
-            data: [0, 5, 10, 20, 50, 400, 30, 350],
+            name: 'Youtube',
+            data: [427, 418, 481, 445, 365, 381, 440, 174],
             color: '#d79e64',
             marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/instagram-2016.svg)',
+                symbol: 'url(https://cdn.worldvectorlogo.com/logos/youtube-icon.svg)',
                 width: 16,
                 height: 16
             }
-        }]
+        },
+        {
+            name: 'Reddit',
+            data: [7, 8, 5, 4, 3, 7, 5, 2],
+            color: '#115EA3',
+            visible: false,
+            marker: {
+                symbol: 'url(https://cdn.worldvectorlogo.com/logos/reddit-2.svg)',
+                width: 16,
+                height: 16
+            }
+        }, {
+            name: 'Quora',
+            data: [8, 30, 2, 4, 9, 6, 2, 3],
+            color: '#727272',
+            visible: false,
+            marker: {
+                symbol: 'url(https://cdn.worldvectorlogo.com/logos/quora-black.svg)',
+                width: 16,
+                height: 16
+            }
+        },]
     })};
       
     // return public methods exposed globally
@@ -463,6 +464,7 @@ const graph = (function() {
   return {
       mainGraph,
       trafficGraph,
-      captureGoogleAnalyticsData
+      gaDataForMainGraph,
+      gaDataForTrafficGraph
   }
 })()

@@ -111,7 +111,13 @@ label {
     padding-bottom: 20px;
 }
 
+
+.ActiveUsers {
+    text-align: center;
+}
+
 /* *************************************************** */
+
 /* Chart section */
 .chart-date-range-container,
 .chart-selection-container {
@@ -163,7 +169,7 @@ label {
 
 
 /* class that hides things */
-#template-container,
+#template-container, #template-container-2,
 #sessions-users-container,
 .hidden {
     display: none;
