@@ -226,7 +226,6 @@ $(document).ready(() => {
                 };
 
                 const annualGraph = new Chart(makeCanvas('annual-graph-container')).Bar(data);
-                generateLegend('legend-2-container', data.datasets);
             })
                 .catch(function (err) {
                     console.error(err.stack);
