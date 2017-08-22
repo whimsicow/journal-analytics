@@ -202,9 +202,7 @@ function addEditListener() {
         window.addEventListener('click', (e) => {
             if (e.target === $EVENTMODAL) {
                 $EVENTMODAL.css('display', 'none');
-                if ($EVENTMODALCONT.children()) {
-                    console.log($EVENTMODALCONT.children());
-                }
+                $('[data-role="modal-content"]').remove();
             }
         })
     })
@@ -268,7 +266,7 @@ function createEventModal(element, parent) {
     $modalform.append($linkdiv);
 
     let $dropdown = $('<div></div>', {
-        'id': 'myDropdown'
+        'id': 'eventDropdown'
     })
     let $option1 = $('<option></option>', {
         'class': 'icon',
@@ -396,6 +394,12 @@ function chooseIcon(method) {
     }
     return newImage[method]
 }
+
+$('#eventDropdown').ddslick({
+    width: "200px",
+    height: "200px",
+    imagePosition: "right" 
+});
 
 addDeleteListener();
 addEditListener();
