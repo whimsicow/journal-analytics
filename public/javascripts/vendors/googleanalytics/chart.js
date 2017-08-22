@@ -169,6 +169,71 @@ $(document).ready(() => {
             })
 
         /******************************************************************
+                                    ANNUAL GRAPH
+        ******************************************************************/
+        function renderYearOverYearChart(ids) {
+            
+            // Adjust `now` to experiment with different days, for testing only...
+            const now = moment(); // .subtract(3, 'day');
+
+            const thisYear = query({
+                'ids': ids,
+                'dimensions': 'ga:month,ga:nthMonth',
+                'metrics': 'ga:users',
+                'start-date': moment(now).date(1).month(0).format('YYYY-MM-DD'),
+                'end-date': moment(now).format('YYYY-MM-DD')
+            });
+
+            const lastYear = query({
+                'ids': ids,
+                'dimensions': 'ga:month,ga:nthMonth',
+                'metrics': 'ga:users',
+                'start-date': moment(now).subtract(1, 'year').date(1).month(0)
+                    .format('YYYY-MM-DD'),
+                'end-date': moment(now).date(1).month(0).subtract(1, 'day')
+                    .format('YYYY-MM-DD')
+            });
+
+            Promise.all([thisYear, lastYear]).then(function (results) {
+                const data1 = results[0].rows.map(function (row) { return +row[2]; });
+                const data2 = results[1].rows.map(function (row) { return +row[2]; });
+                const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+                // Ensure the data arrays are at least as long as the labels array.
+                // Chart.js bar charts don't (yet) accept sparse datasets.
+                for (var i = 0, len = labels.length; i < len; i++) {
+                    if (data1[i] === undefined) data1[i] = null;
+                    if (data2[i] === undefined) data2[i] = null;
+                }
+
+                const data = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Last Year',
+                            fillColor: '#BDDAF5',
+                            strokeColor: '#BDDAF5',
+                            data: data2
+                        },
+                        {
+                            label: 'This Year',
+                            fillColor: '#808F9E',
+                            strokeColor: 'rgba(151,187,205,1)',
+                            data: data1
+                        }
+                    ]
+                };
+
+                const annualGraph = new Chart(makeCanvas('annual-graph-container')).Bar(data);
+                generateLegend('legend-2-container', data.datasets);
+            })
+                .catch(function (err) {
+                    console.error(err.stack);
+                });
+        }
+
+        /******************************************************************
                             GOOGLE ANALYTICS HEADER INFO
         ******************************************************************/
 
@@ -271,6 +336,9 @@ $(document).ready(() => {
                 }
             })
             .execute()
+
+            // annual graph
+            renderYearOverYearChart(data.ids);
 
             // active users
             activeUsers.set(data)
