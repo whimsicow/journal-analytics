@@ -40,13 +40,12 @@
 
 
 <!-- popup form for editing events -->
-        <form class="form" name="eventform" data-popup="form-container">
+        <form class="form" name="eventform" data-role="event-edit">
             <div class="form-container"> 
-
                 <!-- date -->
                 <div class="date">
                     <label for="date">Date: </label>
-                    <input name="date" autocomplete="on" type="date" required>
+                    <input name="date" id="event-date" autocomplete="on" type="date" required>
                 </div>
 
                 <!-- describe event box -->
@@ -77,7 +76,7 @@
                 <div class="button-container">
                     <button type="submit" class="submit-event" data-role="submit">Submit</button>
                     <button data-role="reset">Reset</button>
-                    <button class="exit-popup" data-popup="close-event-popup"> Close </button>
+                    <button class="exit-popup" data-role="close-event-form"> Close </button>
                 </div>
             </div>
         </form>

@@ -1,4 +1,6 @@
+const $EVENTLIST = $('[data-role="events-container"]');
 const $EVENTFORM = $('[data-role="event-edit"]');
+const $CLOSEFORM = $('[data-role="close-event-form"]');
 
 gapi.analytics.ready(() => {
     
@@ -203,22 +205,15 @@ function addEditListener() {
         $parent = $(event.target.parentNode.parentNode.parentNode);
         console.log($parent);
         console.log($element);
-        createEventModal($element, $parent);
-        $EVENTMODAL.css('display', 'block');
-        window.addEventListener('click', (e) => {
-            if (e.target === $EVENTMODAL) {
-                $EVENTMODAL.css('display', 'none');
-                $('[data-role="modal-content"]').remove();
-            }
-        })
+        $EVENTFORM.show('slow');
+        setDefaults($element, $parent)
     })
 }
 
 function addModalCloseListener() {
-    $('[data-role="close"]').on('click', function(event) {
+    $CLOSEFORM.click((event) => {
         event.preventDefault();
-        $EVENTMODAL.css('display', 'none');
-        $('[data-role="modal-content"]').remove();
+        $EVENTFORM.hide('slow');
     })
 }
 
@@ -231,6 +226,11 @@ function addDeleteListener() {
         $parent = $(event.target.parentNode.parentNode.parentNode);
         deleteEvent($child, $element, $parent);
     })
+}
+
+function setDefaults(element, parent) {
+    var d = new Date(parent[0].childNodes[0].textContent);
+    document.getElementById('event-date').valueAsDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12)
 }
 
 // Deletes event from DOM and makes api call to delete from database
@@ -316,7 +316,7 @@ $('#eventDropdown').ddslick({
     height: "200px",
     imagePosition: "right" 
 });
-
+$EVENTFORM.hide();
 addDeleteListener();
 addEditListener();
 addModalCloseListener();
