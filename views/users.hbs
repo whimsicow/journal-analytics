@@ -6,6 +6,7 @@
     <div class="main-user-experience">
 
         <div class="chart-navigation">
+
             <div class="user-info-container">
                 <img data-role="profilepic" class="large-user-photo" src='{{pic}}' alt='profile picture'>
                 <!-- Map and Google API containers -->
@@ -14,9 +15,16 @@
                 <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
                 <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
             </div>
+
             <div class="selector-container">
                 <div class="sessions-count-container"><h3 class="sessions-count">Date Range</h3></div>
                 <div id="date-range-selector-container"></div> <!-- Start/End Date selector -->
+            </div>
+
+            <!-- pie graph -->
+            <div class="pie-container">
+                <h3> Top Events </h3>
+                <div id="event-pie-graph"></div>
             </div>
         </div>
 
