@@ -155,7 +155,6 @@ $('#myDropdown').ddslick({
 
 ////Initialization
 $(document).ready(() => {
-    $FORM_CONTAINER.hide();
     closePopupButton();
     plusSignButton();
     saveForm();
