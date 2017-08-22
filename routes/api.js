@@ -1,7 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 const moment = require('moment');
 const db = require('../db')
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/login');
+  }
 
 function dateSifter(date) {
     if (date === "0daysAgo") {
@@ -18,7 +24,7 @@ function dateSifter(date) {
     }
 }
 
-router.post('/events', (req, res, next) => {
+router.post('/events', ensureAuthenticated, (req, res, next) => {
     var startdate = dateSifter(req.body.startdate);
     var enddate = dateSifter(req.body.enddate);
     
@@ -43,7 +49,7 @@ router.post('/events', (req, res, next) => {
 })
 
 // Store larger image provided by google analytics auth
-router.post('/picture', (req, res, next) => {
+router.post('/picture', ensureAuthenticated, (req, res, next) => {
     if(!req.body) {
         return res.status(400).send('No information provided.');
     }
@@ -56,7 +62,7 @@ router.post('/picture', (req, res, next) => {
 })
 
 // Store an event in database upon form submission
-router.post('/eventstore', function(req, res, next) {
+router.post('/eventstore', ensureAuthenticated, function(req, res, next) {
     if(!req.body) {
         return res.status(400).send('No information provided.');
     }

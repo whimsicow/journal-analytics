@@ -55,15 +55,13 @@ router.get('/search', ensureAuthenticated, function(req, res) {
 router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
     db.none(`
     DELETE from events
-    where event_id=${req.params.id};
+    where event_id=${req.params};
     `)
      .then((result) => {
-            res.status(202).send('Your event was removed successfully!');
+            res.status(202).send('success');
         })
       .catch((err) => {
-          res.render('error', {
-            message: err.message
-          })
+          res.status(500).send(`<p class="event-error">Server connection error. Your event could not be removed at this time. Please try again later.</p>`);
       })
 })
 

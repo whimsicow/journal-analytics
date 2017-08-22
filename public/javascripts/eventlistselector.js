@@ -152,19 +152,27 @@ function createList(result) {
 function addDeleteListener() {
     $EVENTLIST.on('click', "[data-role='delete']", function(event) {
         event.preventDefault();
+        $child = $(event.target);
         $element = $(event.target.parentNode);
         $parent = $(event.target.parentNode.parentNode);
-        deleteEvent($element, $parent);
+        deleteEvent($child, $element, $parent);
     })
 }
 
-function deleteEvent(element, parent) {
-    element.remove();
+function deleteEvent(child, element, parent) {
     $.get(`/eventlist/delete/${element[0].id}`)
         .then((result) => {
+            element.remove();
             if (parent[0].childElementCount === 0) {
                 parent.remove();
             } 
+        })
+        .catch((error) => {
+            console.log(child);
+            if(child.children()) {
+                child.children().remove();
+            }
+            child.append(error.responseText);
         })
 }
 
