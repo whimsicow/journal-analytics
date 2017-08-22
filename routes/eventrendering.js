@@ -49,7 +49,8 @@ router.get('/search', ensureAuthenticated, function(req, res) {
     `)
     .then((result) => {
         res.send(result);
-    }) 
+    })
+    .catch((error))
 });
 
 router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {

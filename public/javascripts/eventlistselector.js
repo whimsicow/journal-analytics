@@ -104,7 +104,7 @@ function createList(result) {
 
     if (result.length === 0) {
         $noevents = $('<p></p>', {
-            'text': `No events found for this account/property between the dates searched. Please try your search again.`,
+            'text': `No events found. Please try your search again.`,
             'class': 'event-error'
         })
         $EVENTLIST.append($noevents);
