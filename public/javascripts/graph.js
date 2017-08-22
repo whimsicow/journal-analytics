@@ -92,9 +92,9 @@ const graph = (function() {
                 
                 renderGraphs(googleAnalytics, userEvents)
             })
-            .catch((error) => {
-                renderGraphs(googleAnalytics, [])
-            })
+                .catch((error) => {
+                    renderGraphs(googleAnalytics, [])
+                })
     }
 
   // render events

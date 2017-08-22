@@ -153,17 +153,21 @@ function createList(result) {
                 })
                 $icondiv.append($icon);
                 $event.append($icondiv);
+                let $anchor = $('<div></div>', {})
                 let $update = $('<a></a>', {
+                    'class': 'event-anchor',
                     'text': 'Edit',
                     'href': `/eventlist/edit/${event.event_id}`
                 })
-                $event.append($update);
+                $anchor.append($update);
                 let $delete = $('<a></a>', {
+                    'class': 'event-anchor',
                     'text': 'Delete',
                     'href': `#`,
                     'data-role': 'delete'
                 })
-                $event.append($delete);
+                $anchor.append($delete);
+                $event.append($anchor)
                 $datecontainer.append($event);
             })
             $eventcontainer.append($datecontainer)
@@ -172,13 +176,24 @@ function createList(result) {
     }
 }
 
+// Adds click listener to Edit link for each event
+function addEditListener() {
+    $EVENTLIST.on('click', "[data-role='edit']", function(event) {
+        event.preventDefault();
+        $child = $(event.target);
+        $element = $(event.target.parentNode);
+        $parent = $(event.target.parentNode.parentNode);
+       
+    })
+}
+
 // Adds click listener to Delete link for each event
 function addDeleteListener() {
     $EVENTLIST.on('click', "[data-role='delete']", function(event) {
         event.preventDefault();
         $child = $(event.target);
-        $element = $(event.target.parentNode);
-        $parent = $(event.target.parentNode.parentNode);
+        $element = $(event.target.parentNode.parentNode);
+        $parent = $(event.target.parentNode.parentNode.parentNode);
         deleteEvent($child, $element, $parent);
     })
 }
