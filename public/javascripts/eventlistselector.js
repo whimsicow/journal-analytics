@@ -1,6 +1,7 @@
 const $EVENTLIST = $('[data-role="events-container"]');
 const $EVENTMODALCONT = $('[data-role="event-modal"]');
 const $EVENTMODAL = $('#event-modal');
+const $EVENTFORM = $('[data-role="modal-content"]');
 
 gapi.analytics.ready(() => {
     
@@ -403,7 +404,7 @@ function chooseIcon(method) {
     return newImage[method]
 }
 
-saveForm = () => {
+function saveForm() {
     $FORM_CONTAINER.submit(() => {
         event.preventDefault();
         if($('[data-role="status-msg"]').children()) {
@@ -424,8 +425,8 @@ saveForm = () => {
     })
 }
 
-function saveForm() => {
-    $FORM_CONTAINER.submit(() => {
+function saveForm() {
+    $EVENTFORM.submit(() => {
         event.preventDefault();
         if($('[data-role="status-msg"]').children()) {
             $('[data-role="status-msg"]').empty();
@@ -435,13 +436,8 @@ function saveForm() => {
         getMethod();
         getAccount();
         getLink();
-        dbStoreEvent();
-        resetForm();
+        dbUpdateEvent();
 
-        // rerender graph
-        window.setTimeout(() => {
-            graph.gaDataForMainGraph(this.gaData)
-        }, 500)
     })
 }
 
