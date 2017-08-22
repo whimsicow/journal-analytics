@@ -214,9 +214,7 @@ function addModalCloseListener() {
     $('[data-role="close"]').on('click', function(event) {
         event.preventDefault();
         $EVENTMODAL.css('display', 'none');
-        if ($EVENTMODALCONT.children()) {
-            $EVENTMODALCONT.empty();
-        }
+        $('[data-role="modal-content"]').remove();
     })
 }
 
@@ -234,7 +232,8 @@ function addDeleteListener() {
 function createEventModal(element, parent) {
     let $modalform = $('<form></form>', {
         'name': 'edit-event',
-        'class': 'modal-content'
+        'class': 'modal-content',
+        'data-role': 'modal-content'
     });
     let $datediv = $('<div></div>', {});
     let $datelabel = $('<label></label>', {
