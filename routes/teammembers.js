@@ -16,6 +16,8 @@ router.get('/', ensureAuthenticated, function(req, res) {
         .then((result) => {
             res.render('teammembers', {
                 navmessage: 'Welcome, ',
+                name: result.firstname,
+                pic: result.picture,
                 ftrlink: '/logout',
                 ftrlinktext: 'Logout',
                 navlink1: "/",
