@@ -71,6 +71,7 @@ const graph = (function() {
         request['startdate'] = ((googleAnalytics.response.query['start-date']));
         request['enddate'] = (googleAnalytics.response.query['end-date']);
         
+        // query from our own DB
         $.post('/api/events', request) 
             .then((res) => {
                 let userEvents = res.map(x => {
@@ -84,12 +85,11 @@ const graph = (function() {
                     x.date_added = moment(modifiedDate).format('MMM DD YYYY')
                     return x
                 })
-                
                renderMainGraph(googleAnalytics, userEvents)
             })
-                .catch((error) => {
-                    renderMainGraph(googleAnalytics, [])
-                })
+            .catch((error) => {
+                renderMainGraph(googleAnalytics, [])
+            })
 
     }
 
@@ -191,6 +191,7 @@ const graph = (function() {
   // render graphs
   const renderMainGraph = (googleAnalytics, userEvents) => {
       mainGraph(googleAnalytics, userEvents)
+      pieGraph(googleAnalytics, userEvents)
       console.log('highcharts main graph has been rendered')
   }
   const renderTrafficGraph = (googleAnalytics) => {
@@ -250,20 +251,6 @@ const graph = (function() {
           shared: true
       },
       plotOptions: {
-        area: {
-          fillColor: {
-              linearGradient: {
-                  x1: 0,
-                  y1: 0,
-                  x2: 1,
-                  y2: 1
-              },
-              stops: [
-                  [0, '#3B5369'],
-                  [1, '#CBE6F1']
-              ]
-          }
-        },
         series: {
             marker: {
               symbol: 'square',
@@ -299,6 +286,7 @@ const graph = (function() {
           },
           {
             name: 'Events',
+            color: '#9DC8F1',
             data: getGraphEvents(userEvents, ga),
             marker: {
                 lineColor: '#fff',
@@ -307,6 +295,82 @@ const graph = (function() {
           }
         ]
   });
+  }
+
+  // pie graph
+  const pieGraph = (googleAnalytics, userEvents) => {
+    console.log('configuring highcharts main graph')
+    let ga = getDates(googleAnalytics)
+    console.log('ga', ga)
+    console.log('userEvents', userEvents)
+
+    Highcharts.chart('event-pie-graph', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            backgroundColor: null,
+            height: 300
+        },
+        title: {
+            text: null
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [{
+                name: 'Email',
+                y: 56.33
+            }, {
+                name: 'Social',
+                y: 24.03,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'General',
+                y: 10.38
+            }, {
+                name: 'Outdoor',
+                y: 10.38
+            },{
+                name: 'Important',
+                y: 10.38
+            },{
+                name: 'Google Plus',
+                y: 10.38
+            },{
+                name: 'Facebook',
+                y: 4.77
+            }, {
+                name: 'Important',
+                y: 0.91
+            },
+            {
+                name: 'Multiplatform',
+                y: 0.91
+            },{
+                name: 'LinkedIn',
+                y: 0.2
+            }]
+        }]
+    });
   }
 
   // traffic graph
@@ -356,8 +420,8 @@ const graph = (function() {
                 text: false
             },
             min: 0,
-            max: 481,
-            tickInterval: 10,
+            max: 10,
+            tickInterval: 1,
             labels: {
               style: {
                   color: '#999999',
@@ -420,7 +484,7 @@ const graph = (function() {
         },
         series: [{
             name: 'Facebook',
-            data: [228, 37, 27, 13, 6, 5, 6, 5],
+            data: [9, 10, 8, 9, 3, 0, 5, 0],
             color: '#6693E5',
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/facebook-icon.svg)',
@@ -429,45 +493,42 @@ const graph = (function() {
             }
         }, {
             name: 'Twitter',
-            data: [19, 5, 4, 2, 3, 1, 1, 1],
+            data: [0, 6, 0, 1, 0, 0, 1, 1],
             color: '#7DCAFD',
-            visible: false,
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/twitter-4.svg)',
                 width: 16,
                 height: 16
             }
         }, {
-            name: 'Youtube',
-            data: [427, 418, 481, 445, 365, 381, 440, 174],
-            color: '#d79e64',
-            marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/youtube-icon.svg)',
-                width: 16,
-                height: 16
-            }
-        },
-        {
             name: 'Reddit',
-            data: [7, 8, 5, 4, 3, 7, 5, 2],
+            data: [2, 1, 0, 0, 0, 0, 0, 0],
             color: '#115EA3',
-            visible: false,
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/reddit-2.svg)',
                 width: 16,
                 height: 16
             }
         }, {
-            name: 'Quora',
-            data: [8, 30, 2, 4, 9, 6, 2, 3],
-            color: '#727272',
-            visible: false,
+            name: 'LinkedIn',
+            data: [0, 6, 2, 6, 3, 0, 0, 0],
+            color: '#D64857',
             marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/quora-black.svg)',
+                symbol: 'url(https://cdn.worldvectorlogo.com/logos/linkedin-icon-1.svg)',
                 width: 16,
                 height: 16
             }
-        },]
+        },{
+            name: 'Meetup',
+            data: [0, 0, 2, 0, 0, 0, 0, 0],
+            color: '#6d48d6',
+            visible: false,
+            marker: {
+                symbol: 'url(https://cdn.worldvectorlogo.com/logos/meetup-1.svg)',
+                width: 16,
+                height: 16
+            }
+        }]
     })};
       
     // return public methods exposed globally
