@@ -29,8 +29,7 @@ router.get('/', ensureAuthenticated, function(req, res) {
             navlink1: "/",
             navlinktext1: "Home",
             navlink2: '/logout',
-            navlinktext2: 'Logout',
-            members: result
+            navlinktext2: 'Logout'
         });
     }) 
 });

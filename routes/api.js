@@ -80,7 +80,7 @@ router.post('/eventstore', ensureAuthenticated, function(req, res, next) {
         }) 
 
         .catch((err) => {
-            res.status(500).send('<span class="status-msg">Sorry, your event could not be added at this time. Please try again.</span>');
+            res.status(500).send('<span class="status-msg">Sorry, your event could not be added at this time. Please try again later.</span>');
             res.end();
         })
 })

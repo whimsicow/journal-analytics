@@ -23,8 +23,7 @@ router.get('/', ensureAuthenticated, function(req, res) {
                 navlink1: "/",
                 navlinktext1: "Home",
                 navlink2: '/logout',
-                navlinktext2: 'Logout',
-                members: result
+                navlinktext2: 'Logout'
             });
         }) 
 });
@@ -34,7 +33,7 @@ router.get('/search?', ensureAuthenticated, function(req, res, next) {
         return res.status(400).send('No files were uploaded.');
     }
     
-    db.many(`
+    db.any(`
         SELECT distinct on (evs.email) evs.email, evs.accountname, urs.firstname, urs.picture 
 	    from events evs
 		    inner join users urs
@@ -49,7 +48,7 @@ router.get('/search?', ensureAuthenticated, function(req, res, next) {
         })  
 
         .catch((error) => {
-            res.status(404).send(`<p>No active members found on this team. Please try your search again.</p>`)
+            res.status(404).send(`<p class="event-error">Server connection error. Please try your search again later.</p>`)
         })
 
 })
