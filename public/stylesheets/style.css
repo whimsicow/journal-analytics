@@ -307,7 +307,14 @@ label {
     border: none;
 }
 
-
+.event-error,
+.event-error:hover
+.event-error:visited {
+    cursor: default;
+    color: red;
+    text-decoration: none;
+    font-weight: 800;
+}
 
 
 /* *************************************************** */

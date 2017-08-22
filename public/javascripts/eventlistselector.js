@@ -171,7 +171,7 @@ function deleteEvent(child, element, parent) {
         })
         // Appends server error message to child, removes if it already exists
         .catch((error) => {
-            if(child.children()) {
+            if (child.children()) {
                 child.children().remove();
             }
             child.append(error.responseText);
