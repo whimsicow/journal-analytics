@@ -161,7 +161,7 @@ label {
 
 
 /* class that hides things */
-#template-container,
+#template-container, #template-container-2,
 #sessions-users-container,
 .hidden {
     display: none;
