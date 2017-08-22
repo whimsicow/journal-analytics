@@ -224,6 +224,8 @@ $(document).ready(() => {
             console.groupEnd()
             console.groupEnd()
             
+            // save global for later usage during saving form
+            this.gaData = result;
             graph.gaDataForMainGraph(result)
         })
         
