@@ -101,7 +101,9 @@ function createList(result) {
             'text': date[0].event_date
         });
         date.forEach(function(event) {
-            let $event = $('<div></div>', {});
+            let $event = $('<div></div>', {
+                'id': event.event_id
+            });
             let $description = $('<span></span>', {
                 'text': `Description: ${event.description}`
             })
@@ -136,7 +138,8 @@ function createList(result) {
             $event.append($update);
             let $delete = $('<a></a>', {
                 'text': 'Delete',
-                'href': `/eventlist/delete/${event.event_id}`
+                'href': `#`,
+                'data-role': 'delete'
             })
             $event.append($delete);
             $datecontainer.append($event);
@@ -144,6 +147,15 @@ function createList(result) {
         $eventcontainer.append($datecontainer)
     })
     $EVENTLIST.append($eventcontainer);
+}
+
+function addDeleteListener() {
+    $EVENTLIST.on('click', "[data-role='delete']", function(event) {
+        event.preventDefault();
+        $element = $(event.target.parentNode);
+        console.log($element);
+        // deletePlace($element, $element[0]["attributes"][2]['nodeValue']);
+    })
 }
 
 function chooseIcon(method) {
@@ -162,3 +174,5 @@ function chooseIcon(method) {
     }
     return newImage[method]
 }
+
+addDeleteListener();
