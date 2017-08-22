@@ -18,6 +18,11 @@ const saveForm = () => {
         getLink();
         dbStoreEvent();
         resetForm();
+
+        // rerender graph
+        window.setTimeout(() => {
+            graph.gaDataForMainGraph(this.gaData)
+        }, 500)
     })
 }
 
