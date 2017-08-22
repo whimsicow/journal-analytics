@@ -798,3 +798,17 @@ label {
 }
 
 
+.extra-info-graphs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+.pie-container {
+    flex-grow: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
