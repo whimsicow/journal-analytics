@@ -408,7 +408,7 @@ const graph = (function() {
         xAxis: {
             lineColor: '#eee',
             categories: ['Aug 15, 2017', 'Aug 16, 2017', 'Aug 17, 2017', 'Aug 18, 2017', 'Aug 19, 2017', 'Aug 20, 2017', 'Aug 21, 2017', 'Aug 22, 2017'],
-            tickInterval: 2,
+            tickInterval: 1,
             labels: {
                 style: {
                     color: '#999999'
@@ -503,6 +503,7 @@ const graph = (function() {
             name: 'Twitter',
             data: [0, 6, 0, 1, 0, 0, 1, 1],
             color: '#7DCAFD',
+            visible: false,
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/twitter-4.svg)',
                 width: 16,
