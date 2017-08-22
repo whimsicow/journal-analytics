@@ -1,11 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 const moment = require('moment');
 const db = require('../db')
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/login');
+  }
 
 function dateSifter(date) {
     if (date === "0daysAgo") {
         date = moment().format('YYYY-MM-DD');
+        return date;
+    } else if (date === "7daysAgo") {
+        date = moment().subtract(7, 'days').format('YYYY-MM-DD');
         return date;
     } else if (date === "30daysAgo") {
         date = moment().subtract(30, 'days').format('YYYY-MM-DD');
@@ -15,12 +24,12 @@ function dateSifter(date) {
     }
 }
 
-router.post('/events', (req, res, next) => {
+router.post('/events', ensureAuthenticated, (req, res, next) => {
     var startdate = dateSifter(req.body.startdate);
     var enddate = dateSifter(req.body.enddate);
     
     db.any(`
-    SELECT evs.event_date, evs.description, evs.method, evs.accountname, evs.propertyname, evs.email, evs.eventlink, evs.date_added, urs.firstname, urs.picture 
+    SELECT evs.event_date, evs.event_id, evs.description, evs.method, evs.accountname, evs.propertyname, evs.email, evs.eventlink, evs.date_added, urs.firstname, urs.picture 
 	from events evs
 		inner join users urs
 		on urs.email = evs.email
@@ -40,7 +49,7 @@ router.post('/events', (req, res, next) => {
 })
 
 // Store larger image provided by google analytics auth
-router.post('/picture', (req, res, next) => {
+router.post('/picture', ensureAuthenticated, (req, res, next) => {
     if(!req.body) {
         return res.status(400).send('No information provided.');
     }
@@ -53,7 +62,7 @@ router.post('/picture', (req, res, next) => {
 })
 
 // Store an event in database upon form submission
-router.post('/eventstore', function(req, res, next) {
+router.post('/eventstore', ensureAuthenticated, function(req, res, next) {
     if(!req.body) {
         return res.status(400).send('No information provided.');
     }

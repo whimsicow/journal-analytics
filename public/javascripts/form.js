@@ -102,6 +102,7 @@ const setDefaultDate = () => {
 function getMethod() {
     var method = $('#myDropdown').find(":selected");
     method = method['prevObject'][0]['innerText'];
+    method = method.trim()
     setLocalStorageValues('method', method);
 }
 

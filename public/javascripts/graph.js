@@ -87,7 +87,6 @@ const graph = (function() {
                 userEvents = res.map(x => {
                     let modifiedDate = x.date_added.slice(0, 10)
                     x.date_added = moment(modifiedDate).format('MMM DD YYYY')
-
                     return x
                 })
                 
