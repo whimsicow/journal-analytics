@@ -159,6 +159,6 @@ function chooseIcon(method) {
         "Outdoor": "../images/tent.png",
         "Multiplatform": "../images/multipleplatform.png",
         "Social": "../images/socialevent.png"
-     }
-     return newImage[method]
- }
+    }
+    return newImage[method]
+}
