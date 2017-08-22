@@ -384,10 +384,8 @@ const graph = (function() {
   // traffic graph
   const trafficGraph = (googleAnalytics) => {
       console.log('configuring highcharts traffic graph')
-      console.log(googleAnalytics)
       let a = googleAnalytics[0]
       let ga = getDates(googleAnalytics);
-      console.log(ga)
 
       Highcharts.chart('traffic-container', {
         credits: {
