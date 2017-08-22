@@ -206,22 +206,102 @@ function addDeleteListener() {
 }
 
 function createEventModal(element, parent) {
-    $modalform = $('<form></form>', {
+    let $modalform = $('<form></form>', {
         'name': 'edit-event'
-    })
-    $datediv = $('<div></div>', {})
-    $datelabel = $('<label></label>', {
-        'text': 'Date:'
-    })
+    });
+    let $datediv = $('<div></div>', {});
+    let $datelabel = $('<label></label>', {
+        'text': 'Event Date:'
+    });
     $datediv.append($datelabel);
-    $date = $('<input>', {
+    let $date = $('<input>', {
         'name': 'date',
         'type': 'date',
         'autocomplete': 'on',
         'required': ''
-    })
+    });
     $datediv.append($date);
     $modalform.append($datediv);
+    
+    let $descdiv = $('<div></div>', {});
+    let $desctxt = $('<textarea></textarea>', {
+        'name': 'event-description',
+        'rows': '3',
+        'cols': '50',
+        'required': ''
+    })
+    $descdiv.append($desctxt);
+    $modalform.append($descdiv);
+    let $linkdiv = $('<div></div>', {});
+    let $linktxt = $('<input>', {
+        'name': 'link',
+        'type': 'text',
+        'cols': '50'
+    })
+
+    let $dropdown = $('<div></div>', {
+        'class': 'icon-dropdown',
+        'id': 'myDropdown'
+    })
+    let $option1 = $('<option></option>', {
+        'class': 'icon',
+        'value': 'General',
+        'data-imagesrc': '../images/defaulticon.svg',
+        'data-description': 'General'
+    })
+    $dropdown.append($option1);
+    let $option2 = $('<option></option>', {
+        'class': 'icon',
+        'value': 'Multiplatform',
+        'data-imagesrc': '../images/multipleplatform.png',
+        'data-description': 'Multiplatform'
+    })
+    $dropdown.append($option2);
+    let $option3 = $('<option></option>', {
+        'class': 'icon',
+        'value': 'Outdoor',
+        'data-imagesrc': '../images/tent.png',
+        'data-description': 'Outdoor'
+    })
+    $dropdown.append($option3);
+    let $option4 = $('<option></option>', {
+        'class': 'icon',
+        'value': 'Important',
+        'data-imagesrc': '../images/importanticon.svg',
+        'data-description': 'Important'
+    })
+    $dropdown.append($option4);
+    let $option5 = $('<option></option>', {
+        'class': 'icon',
+        'value': 'Social',
+        'data-imagesrc': '../images/socialevent.png',
+        'data-description': 'Social'
+    })
+    $dropdown.append($option5);
+    let $option6 = $('<option></option>', {
+        'class': 'icon',
+        'value': 'Email',
+        'data-imagesrc': '../images/email.png',
+        'data-description': 'Email'
+    })
+    $dropdown.append($option6);
+    let $option7 = $('<option></option>', {
+        'class': 'icon',
+        'value': 'Facebook',
+        'data-imagesrc': 'https://cdn.worldvectorlogo.com/logos/facebook-icon.svg',
+        'data-description': 'Facebook'
+    })
+    $dropdown.append($option7);
+    let $option8 = $('<option></option>', {
+        'class': 'icon',
+        'value': 'Facebook',
+        'data-imagesrc': 'https://cdn.worldvectorlogo.com/logos/facebook-icon.svg',
+        'data-description': 'Facebook'
+    })
+    $dropdown.append($option8);
+
+    $modalform.append($dropdown);
+
     if (element[0].childElementCount === 6) {
         
     } else {
