@@ -327,7 +327,7 @@ $(document).ready(() => {
 
             // updates title 
             const title = document.getElementById('view-name')
-            title.textContent = `${data.property.name} ${data.view.name}`
+            title.textContent = `${data.property.name}`
         })
 
         /************************************* DATE RANGE SELECTOR*/

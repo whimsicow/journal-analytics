@@ -122,27 +122,54 @@ const graph = (function() {
 
       // render to modal
       filteredEventsByDate.forEach(x => {
+        let firstname = capitalizeFirstLetter(x.firstname)
         let title = document.querySelector('.top-modal-info')
         let parent = document.querySelector('.modal-list')
         let linkWrapper = document.createElement('a')
         linkWrapper.href = ""
         let wrapper = document.createElement('div')
+        let wrapper2 = document.createElement('div')
         wrapper.classList.add('event-item')
-        let email = document.createElement('p')
-        email.textContent = `Email: ${x.email}`
+        wrapper2.classList.add('icon-image-modal')
+        let name = document.createElement('p')
+        name.textContent = `Posted by: ${firstname}`
         let method = document.createElement('p')
         method.textContent = `Method: ${x.method}`
+        let img = document.createElement('img')
+        let iconImage = chooseImgForMethod(x.method.trim())
+        img.setAttribute("src", iconImage)
+        img.setAttribute("alt", "icon")
         let description = document.createElement('p')
         description.textContent = `Description: ${x.description}`
-        linkWrapper.appendChild(email)
         linkWrapper.appendChild(description)
         linkWrapper.appendChild(method)
+        linkWrapper.appendChild(name)
+        wrapper2.appendChild(img)
+        linkWrapper.appendChild(wrapper2)
         wrapper.appendChild(linkWrapper)
         parent.appendChild(wrapper)
       })
       
   }
-
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  const chooseImgForMethod = (method) => {
+      let newImage = {
+          "General": "../images/defaulticon.svg",
+          "Email": "../images/email.png",
+          "Facebook": "https://cdn.worldvectorlogo.com/logos/facebook-icon.svg",
+          "Tweet": "https://cdn.worldvectorlogo.com/logos/twitter-4.svg",
+          "Google Plus": "../images/google-plus.svg",
+          "Linkedin": "../images/linkedin.png",
+          "Instagram" : "https://cdn.worldvectorlogo.com/logos/instagram-2016.svg",
+          "Important" : "../importanticon.svg",
+          "Outdoor" : "../images/tent.png",
+          "Multiplatform" : "../images/multipleplatform.png",
+          "Social" : "../images/socialevent.png"
+      }
+      return newImage[method]
+  }
   // remove events
   const removeEvents = () => {
     const myNode = document.querySelector(".modal-list");

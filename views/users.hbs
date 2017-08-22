@@ -9,7 +9,7 @@
             <div class="user-info-container">
                 <img data-role="profilepic" class="large-user-photo" src='{{pic}}' alt='profile picture'>
                 <!-- Map and Google API containers -->
-                <div id="view-name" class="hidden"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data -->
+                {{!-- <div id="view-name" class="hidden"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data --> --}}
                 <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
                 <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
             </div>
@@ -25,7 +25,8 @@
         <div class="charts-container">
             <div class="company-logo-container">
                 <div class="company-logo">
-                    <img class="company-logo" src="../images/digitalcraftslogo.png" alt="company-logo">
+                    <div id="view-name" class="company-logo"></div>
+                    {{!-- <img class="company-logo" src="../images/digitalcraftslogo.png" alt="company-logo"> --}}
                     {{!-- <img class="company-logo" src='{{{companylogo}}}'alt="company-logo"> --}}
                 </div>
             </div>
@@ -94,15 +95,20 @@
                 <div id="view-selector-container2"></div>
             
             <!-- icons to choose from -->
+                <div><h4>Event Type</h4></div>
                 <div class="icon-dropdown" id="myDropdown">
-                    <option class="icon" value="defaultcheck" data-imagesrc="../images/defaulticon.svg" data-description="Default"></option>
+                    <option class="icon" value="defaultcheck" data-imagesrc="../images/defaulticon.svg" data-description="General"></option>
+                    <option class="icon" value="multiplatform" data-imagesrc="../images/multipleplatform.png" data-description="Multiplatform"></option>
+                    <option class="icon" value="outdoorevent" data-imagesrc="../images/tent.png" data-description="Outdoor"></option>
+                    <option class="icon" value="important" data-imagesrc="../images/importanticon.svg" data-description="Important"></option>
+                    <option class="icon" value="social event" data-imagesrc="../images/socialevent.png" data-description="Social"></option>
                     <option class="icon" value="email" data-imagesrc="../images/email.png" data-description="Email"></option>
                     <option class="icon" value="facebook" data-imagesrc="https://cdn.worldvectorlogo.com/logos/facebook-icon.svg" data-description="Facebook"></option>
                     <option class="icon" value="twitter" data-imagesrc="https://cdn.worldvectorlogo.com/logos/twitter-4.svg" data-description="Tweet"></option>
                     <option class="icon" value="gmail" data-imagesrc="../images/google-plus.svg" data-description="Google Plus"></option>
                     <option class="icon" value="linkedin" data-imagesrc="../images/linkedin.png" data-description="Linkedin"></option>
                     <option class="icon" value="instagram" data-imagesrc="https://cdn.worldvectorlogo.com/logos/instagram-2016.svg" data-description="Instagram"></option>
-                    <option class="icon" value="outdoorevent" data-imagesrc="../images/tent.png" data-description="Event"></option>
+                    
 
                 </div>
                 <div class="status-msg" data-role="status-msg">
@@ -122,9 +128,15 @@
     
   <!-- Modal content -->
   <div class="modal-content">
-    <span class="top-modal-info"></span>
-    <span class="close">&times;</span>
+      
+      <div class="modal-title">
+          
+          <div class="top-modal-info"></div>
+          <span class="close">&times;</span>
+      </div>
+    
     <div class="modal-list">
+        
     </div>
   </div>
 

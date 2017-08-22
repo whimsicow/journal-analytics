@@ -15,7 +15,7 @@ body {
 }
 
 /* *************************************************** */
-/* login page */
+/* Landing page */
 
 .index-banner {
     height: 800px;
@@ -33,10 +33,14 @@ body {
 .parallax {
     transition: initial;
 }
+/* Landing page */
+/* *************************************************** */
+
 
 #view-selector-container2 > .ViewSelector2 > .ViewSelector2-item {
     display: inline-block;
 }
+
 
 #view-selector-container2 > .ViewSelector2 > .ViewSelector2-item:nth-child(3),
 #events-view-selector-container > .ViewSelector2 > .ViewSelector2-item:nth-child(3),
@@ -71,8 +75,6 @@ label {
     display: flex;
     justify-content: space-around;
     letter-spacing: 1px;
-    /* padding-left: 20px;
-    padding-right: 20px; */
     padding-top: 100px;
     padding-bottom: 35px;
     color: #ADD8E6;
@@ -105,11 +107,11 @@ label {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    padding-top: 25px;
+    padding-bottom: 20px;
 }
 
+/* *************************************************** */
 /* Chart section */
-
 .chart-date-range-container,
 .chart-selection-container {
     display: flex;
@@ -138,13 +140,15 @@ label {
 }
 .company-logo-container {
     margin: 0 auto;
-    margin-top: 60px;
-    margin-bottom: 40px;
+    padding-top: 60px;
+    padding-bottom: 40px;
     width: 100%; 
 }
-.company-logo img{
+.company-logo{
     margin: 0 auto;
-    max-height: 90px;
+    font-size: 40px;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 2px;
 }
 .box {
     background: white;
@@ -164,7 +168,102 @@ label {
     display: none;
 }
 
+/****************** user graph modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000000;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.8);
+}
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #888;
+    width: 90%;
+    height: 50%;
+    overflow: scroll;
+    background-image: url('../images/footerbackground.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0;
+}
+.modal-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ADD8E6;
+    font-weight: bolder;
+}
+/* The Close Button */
+.close {
+    color: #ADD8E6;
+    padding-right: 20px;
+    font-size: 40px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: #eee;
+    text-decoration: none;
+    cursor: pointer;
+}
+.top-modal-info {
+    padding-top: 10px;
+    padding-left: 20px;
+    text-align: center;
+    font-size: 20px;
+}
+.event-item {
+    position: relative;
+    display: flex;
+    margin: 1rem;
+    background-color: #395062;
+    border-radius: 8px;
+    padding: 1rem;
+    line-height: 30px;
+}
+.event-item p {
+    margin: 0;
+    text-align: left;
+}
+.event-item a {
+    text-decoration: none;
+    color: #eee;
+}
+.event-item a:hover {
+    color: #ADD8E6;
+}
+.icon-image-modal {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding-right: 15px;
+    padding-top: 15px;
+}
+.icon-image-modal img {
+    height: 35px;
+}
+/* modal */
+/* ******************* */
+/* ******************* */
+/* ******************* */
 
+
+
+
+/* ******************* */
+/* ******************* */
 /* ******************* */
 /* green plus sign fixed to bottom right to add events */
 .add-event-button {
@@ -193,14 +292,16 @@ label {
 /* Popup form to add events */
 .form {
     position: fixed;
-    top: 40%;
-    left: 2.5%;
+    top: 0;
+    margin-top: 70px;
+    height: 100%;
     background: white;
-    height: 300px;
-    width: 95%;
+    max-height: 450px;
+    width: 100%;
     border: 1px solid #394358;
     border-radius: 10px;
     z-index: 1000000;
+    overflow: scroll;
 }
 .form-container {
     margin: 10px;
@@ -209,16 +310,16 @@ label {
 .form .date,
 .form .descripbe-event,
 .form .icon-dropdown {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .form .icon-dropdown {
-    padding-top: 20px;
+    padding-top: 10px;
     height: 30px;
 }
 .event-link input {
     margin-top: 10px;
     width: 300px;
-    height: 30px;
+    height: 25px;
 }
 /* icon dropdown */
 .dd-selected {
@@ -226,6 +327,7 @@ label {
     align-content: center;
     align-items: center;
 }
+
 .icon {
     display: flex;
     align-content: center;
@@ -362,13 +464,31 @@ label {
 @media only screen and (min-width: 768px){
 
     .form {
-        top: 30%;
-        left: 40%;
+        margin-left: 40%;
+        margin-top: 100px;
         background: white;
-        min-height: 500px;
-        width: 400px;
+        max-height: 400px;
+        width: 40%;
     }
-
+    .form-container {
+        margin: 20px;
+    }
+    .form .event-link,
+    .form .date,
+    .form .descripbe-event{
+        margin-bottom: 20px;
+    }
+    .icon-dropdown {
+        margin-bottom: 40px;
+    }
+    .form .icon-dropdown {
+        height: 25px;
+    }
+    .event-link input {
+        margin-top: 10px;
+        width: 300px;
+        height: 30px;
+    }
     /* charts and side bar */
     .main-user-experience {
         width: 100%;
@@ -440,9 +560,16 @@ label {
         background: white;
         width: 90%;
         margin: 4.5rem auto; 
-        /*   height: 30rem; */
+
         box-shadow: 0px 50px 80px -20px rgba(123, 160, 175, 0.70),0 20px 30px 10px rgba(80,180,220,0.2),0 0px 80px 60px rgba(80,180,220,0.2);
     }
+    .modal-content {
+        width: 50%;
+        height: 50%;
+    }
+
+
+
     /* ************************ */
     /* login page */
     .login-main {
@@ -483,6 +610,8 @@ label {
         padding: 0px;
         border: none;
     }
+    /* end of login page */
+    /* ******************** */
     
 }
       
@@ -504,14 +633,16 @@ label {
         display: flex;
         flex-direction: row;
     }
-    .sessions-count-container,
+    
     .selector-container,
     .user-info-container {
         text-align: left;
         max-width: 300px;
         padding-left: 10%;
     }
-
+    .sessions-count-container {
+        text-align: left;
+    }
     .image-pannel {
         padding-left: 0px;
     }
@@ -557,75 +688,4 @@ label {
   height: 100%;
 }
 
-/****************** user graph modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.8);
-}
 
-/* Modal Content */
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #888;
-    width: 40%;
-    height: 50%;
-}
-
-/* The Close Button */
-.close {
-    color: #273948;
-    float: right;
-    padding-right: 5px;
-    font-size: 40px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #eee;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-content {
-    overflow: scroll;
-    background-color: #8B98A5;
-    padding: 0;
-}
-
-.event-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem;
-    background-color: #395062;
-    border-radius: 8px;
-    padding: 1rem;
-}
-
-.event-item p {
-    margin: 0;
-    text-align: center;
-}
-
-.event-item a {
-    text-decoration: none;
-    color: #eee;
-}
-.event-item a:hover {
-    color: #ADD8E6;
-}
