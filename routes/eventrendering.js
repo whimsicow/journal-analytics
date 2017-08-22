@@ -58,7 +58,7 @@ router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
     where event_id=${req.params.id};
     `)
      .then((result) => {
-            res.redirect('/eventlist');
+            res.status(202).send('Your event was removed successfully!');
         })
       .catch((err) => {
           res.render('error', {

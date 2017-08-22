@@ -153,9 +153,17 @@ function addDeleteListener() {
     $EVENTLIST.on('click', "[data-role='delete']", function(event) {
         event.preventDefault();
         $element = $(event.target.parentNode);
-        console.log($element);
-        // deletePlace($element, $element[0]["attributes"][2]['nodeValue']);
+        $parent = $(event.target.parentNode.parentNode);
+        deleteEvent($element, $parent);
     })
+}
+
+function deleteEvent(element, parent) {
+    element.remove();
+    $.get(`/eventlist/delete/${element[0].id}`)
+        .then((result) => {
+            console.log((!(parent.children()))); 
+        })
 }
 
 function chooseIcon(method) {
