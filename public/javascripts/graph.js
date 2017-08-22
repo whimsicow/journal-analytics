@@ -88,17 +88,10 @@ const graph = (function() {
         request['propertyid'] = (googleAnalytics.response.profileInfo.webPropertyId);
         request['startdate'] = ((googleAnalytics.response.query['start-date']));
         request['enddate'] = (googleAnalytics.response.query['end-date']);
-        
-        $.post('/api/events', request) 
-            .then((res) => {
-                let userEvents = res.map(x => {
-                    let modifiedDate = x.event_date.slice(0, 10)
-                    x.event_date = moment(modifiedDate).format('MMM DD YYYY')
-                    return x
-                })
-                renderTrafficGraph(googleAnalytics, userEvents)
-            })  
+            
+        renderTrafficGraph(googleAnalytics)
     }
+    
     // render events
     const renderEvents = (googleAnalytics, userEvents, userDateClicked) => {
 
@@ -106,45 +99,73 @@ const graph = (function() {
         let filteredEventsByDate = userEvents.filter(x => x.event_date === userDateClicked)
         // early return for no events
 
+
         // sets date at top of modal. emptys .top-modal-info span if has been appended before
         let title = $('.top-modal-info')
         title.html("")
         let date = `Date: ${userDateClicked}`
         title.append(date)
 
-
         if (filteredEventsByDate.length === 0) {
-            
-            let parent = document.querySelector('.modal-list')
-            let message = document.createElement('h2')
-            message.textContent = 'No events for this date :('
-            message.style.textAlign = 'left'
-            parent.appendChild(message)
-            return;
-        }
 
-        // render to modal
-        filteredEventsByDate.forEach(x => {
-            let title = document.querySelector('.top-modal-info')
-            let parent = document.querySelector('.modal-list')
-            let linkWrapper = document.createElement('a')
-            linkWrapper.href = ""
-            let wrapper = document.createElement('div')
-            wrapper.classList.add('event-item')
-            let email = document.createElement('p')
-            email.textContent = `Email: ${x.email}`
-            let method = document.createElement('p')
-            method.textContent = `Method: ${x.method}`
-            let description = document.createElement('p')
-            description.textContent = `Description: ${x.description}`
-            linkWrapper.appendChild(email)
-            linkWrapper.appendChild(description)
-            linkWrapper.appendChild(method)
-            wrapper.appendChild(linkWrapper)
-            parent.appendChild(wrapper)
-        })
-        
-    }
+        let parent = document.querySelector('.modal-list')
+        let message = document.createElement('h2')
+        message.textContent = 'No events for this date :('
+        message.style.textAlign = 'left'
+        parent.appendChild(message)
+        return;
+      }
+
+      // render to modal
+      filteredEventsByDate.forEach(x => {
+        let firstname = capitalizeFirstLetter(x.firstname)
+        let title = document.querySelector('.top-modal-info')
+        let parent = document.querySelector('.modal-list')
+        let linkWrapper = document.createElement('a')
+        linkWrapper.href = ""
+        let wrapper = document.createElement('div')
+        let wrapper2 = document.createElement('div')
+        wrapper.classList.add('event-item')
+        wrapper2.classList.add('icon-image-modal')
+        let name = document.createElement('p')
+        name.textContent = `Posted by: ${firstname}`
+        let method = document.createElement('p')
+        method.textContent = `Method: ${x.method}`
+        let img = document.createElement('img')
+        let iconImage = chooseImgForMethod(x.method.trim())
+        img.setAttribute("src", iconImage)
+        img.setAttribute("alt", "icon")
+        let description = document.createElement('p')
+        description.textContent = `Description: ${x.description}`
+        linkWrapper.appendChild(description)
+        linkWrapper.appendChild(method)
+        linkWrapper.appendChild(name)
+        wrapper2.appendChild(img)
+        linkWrapper.appendChild(wrapper2)
+        wrapper.appendChild(linkWrapper)
+        parent.appendChild(wrapper)
+      })
+      
+  }
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  const chooseImgForMethod = (method) => {
+      let newImage = {
+          "General": "../images/defaulticon.svg",
+          "Email": "../images/email.png",
+          "Facebook": "https://cdn.worldvectorlogo.com/logos/facebook-icon.svg",
+          "Tweet": "https://cdn.worldvectorlogo.com/logos/twitter-4.svg",
+          "Google Plus": "../images/google-plus.svg",
+          "Linkedin": "../images/linkedin.png",
+          "Instagram" : "https://cdn.worldvectorlogo.com/logos/instagram-2016.svg",
+          "Important" : "../importanticon.svg",
+          "Outdoor" : "../images/tent.png",
+          "Multiplatform" : "../images/multipleplatform.png",
+          "Social" : "../images/socialevent.png"
+      }
+      return newImage[method]
+  }
 
   // remove events
   const removeEvents = () => {
@@ -159,8 +180,8 @@ const graph = (function() {
       mainGraph(googleAnalytics, userEvents)
       console.log('highcharts main graph has been rendered')
   }
-  const renderTrafficGraph = (googleAnalytics, userEvents) => {
-    trafficGraph(googleAnalytics, userEvents)
+  const renderTrafficGraph = (googleAnalytics) => {
+    trafficGraph(googleAnalytics)
     console.log('highcharts traffic graph has been rendered')
   }
 
@@ -276,7 +297,7 @@ const graph = (function() {
   }
 
   // traffic graph
-  const trafficGraph = (googleAnalytics, userEvents) => {
+  const trafficGraph = (googleAnalytics) => {
       console.log('configuring highcharts traffic graph')
       console.log(googleAnalytics)
       let a = googleAnalytics[0]
