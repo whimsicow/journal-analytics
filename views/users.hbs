@@ -4,29 +4,25 @@
 
 
     <div class="main-user-experience">
-
         <div class="chart-navigation">
-
-            <div class="user-info-container">
-                <img data-role="profilepic" class="large-user-photo" src='{{pic}}' alt='profile picture'>
-                <!-- Map and Google API containers -->
-
-                <div id="active-users-container"></div><br /> <!-- Active users -->
-                <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
-                <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
-            </div>
-
-            <div class="selector-container">
-                <div class="sessions-count-container"><h3 class="sessions-count">Date Range</h3></div>
-                <div id="date-range-selector-container"></div> <!-- Start/End Date selector -->
-            </div>
-
-            <!-- pie graph -->
-            <div class="pie-container">
-                <h3 style="text-align: center; margin-bottom: -20px"> Top Events </h3>
-                <div id="event-pie-graph"></div>
+            <div class="fixed-container">
+                <div class="user-info-container">
+                    <img data-role="profilepic" class="large-user-photo" src='{{pic}}' alt='profile picture'>
+                    <div id="active-users-container"></div><br /> <!-- Active users -->
+                    <!-- Map and Google API containers -->
+                    {{!-- <div id="view-name" class="hidden"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data --> --}}
+                    <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
+                    <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
+                </div>
+                <div class="selector-container">
+                    <div id="events-view-selector-container">
+                    </div> <!-- Active users -->
+                    <div class="sessions-count-container"><h3 class="sessions-count">Date Range</h3></div>
+                    <div id="date-range-selector-container"></div>  <!-- Start/End Date selector -->
+                </div>
             </div>
         </div>
+
 
 
         {{!-- Charts container --}}
