@@ -136,7 +136,7 @@ $(document).ready(() => {
         const trafficGraphConfig = {
             query: {
                 metrics: 'ga:sessions',
-                dimensions: 'ga:source'
+                dimensions: 'ga:date'
             },
             chart: {
                 type: 'LINE',
@@ -288,9 +288,7 @@ $(document).ready(() => {
             .execute()
 
             trafficGraph.set({
-                query: {
-                    ids: data.ids
-                }
+                query: data
             })
             .execute()
 
