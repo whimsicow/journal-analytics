@@ -139,6 +139,7 @@ function createList(result) {
                 let firstname = capitalizeFirstLetter(event.firstname)
                 let $event = $('<div></div>', {
                     'id': event.event_id,
+                    'name': event.method,
                     'class' : "event-content"
                 });
                 let $description = $('<span></span>', {
@@ -206,7 +207,8 @@ function addEditListener() {
         console.log($parent);
         console.log($element);
         $EVENTFORM.show('slow');
-        setDefaults($element, $parent)
+        setDefaults($element, $parent);
+        saveForm($element);
     })
 }
 
@@ -235,6 +237,9 @@ function setDefaults(element, parent) {
     let end = description.length;
     description = description.slice(13, end);
     $('[data-type="form-description"]').val(description);
+    console.log(element[0].attributes[1].value);
+    $('[data-role="dropdown"]').find(`option[value='${element[0].attributes[1].value}']`).prop('selected', true);
+    // $(`#eventDropdown  option[value='${element[0].attributes[1].value}']`).attr('selected', 'selected');
     if(element[0].childElementCount === 6) {
         $('[data-role="event-link"]').val(element[0].childNodes[1].attributes[0].value);
     }
