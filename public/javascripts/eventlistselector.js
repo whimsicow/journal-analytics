@@ -229,8 +229,12 @@ function addDeleteListener() {
 }
 
 function setDefaults(element, parent) {
-    var d = new Date(parent[0].childNodes[0].textContent);
-    document.getElementById('event-date').valueAsDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12)
+    let d = new Date(parent[0].childNodes[0].textContent);
+    document.getElementById('event-date').valueAsDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12);
+    let description = element[0].childNodes[0].textContent;
+    let end = description.length;
+    description = description.slice(13, end);
+    $('[data-type="form-description"]').val(description);
 }
 
 // Deletes event from DOM and makes api call to delete from database
