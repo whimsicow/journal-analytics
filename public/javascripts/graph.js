@@ -63,6 +63,19 @@ const graph = (function() {
     return finalGraphEventsArr
   }
 
+
+  const getPieEvents = (userEvents, requestedMethod) => {
+    let graphEventMethods = []
+    for (n of userEvents) {
+        graphEventMethods.push(n.method)
+    }
+    let sizeOfEvents = graphEventMethods.length
+
+    let methodPercentage = ((graphEventMethods.filter(x => x === requestedMethod).length) / sizeOfEvents) * 100
+
+    return methodPercentage;
+
+  }
     // queried from googleAnalytics DB
     const gaDataForMainGraph = (googleAnalytics) => {
         var request = {};
@@ -301,8 +314,6 @@ const graph = (function() {
   const pieGraph = (googleAnalytics, userEvents) => {
     console.log('configuring highcharts main graph')
     let ga = getDates(googleAnalytics)
-    console.log('ga', ga)
-    console.log('userEvents', userEvents)
 
     Highcharts.chart('event-pie-graph', {
         chart: {
@@ -317,7 +328,7 @@ const graph = (function() {
             text: null
         },
         tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
         },
         plotOptions: {
             pie: {
@@ -325,7 +336,7 @@ const graph = (function() {
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    format: '<b>{point.name}</b>: {point.percentage:.0f} %',
                     style: {
                         color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white'
                     }
@@ -333,41 +344,38 @@ const graph = (function() {
             }
         },
         series: [{
-            name: 'Brands',
+            name: 'Sessions',
             colorByPoint: true,
             data: [{
                 name: 'Email',
-                y: 56.33
+                y: getPieEvents(userEvents, 'Email')
             }, {
                 name: 'Social',
-                y: 24.03,
+                y: getPieEvents(userEvents, 'Social'),
                 sliced: true,
                 selected: true
             }, {
                 name: 'General',
-                y: 10.38
+                y: getPieEvents(userEvents, 'General'),
             }, {
                 name: 'Outdoor',
-                y: 10.38
+                y: getPieEvents(userEvents, 'Outdoor'),
             },{
                 name: 'Important',
-                y: 10.38
+                y: getPieEvents(userEvents, 'Important'),
             },{
                 name: 'Google Plus',
-                y: 10.38
+                y: getPieEvents(userEvents, 'Google Plus'),
             },{
                 name: 'Facebook',
-                y: 4.77
-            }, {
-                name: 'Important',
-                y: 0.91
+                y: getPieEvents(userEvents, 'Facebook'),
             },
             {
                 name: 'Multiplatform',
-                y: 0.91
+                y: getPieEvents(userEvents, ga, 'Multiplatform'),
             },{
                 name: 'LinkedIn',
-                y: 0.2
+                y: getPieEvents(userEvents, ga, 'LinkedIn'),
             }]
         }]
     });
