@@ -1,14 +1,35 @@
-<div id="embed-api-auth-container3" class="hidden"></div>
 
-<div class="search-field">
-    <h1>Search Events Added by Your Team</h1>
-    <div id="events-view-selector-container">
+
+
+
+<main class="main-teamevents">
+    <div class="chart-navigation">
+        <div class="user-info-container">
+            <img data-role="profilepic" class="large-user-photo" src='{{pic}}' alt='profile picture'>
+            <!-- Map and Google API containers -->
+            {{!-- <div id="view-name" class="hidden"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data --> --}}
+            <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
+            <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
+        </div>
+        <div class="selector-container">
+            <div id="events-view-selector-container">
+            </div> <!-- Active users -->
+            <div class="sessions-count-container"><h3 class="sessions-count">Date Range</h3></div>
+            <div id="date-range-selector-container-events"></div> <!-- Start/End Date selector -->
+        </div>
     </div>
 
-    <div id="date-range-selector-container-events">
+    <div class="search-field">
+        <div id="embed-api-auth-container3" class="hidden"></div>
+        <h2>Search Events Added by Your Team</h2>
+        <div class="events-container" data-role="events-container"></div>
+        
     </div>
-</div>
-<div class="events-container" data-role="events-container"></div>
+</main>
+
+
+
+
 
 
 

@@ -118,7 +118,8 @@ function createList(result) {
             });
             date.forEach(function(event) {
                 let $event = $('<div></div>', {
-                    'id': event.event_id
+                    'id': event.event_id,
+                    'class' : "event-content"
                 });
                 let $description = $('<span></span>', {
                     'text': `Description: ${event.description}`
@@ -142,22 +143,28 @@ function createList(result) {
                 let $icondiv = $('<div></div>', {});
                 let icon = chooseIcon(event.method);
                 let $icon = $('<img>', {
+                    'class': 'icon-events',
                     'src': icon,
                     'alt': "icon"
                 })
                 $icondiv.append($icon);
                 $event.append($icondiv);
+
+                let $anchor = $('<div></div>', {})
                 let $update = $('<a></a>', {
+                    'class': 'event-anchor',
                     'text': 'Edit',
                     'href': `/eventlist/edit/${event.event_id}`
                 })
-                $event.append($update);
+                $anchor.append($update);
                 let $delete = $('<a></a>', {
+                    'class': 'event-anchor',
                     'text': 'Delete',
                     'href': `#`,
                     'data-role': 'delete'
                 })
-                $event.append($delete);
+                $anchor.append($delete);
+                $event.append($anchor)
                 $datecontainer.append($event);
             })
             $eventcontainer.append($datecontainer)
