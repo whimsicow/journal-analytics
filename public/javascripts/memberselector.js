@@ -1,5 +1,6 @@
 const $MEMBERLIST = $('[data-role="member-list"]');
 
+// Must authorize through Google in order to show ViewSelector2
 gapi.analytics.ready(() => {
     
     gapi.analytics.auth.authorize({
@@ -17,14 +18,16 @@ gapi.analytics.ready(() => {
         container: 'members-view-selector-container'
         })
             .execute();
-
+    // Searches database when search changes
     viewSelectorMembers.on('viewChange', (data) => {
         var request = {};
         request['propertyid'] = data.property.id;
         request['accountid'] = data.account.id;
-        console.log(request);
+       
         $.get('/teammembers/search', request)
             .then(createList)
+            
+            // Appends error message if no active team members found
             .catch((error) => {
                 if($MEMBERLIST.children()) {
                     $MEMBERLIST.empty();
@@ -34,6 +37,7 @@ gapi.analytics.ready(() => {
     })
 })
 
+// Appends results of search to DOM
 function createList(result) {
     if($MEMBERLIST.children()) {
             $MEMBERLIST.empty();
@@ -65,6 +69,7 @@ function createList(result) {
     $MEMBERLIST.append($memberscontainer);
 }
 
+// Capitalizes first letter of first word in a string
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
