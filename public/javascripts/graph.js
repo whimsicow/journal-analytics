@@ -71,6 +71,7 @@ const graph = (function() {
         request['startdate'] = ((googleAnalytics.response.query['start-date']));
         request['enddate'] = (googleAnalytics.response.query['end-date']);
         
+        // query from our own DB
         $.post('/api/events', request) 
             .then((res) => {
                 let userEvents = res.map(x => {
@@ -356,8 +357,8 @@ const graph = (function() {
                 text: false
             },
             min: 0,
-            max: 481,
-            tickInterval: 10,
+            max: 50,
+            tickInterval: 5,
             labels: {
               style: {
                   color: '#999999',
@@ -420,7 +421,7 @@ const graph = (function() {
         },
         series: [{
             name: 'Facebook',
-            data: [228, 37, 27, 13, 6, 5, 6, 5],
+            data: [9, 10, 8],
             color: '#6693E5',
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/facebook-icon.svg)',
@@ -429,7 +430,7 @@ const graph = (function() {
             }
         }, {
             name: 'Twitter',
-            data: [19, 5, 4, 2, 3, 1, 1, 1],
+            data: [0, 6, 0],
             color: '#7DCAFD',
             visible: false,
             marker: {
@@ -439,7 +440,7 @@ const graph = (function() {
             }
         }, {
             name: 'Youtube',
-            data: [427, 418, 481, 445, 365, 381, 440, 174],
+            data: [0, 0, 0],
             color: '#d79e64',
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/youtube-icon.svg)',
@@ -449,7 +450,7 @@ const graph = (function() {
         },
         {
             name: 'Reddit',
-            data: [7, 8, 5, 4, 3, 7, 5, 2],
+            data: [2, 1, 0],
             color: '#115EA3',
             visible: false,
             marker: {
@@ -459,7 +460,7 @@ const graph = (function() {
             }
         }, {
             name: 'Quora',
-            data: [8, 30, 2, 4, 9, 6, 2, 3],
+            data: [0, 0, 0],
             color: '#727272',
             visible: false,
             marker: {
@@ -467,7 +468,27 @@ const graph = (function() {
                 width: 16,
                 height: 16
             }
-        },]
+        },{
+            name: 'LinkedIn',
+            data: [0, 6, 2],
+            color: '#D64857',
+            visible: false,
+            marker: {
+                symbol: 'url(https://cdn.worldvectorlogo.com/logos/linkedin-icon-1.svg)',
+                width: 16,
+                height: 16
+            }
+        },{
+            name: 'Meetup',
+            data: [0, 0, 2],
+            color: '#6d48d6',
+            visible: false,
+            marker: {
+                symbol: 'url(https://cdn.worldvectorlogo.com/logos/meetup-1.svg)',
+                width: 16,
+                height: 16
+            }
+        }]
     })};
       
     // return public methods exposed globally
