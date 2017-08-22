@@ -32,7 +32,7 @@ router.get('/search?', ensureAuthenticated, function(req, res, next) {
         return res.status(400).send('No files were uploaded.');
     }
     
-    db.many(`
+    db.any(`
         SELECT distinct on (evs.email) evs.email, evs.accountname, urs.firstname, urs.picture 
 	    from events evs
 		    inner join users urs
@@ -47,7 +47,7 @@ router.get('/search?', ensureAuthenticated, function(req, res, next) {
         })  
 
         .catch((error) => {
-            res.status(404).send(`<p class="event-error">No active members found for this team. Please try your search again.</p>`)
+            res.status(404).send(`<p class="event-error">Server connection error. Please try your search again</p>`)
         })
 
 })

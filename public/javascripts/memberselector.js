@@ -27,7 +27,7 @@ gapi.analytics.ready(() => {
         $.get('/teammembers/search', request)
             .then(createList)
             
-            // Appends error message if no active team members found
+            // Appends error message if database/server connection error
             .catch((error) => {
                 if($MEMBERLIST.children()) {
                     $MEMBERLIST.empty();
@@ -39,34 +39,44 @@ gapi.analytics.ready(() => {
 
 // Appends results of search to DOM
 function createList(result) {
+    console.log(result);
     if($MEMBERLIST.children()) {
             $MEMBERLIST.empty();
     }
-    var $memberscontainer = $('<div></div>', {
-            "class" : "members-container"
-        });
-    result.forEach(function(member) {
-        let $member = $('<div></div>', {
-            "class" : "individual-member-container"
-        });
-        let $profpic = $('<img>', {
-            'src': `${member.picture}`,
-            'alt': "profile picture"
+
+    if (result.length === 0) {
+        $noevents = $('<p></p>', {
+            'text': `No events found. Please try your search again.`,
+            'class': 'event-error'
         })
-        $member.append($profpic);
-        let firstname = capitalizeFirstLetter(member.firstname)
-        let $link = $('<a></a>', {
-            'src': `/teammembers/${member.email}`,
-            'text': `${firstname}: ${member.email}`
+        $MEMBERLIST.append($noevents);
+    } else {
+        var $memberscontainer = $('<div></div>', {
+                "class" : "members-container"
+            });
+        result.forEach(function(member) {
+            let $member = $('<div></div>', {
+                "class" : "individual-member-container"
+            });
+            let $profpic = $('<img>', {
+                'src': `${member.picture}`,
+                'alt': "profile picture"
+            })
+            $member.append($profpic);
+            let firstname = capitalizeFirstLetter(member.firstname)
+            let $link = $('<a></a>', {
+                'src': `/teammembers/${member.email}`,
+                'text': `${firstname}: ${member.email}`
+            })
+            $member.append($link);
+            // let $email = $('<span></span>', {
+            //     'text': `${member.email}`
+            // })
+            // $member.append($email);
+            $memberscontainer.append($member);
         })
-        $member.append($link);
-        // let $email = $('<span></span>', {
-        //     'text': `${member.email}`
-        // })
-        // $member.append($email);
-        $memberscontainer.append($member);
-    })
-    $MEMBERLIST.append($memberscontainer);
+        $MEMBERLIST.append($memberscontainer);
+    }
 }
 
 // Capitalizes first letter of first word in a string
