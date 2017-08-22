@@ -47,7 +47,7 @@ router.get('/search?', ensureAuthenticated, function(req, res, next) {
         })  
 
         .catch((error) => {
-            res.status(404).send(`<p>No active members found on this team. Please try your search again.</p>`)
+            res.status(404).send(`<p class="event-error">No active members found on this team. Please try your search again.</p>`)
         })
 
 })

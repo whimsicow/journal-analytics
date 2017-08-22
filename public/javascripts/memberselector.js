@@ -26,7 +26,10 @@ gapi.analytics.ready(() => {
         $.get('/teammembers/search', request)
             .then(createList)
             .catch((error) => {
-                $('[data-role="error-msg"]').append(error);
+                if($MEMBERLIST.children()) {
+                    $MEMBERLIST.empty();
+                }
+                $MEMBERLIST.append(error.responseText);
             }) 
     })
 })
