@@ -2,3 +2,4 @@
 .env
 node_modules
 public/javascripts/vendors/googleanalytics/client-id.js
+public/javascripts/vendors/googleanalytics/annual-graph.js
