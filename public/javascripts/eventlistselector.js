@@ -353,7 +353,7 @@ function createEventModal(element, parent) {
         'data-description': 'Instagram'
     })
     $dropdown.append($option11);
-    // $modalform.append($dropdown);
+    $modalform.append($dropdown);
     let $buttondiv = $('<div></div>', {
         'class': 'button-container'
     })
@@ -401,6 +401,48 @@ function chooseIcon(method) {
         "Social": "../images/socialevent.png"
     }
     return newImage[method]
+}
+
+saveForm = () => {
+    $FORM_CONTAINER.submit(() => {
+        event.preventDefault();
+        if($('[data-role="status-msg"]').children()) {
+            $('[data-role="status-msg"]').empty();
+        }
+        getFormDescription();
+        getDate();
+        getMethod();
+        getAccount();
+        getLink();
+        dbStoreEvent();
+        resetForm();
+
+        // rerender graph
+        window.setTimeout(() => {
+            graph.gaDataForMainGraph(this.gaData)
+        }, 500)
+    })
+}
+
+function saveForm() => {
+    $FORM_CONTAINER.submit(() => {
+        event.preventDefault();
+        if($('[data-role="status-msg"]').children()) {
+            $('[data-role="status-msg"]').empty();
+        }
+        getFormDescription();
+        getDate();
+        getMethod();
+        getAccount();
+        getLink();
+        dbStoreEvent();
+        resetForm();
+
+        // rerender graph
+        window.setTimeout(() => {
+            graph.gaDataForMainGraph(this.gaData)
+        }, 500)
+    })
 }
 
 $('#eventDropdown').ddslick({
