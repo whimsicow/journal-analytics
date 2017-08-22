@@ -162,7 +162,9 @@ function deleteEvent(element, parent) {
     element.remove();
     $.get(`/eventlist/delete/${element[0].id}`)
         .then((result) => {
-            console.log((!(parent.children()))); 
+            if (parent[0].childElementCount === 0) {
+                parent.remove();
+            } 
         })
 }
 
