@@ -199,6 +199,19 @@ function addEditListener() {
         console.log($element);
         createEventModal($element, $parent);
         $EVENTMODAL.css('display', 'block');
+        window.addEventListener('click', (e) => {
+            if (e.target == $EVENTMODAL) {
+            $EVENTMODAL.css('display', 'none');
+            // removeEvents()
+            }
+        })
+    })
+}
+
+function addModalCloseListener() {
+    $('[data-role="close"]').on('click', function(event) {
+        event.preventDefault();
+        $EVENTMODAL.css('display', 'none');
     })
 }
 
@@ -331,7 +344,7 @@ function createEventModal(element, parent) {
         'data-description': 'Instagram'
     })
     $dropdown.append($option11);
-    $modalform.append($dropdown);
+    // $modalform.append($dropdown);
     let $buttondiv = $('<div></div>', {
         'class': 'button-container'
     })
