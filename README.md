@@ -45,7 +45,7 @@
 <h4> Technologies / APIs </h4>
  <ul>
   <li> PassportJS</li>
-  <li><Google Analytics Embed API/li>
+  <li><Google Analytics Embed API</li>
  </ul>
 
 
