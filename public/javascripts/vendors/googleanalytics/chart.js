@@ -339,9 +339,9 @@ $(document).ready(() => {
             // annual graph
             renderYearOverYearChart(data.ids);
 
-            // active users
-            activeUsers.set(data)
-            .execute()
+            // // active users
+            // activeUsers.set(data)
+            // .execute()
 
             // updates title 
             const title = document.getElementById('view-name')
