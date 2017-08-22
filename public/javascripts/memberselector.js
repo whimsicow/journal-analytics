@@ -39,22 +39,29 @@ function createList(result) {
             "class" : "members-container"
         });
     result.forEach(function(member) {
-        let $member = $('<div></div>', {});
+        let $member = $('<div></div>', {
+            "class" : "individual-member-container"
+        });
         let $profpic = $('<img>', {
             'src': `${member.picture}`,
             'alt': "profile picture"
         })
         $member.append($profpic);
+        let firstname = capitalizeFirstLetter(member.firstname)
         let $link = $('<a></a>', {
             'src': `/teammembers/${member.email}`,
-            'text': `${member.firstname}`
+            'text': `${firstname}: ${member.email}`
         })
         $member.append($link);
-        let $email = $('<span></span>', {
-            'text': `${member.email}`
-        })
-        $member.append($email);
+        // let $email = $('<span></span>', {
+        //     'text': `${member.email}`
+        // })
+        // $member.append($email);
         $memberscontainer.append($member);
     })
     $MEMBERLIST.append($memberscontainer);
 }
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }

@@ -1,15 +1,31 @@
 <div id="embed-api-auth-container2" class="hidden"></div> 
+<main class="main-teamevents">
+    <div class="chart-navigation">
+        <div class="user-info-container">
+            <img data-role="profilepic" class="large-user-photo" src='{{pic}}' alt='profile picture'>
+            <!-- Map and Google API containers -->
+            {{!-- <div id="view-name" class="hidden"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data --> --}}
+            <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
+            <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
+        </div>
+        <div class="selector-container">
+            <div id="members-view-selector-container"></div>
+        </div>
+    </div>
+    <div class="search-field">
+        <div id="view-name"></div>
+        <h1>Search Active Members on Your Team</h1>
+        <h5>Remember, only members who have added an event will appear on this list</h5>
+        <h5>To add a team member, please <a href="https://support.google.com/analytics/answer/1009702?hl=en">add them to your Google Analytics account</a>
+        <div data-role="error-msg"></div>
+        <div class="member-list" data-role="member-list"></div>
+    </div>
+    
+</main>
 
-<div class="search-field">
-    <h1>Search Active Members on Your Team</h1>
-    <h5>Remember, only members who have added an event will appear on this list</h5>
-    <h5>To add a team member, please <a href="https://support.google.com/analytics/answer/1009702?hl=en">add them to your Google Analytics account</a>
-    <div id="members-view-selector-container"></div>
-</div>
-<div data-role="error-msg"></div>
 
 
-<div class="member-list" data-role="member-list"></div>
+
 
 
 
