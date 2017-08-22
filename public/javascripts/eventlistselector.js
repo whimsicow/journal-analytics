@@ -40,6 +40,12 @@ gapi.analytics.ready(() => {
             .then(formatDates)
             .then(createGroups)
             .then(createList)
+            .catch((error) => {
+                if($EVENTLIST.children()) {
+                    $EVENTLIST.empty();
+                }
+                $EVENTLIST.append(error.responseText);
+            })
     })
     
     dateRangeSelectorEvents.on('change', (data) => {
@@ -204,7 +210,7 @@ function chooseIcon(method) {
         "Google Plus": "../images/google-plus.svg",
         "Linkedin": "../images/linkedin.png",
         "Instagram": "https://cdn.worldvectorlogo.com/logos/instagram-2016.svg",
-        "Important": "../importanticon.svg",
+        "Important": "../images/importanticon.svg",
         "Outdoor": "../images/tent.png",
         "Multiplatform": "../images/multipleplatform.png",
         "Social": "../images/socialevent.png"

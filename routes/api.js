@@ -36,7 +36,7 @@ router.post('/events', ensureAuthenticated, (req, res, next) => {
     where 
     	evs.event_date::date >= '${startdate}'
     	and evs.event_date::date <= '${enddate}'
-    	and evs.accountid = '${req.body.accountid}'
+    	and evs.accountid = '${req.body.account}'
     	and evs.propertyid = '${req.body.propertyid}'    
     	order by evs.event_date DESC;
     `)
@@ -44,7 +44,7 @@ router.post('/events', ensureAuthenticated, (req, res, next) => {
         res.send(results)
     })
     .catch((err) => {
-        console.log(err);
+        res.status(500).send(`<p class="event-error">Server connection error. Please try your search again later.</p>`);
     })
 })
 

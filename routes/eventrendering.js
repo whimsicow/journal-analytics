@@ -50,7 +50,9 @@ router.get('/search', ensureAuthenticated, function(req, res) {
     .then((result) => {
         res.send(result);
     })
-    .catch((error))
+    .catch((error) => {
+        res.status(500).send(`<p class="event-error">Server connection error. Please try your search again later.</p>`);
+    })
 });
 
 router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
