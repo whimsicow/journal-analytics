@@ -27,12 +27,9 @@ const graph = (function() {
   }
  
   const getGraphEvents = (userEvents, ga) => {
-    console.log('userevents', userEvents)
-    console.log('ga', ga)
 
     // copy googleanalytics dates arr
     let graphGoogleAnalytics = [...ga.dates]
-    console.log(graphGoogleAnalytics)
 
     // copy userevents arr
     let userEventsArr = [...userEvents]
@@ -53,8 +50,6 @@ const graph = (function() {
     })
     
     arr.reverse()
-    console.log(arr)
-
 
     let finalGraphEventsArr = graphGoogleAnalytics.map((item, index) => {
         if (arr.find(x => {
@@ -62,15 +57,14 @@ const graph = (function() {
         })) {
             return ga.sessions[index];
         }
-        return 'hi';
+        return '';
     })
 
-    console.log(finalGraphEventsArr)
     return finalGraphEventsArr
   }
 
-  // from chart.js -- queried from googleAnalytics DB
-    const captureGoogleAnalyticsData = (googleAnalytics) => {
+    // queried from googleAnalytics DB
+    const gaDataForMainGraph = (googleAnalytics) => {
         var request = {};
         request['accountid'] =(googleAnalytics.response.profileInfo.accountId);
         request['propertyid'] = (googleAnalytics.response.profileInfo.webPropertyId);
@@ -84,57 +78,73 @@ const graph = (function() {
                     x.event_date = moment(modifiedDate).format('MMM DD YYYY')
                     return x
                 })
-                renderGraphs(googleAnalytics, userEvents)
-            })
-        
+                renderMainGraph(googleAnalytics, userEvents)
+            })  
     }
 
-  // render events
-  const renderEvents = (googleAnalytics, userEvents, userDateClicked) => {
-
-      // match date requested
-      let filteredEventsByDate = userEvents.filter(x => x.event_date === userDateClicked)
-      // early return for no events
-
-      // sets date at top of modal. emptys .top-modal-info span if has been appended before
-      let title = $('.top-modal-info')
-      title.html("")
-      let date = `Date: ${userDateClicked}`
-      title.append(date)
-
-
-      if (filteredEventsByDate.length === 0) {
+    const gaDataForTrafficGraph = (googleAnalytics) => {
+        var request = {};
+        request['accountid'] =(googleAnalytics.response.profileInfo.accountId);
+        request['propertyid'] = (googleAnalytics.response.profileInfo.webPropertyId);
+        request['startdate'] = ((googleAnalytics.response.query['start-date']));
+        request['enddate'] = (googleAnalytics.response.query['end-date']);
         
-        let parent = document.querySelector('.modal-list')
-        let message = document.createElement('h2')
-        message.textContent = 'No events for this date :('
-        message.style.textAlign = 'left'
-        parent.appendChild(message)
-        return;
-      }
+        $.post('/api/events', request) 
+            .then((res) => {
+                let userEvents = res.map(x => {
+                    let modifiedDate = x.event_date.slice(0, 10)
+                    x.event_date = moment(modifiedDate).format('MMM DD YYYY')
+                    return x
+                })
+                renderTrafficGraph(googleAnalytics, userEvents)
+            })  
+    }
+    // render events
+    const renderEvents = (googleAnalytics, userEvents, userDateClicked) => {
 
-      // render to modal
-      filteredEventsByDate.forEach(x => {
-        let title = document.querySelector('.top-modal-info')
-        let parent = document.querySelector('.modal-list')
-        let linkWrapper = document.createElement('a')
-        linkWrapper.href = ""
-        let wrapper = document.createElement('div')
-        wrapper.classList.add('event-item')
-        let email = document.createElement('p')
-        email.textContent = `Email: ${x.email}`
-        let method = document.createElement('p')
-        method.textContent = `Method: ${x.method}`
-        let description = document.createElement('p')
-        description.textContent = `Description: ${x.description}`
-        linkWrapper.appendChild(email)
-        linkWrapper.appendChild(description)
-        linkWrapper.appendChild(method)
-        wrapper.appendChild(linkWrapper)
-        parent.appendChild(wrapper)
-      })
-      
-  }
+        // match date requested
+        let filteredEventsByDate = userEvents.filter(x => x.event_date === userDateClicked)
+        // early return for no events
+
+        // sets date at top of modal. emptys .top-modal-info span if has been appended before
+        let title = $('.top-modal-info')
+        title.html("")
+        let date = `Date: ${userDateClicked}`
+        title.append(date)
+
+
+        if (filteredEventsByDate.length === 0) {
+            
+            let parent = document.querySelector('.modal-list')
+            let message = document.createElement('h2')
+            message.textContent = 'No events for this date :('
+            message.style.textAlign = 'left'
+            parent.appendChild(message)
+            return;
+        }
+
+        // render to modal
+        filteredEventsByDate.forEach(x => {
+            let title = document.querySelector('.top-modal-info')
+            let parent = document.querySelector('.modal-list')
+            let linkWrapper = document.createElement('a')
+            linkWrapper.href = ""
+            let wrapper = document.createElement('div')
+            wrapper.classList.add('event-item')
+            let email = document.createElement('p')
+            email.textContent = `Email: ${x.email}`
+            let method = document.createElement('p')
+            method.textContent = `Method: ${x.method}`
+            let description = document.createElement('p')
+            description.textContent = `Description: ${x.description}`
+            linkWrapper.appendChild(email)
+            linkWrapper.appendChild(description)
+            linkWrapper.appendChild(method)
+            wrapper.appendChild(linkWrapper)
+            parent.appendChild(wrapper)
+        })
+        
+    }
 
   // remove events
   const removeEvents = () => {
@@ -145,9 +155,11 @@ const graph = (function() {
   }
 
   // render graphs
-  const renderGraphs = (googleAnalytics, userEvents) => {
-    mainGraph(googleAnalytics, userEvents)
-    console.log('highcharts main graph has been rendered')
+  const renderMainGraph = (googleAnalytics, userEvents) => {
+      mainGraph(googleAnalytics, userEvents)
+      console.log('highcharts main graph has been rendered')
+  }
+  const renderTrafficGraph = (googleAnalytics, userEvents) => {
     trafficGraph(googleAnalytics, userEvents)
     console.log('highcharts traffic graph has been rendered')
   }
@@ -228,7 +240,6 @@ const graph = (function() {
             point: {
               events: {
                 click: (e) => {
-                    console.log(e)
                   this.modal.style.display = 'block'
                   renderEvents(googleAnalytics, userEvents, e.point.category)
                 }
@@ -267,8 +278,10 @@ const graph = (function() {
   // traffic graph
   const trafficGraph = (googleAnalytics, userEvents) => {
       console.log('configuring highcharts traffic graph')
+      console.log(googleAnalytics)
       let a = googleAnalytics[0]
       let ga = getDates(googleAnalytics);
+      console.log(ga)
 
       Highcharts.chart('traffic-container', {
         credits: {
@@ -287,16 +300,18 @@ const graph = (function() {
             text: false,
         },
         xAxis: {
-            lineColor: '#eeeeee',
-            categories: ['18. Sep', '19. Sep', '20. Sep', '21. Sep', '22. Sep', '23. Sep', '24. Sep', '25. Sep'],
+            lineColor: '#eee',
+            categories: ga.dates,
+            tickInterval: 5,
             labels: {
-              style: {
-                  color: '#999999'
-              },
-              y: 35
+                style: {
+                    color: '#999999'
+                },
+                y: 35
             },
             title: {
-                text: "Dates"
+                text: `${ga.beginningDate} - ${ga.endingDate}`,
+                margin: 20
             },
             tickColor: '#eeeeee',
             tickmarkPlacement: 'on'
@@ -331,7 +346,7 @@ const graph = (function() {
         },
         legend: {
             layout: 'horizontal',
-            align: 'left',
+            align: 'center',
             verticalAlign: 'top',
             symbolHeight: 11,
             symbolWidth: 11,
@@ -431,6 +446,7 @@ const graph = (function() {
   return {
       mainGraph,
       trafficGraph,
-      captureGoogleAnalyticsData
+      gaDataForMainGraph,
+      gaDataForTrafficGraph
   }
 })()
