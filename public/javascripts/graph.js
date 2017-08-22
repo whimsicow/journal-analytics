@@ -301,8 +301,8 @@ const graph = (function() {
         },
         xAxis: {
             lineColor: '#eee',
-            categories: ga.dates,
-            tickInterval: 5,
+            categories: ['Aug 15, 2017', 'Aug 16, 2017', 'Aug 17, 2017', 'Aug 18, 2017', 'Aug 19, 2017', 'Aug 20, 2017', 'Aug 21, 2017', 'Aug 22, 2017'],
+            tickInterval: 2,
             labels: {
                 style: {
                     color: '#999999'
@@ -310,7 +310,7 @@ const graph = (function() {
                 y: 35
             },
             title: {
-                text: `${ga.beginningDate} - ${ga.endingDate}`,
+                text: `${'Aug 15, 2017'} - ${'Aug 22, 2017'}`,
                 margin: 20
             },
             tickColor: '#eeeeee',
@@ -322,8 +322,8 @@ const graph = (function() {
                 text: false
             },
             min: 0,
-            max: 500,
-            tickInterval: 50,
+            max: 481,
+            tickInterval: 10,
             labels: {
               style: {
                   color: '#999999',
@@ -385,17 +385,8 @@ const graph = (function() {
             }
         },
         series: [{
-            name: 'Total Visits',
-            data: [300, 250, 250, 150, 200, 50, 300, 300],
-            color: '#D64857',
-            marker: {
-                symbol: 'url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/252775/graph-red.svg)',
-                width: 16,
-                height: 16
-            },
-        }, {
             name: 'Facebook',
-            data: [500, 495, 395, 400, 422, 484, 320, 120],
+            data: [228, 37, 27, 13, 6, 5, 6, 5],
             color: '#6693E5',
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/facebook-icon.svg)',
@@ -404,41 +395,45 @@ const graph = (function() {
             }
         }, {
             name: 'Twitter',
-            data: [64, 99, 200, 123, 234, 345, 123, 335],
+            data: [19, 5, 4, 2, 3, 1, 1, 1],
             color: '#7DCAFD',
+            visible: false,
             marker: {
                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/twitter-4.svg)',
                 width: 16,
                 height: 16
             }
         }, {
-            name: 'Tumblr',
-            data: [150, 200, 349, 500, 400, 259, 200, 50],
-            color: '#115EA3',
-            marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/tumblr-icon.svg)',
-                width: 16,
-                height: 16
-            }
-        }, {
-            name: 'Linkedin',
-            data: [30, 30, 40, 210, 100, 300, 450, 500],
-            color: '#727272',
-            marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/linkedin-icon-1.svg)',
-                width: 16,
-                height: 16
-            }
-        }, {
-            name: 'Instagram',
-            data: [0, 5, 10, 20, 50, 400, 30, 350],
+            name: 'Youtube',
+            data: [427, 418, 481, 445, 365, 381, 440, 174],
             color: '#d79e64',
             marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/instagram-2016.svg)',
+                symbol: 'url(https://cdn.worldvectorlogo.com/logos/youtube-icon.svg)',
                 width: 16,
                 height: 16
             }
-        }]
+        },
+        {
+            name: 'Reddit',
+            data: [7, 8, 5, 4, 3, 7, 5, 2],
+            color: '#115EA3',
+            visible: false,
+            marker: {
+                symbol: 'url(https://cdn.worldvectorlogo.com/logos/reddit-2.svg)',
+                width: 16,
+                height: 16
+            }
+        }, {
+            name: 'Quora',
+            data: [8, 30, 2, 4, 9, 6, 2, 3],
+            color: '#727272',
+            visible: false,
+            marker: {
+                symbol: 'url(https://cdn.worldvectorlogo.com/logos/quora-black.svg)',
+                width: 16,
+                height: 16
+            }
+        },]
     })};
       
     // return public methods exposed globally
