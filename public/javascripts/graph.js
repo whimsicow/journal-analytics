@@ -250,20 +250,6 @@ const graph = (function() {
           shared: true
       },
       plotOptions: {
-        area: {
-          fillColor: {
-              linearGradient: {
-                  x1: 0,
-                  y1: 0,
-                  x2: 1,
-                  y2: 1
-              },
-              stops: [
-                  [0, '#3B5369'],
-                  [1, '#CBE6F1']
-              ]
-          }
-        },
         series: {
             marker: {
               symbol: 'square',
@@ -299,6 +285,7 @@ const graph = (function() {
           },
           {
             name: 'Events',
+            color: '#9DC8F1',
             data: getGraphEvents(userEvents, ga),
             marker: {
                 lineColor: '#fff',
