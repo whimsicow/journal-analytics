@@ -85,12 +85,11 @@ const graph = (function() {
                     x.date_added = moment(modifiedDate).format('MMM DD YYYY')
                     return x
                 })
-                
                renderMainGraph(googleAnalytics, userEvents)
             })
-                .catch((error) => {
-                    renderMainGraph(googleAnalytics, [])
-                })
+            .catch((error) => {
+                renderMainGraph(googleAnalytics, [])
+            })
 
     }
 
