@@ -9,12 +9,12 @@
             <div class="user-info-container">
                 <img data-role="profilepic" class="large-user-photo" src='{{pic}}' alt='profile picture'>
                 <!-- Map and Google API containers -->
-                {{!-- <div id="view-name" class="hidden"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data --> --}}
+
+                <div id="active-users-container"></div> <!-- Active users -->
                 <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
                 <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
             </div>
             <div class="selector-container">
-                <div id="active-users-container"></div> <!-- Active users -->
                 <div class="sessions-count-container"><h3 class="sessions-count">Date Range</h3></div>
                 <div id="date-range-selector-container"></div> <!-- Start/End Date selector -->
             </div>
@@ -33,33 +33,23 @@
 
             <div class="all-charts-container">
 
-                <!----------- Main GRAPH ----------->
-
+                <!-- default graphs provided by GA, will be hidden-->
                 <div id="template-container"></div>
-                <hr />
+                <div id="template-container-2"></div>
                 
+                <!-- main graph -->
                 <div class="box">
                     <h3>Main Overview</h3>
                     <div id="main-container"></div>
                 </div>
                 <hr />
 
+                <!-- traffic graph -->
                 <div class="box">
                     <h3>Traffic Overview</h3>
                     <div id="traffic-container"></div>
                 </div>
 
-                <!--- Sessions/Users Graph --->
-                {{!-- <h3> Site Traffic Sessions vs. Users - last 30 days </h3> --}}
-                <div id="sessions-users-container"></div> 
-                <hr />
-
-                <!--------- Annual Graph --------->
-                <div class="Chartjs">
-                    <h3>Annual (by users)</h3>
-                    <figure class="Chartjs-figure" id="chart-2-container"></figure>
-                    <ol class="Chartjs-legend" id="legend-2-container"></ol>
-                </div>
             </div>
 
         </div>
