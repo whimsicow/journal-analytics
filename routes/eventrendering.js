@@ -21,17 +21,19 @@ router.get('/', ensureAuthenticated, function(req, res) {
     db.one(`select firstname, picture from users where email = '${req.user}'`)
     .then((result) => {
         res.render('teamevents', {
+            title: 'Journal Analytics',
             navmessage: 'Welcome, ',
             name: result.firstname,
             pic: result.picture,
-            ftrlink: '/logout',
-            ftrlinktext: 'Logout',
-            navlink1: "/",
-            navlinktext1: "Home",
-            navlink2: '/logout',
-            navlinktext2: 'Logout'
+            navlink2: '/teammembers',
+            navlinktext2: 'Team Management',
+            navlink1: '/logout',
+            navlinktext1: 'Logout'
         });
-    }) 
+    })
+    .catch((error) => {
+        res.redirect('/login');
+    })
 });
 
 router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {

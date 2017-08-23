@@ -9,13 +9,16 @@ router.get('/', function(req, res, next) {
         db.one(`select firstname, picture from users where email = '${req.user}'`)
             .then((result) => {
                 res.render('index', {
-                ftrlink: '/logout',
-                ftrlinktext: 'Logout',
+                title: 'Journal Analytics',
                 navmessage: 'Welcome, ',
                 name: result.firstname,
                 pic: result.picture,
-                navlink2: '/logout',
-                navlinktext2: 'Logout'
+                navlink3: '/teammembers',
+                navlinktext3: 'Team Management',
+                navlink2: '/eventlist',
+                navlinktext2: 'Team Events',
+                navlink1: '/logout',
+                navlinktext1: 'Logout'
                 });
             })
             .catch((error) => {
@@ -24,11 +27,10 @@ router.get('/', function(req, res, next) {
                 });
             });
     } else {
-        res.render('index', {  
-            ftrlink: '/login',
-            ftrlinktext: 'Login',
-            navlink2: '/login',
-            navlinktext2: 'Login'
+        res.render('index', {
+            title: 'Journal Analytics',  
+            navlink1: '/login',
+            navlinktext1: 'Login'
         });
     }    
 })
