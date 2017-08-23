@@ -381,6 +381,6 @@ $(document).ready(() => {
                     element.className.replace(/ is-(increasing|decreasing)/g, '');
               }, 3000);
             });
-          });
+        });
     })
 })

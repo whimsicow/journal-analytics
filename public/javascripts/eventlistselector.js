@@ -236,14 +236,25 @@ function addDeleteListener() {
 }
 
 function createEventModal(element, parent) {
+    //whole form appends to DOM
     let $modalform = $('<form></form>', {
         'name': 'edit-event',
-        'class': 'modal-content',
+        'class': 'modal-list',
         'data-role': 'modal-content'
     });
-    let $datediv = $('<div></div>', {});
+    // modal container
+    let $modalContainer = $('<div></div>', {
+        'class' : 'modal-container'
+    })
+    $modalform.append($modalContainer);
+
+    // date container
+    let $datediv = $('<div></div>', {
+        'class' : 'date-container'
+    });
     let $datelabel = $('<label></label>', {
-        'text': 'Event Date:'
+        'text': 'Event Date:',
+        'class' : 'modal-date'
     });
     $datediv.append($datelabel);
     let $date = $('<input>', {
@@ -253,28 +264,36 @@ function createEventModal(element, parent) {
         'required': ''
     });
     $datediv.append($date);
-    $modalform.append($datediv);
-    
-    let $descdiv = $('<div></div>', {});
+    $modalContainer.append($datediv);
+
+    // description container
+    let $descdiv = $('<div></div>', {
+        'class': 'modal-text-area',
+    });
     let $desctxt = $('<textarea></textarea>', {
+        'placeholder' : 'rewrite description here',
         'name': 'event-description',
         'rows': '3',
         'cols': '50',
         'required': ''
-    })
+    });
+    // link container
     $descdiv.append($desctxt);
-    $modalform.append($descdiv);
-    let $linkdiv = $('<div></div>', {});
+    $modalContainer.append($descdiv);
+    let $linkdiv = $('<div></div>', {
+        'class' : 'link-box'
+    });
     let $linktxt = $('<input>', {
         'name': 'link',
         'type': 'text',
-        'cols': '50'
-    })
+    });
     $linkdiv.append($linktxt);
-    $modalform.append($linkdiv);
+    $modalContainer.append($linkdiv);
 
+    // dropdown for type of event
     let $dropdown = $('<div></div>', {
-        'id': 'eventDropdown'
+        // 'id': 'eventDropdown',
+        'class' : 'event-dropdown'
     })
     let $option1 = $('<option></option>', {
         'class': 'icon',
@@ -308,14 +327,16 @@ function createEventModal(element, parent) {
         'class': 'icon',
         'value': 'Social',
         'data-imagesrc': '../images/socialevent.png',
-        'data-description': 'Social'
+        'data-description': 'Social',
+        'text' : 'Social'
     })
     $dropdown.append($option5);
     let $option6 = $('<option></option>', {
         'class': 'icon',
         'value': 'Email',
         'data-imagesrc': '../images/email.png',
-        'data-description': 'Email'
+        'data-description': 'Email',
+        'text' : 'Email'
     })
     $dropdown.append($option6);
     let $option7 = $('<option></option>', {
@@ -353,7 +374,8 @@ function createEventModal(element, parent) {
         'data-description': 'Instagram'
     })
     $dropdown.append($option11);
-    // $modalform.append($dropdown);
+    // end of dropdown
+    $modalContainer.append($dropdown);
     let $buttondiv = $('<div></div>', {
         'class': 'button-container'
     })
@@ -364,7 +386,7 @@ function createEventModal(element, parent) {
         'text': 'Update'
     })
     $buttondiv.append($update);
-    $modalform.append($buttondiv);
+    $modalContainer.append($buttondiv);
     $EVENTMODALCONT.append($modalform);
 }
 

@@ -38,19 +38,6 @@ router.get('/', function(req, res) {
     }   
 });
 
-// router.get('/auth/google',
-//   passport.authenticate('google', { scope: ['profile'] }));
-
-// router.get('/auth/google/callback', 
-//   passport.authenticate('google', { 
-//       successRedirect: '../users',
-//       failureRedirect: '/' }));
-
-// router.get('/logout', function(req, res) {
-//   console.log('logging out');
-//   req.logout();
-//   res.redirect('/');
-// });
 
 
 
