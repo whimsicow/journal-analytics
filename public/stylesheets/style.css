@@ -606,7 +606,11 @@ label {
             transition: all 0.3s 0.6s ease-out;
     
 } 
-
+#event-pie-graph {
+    height: 500px;
+    width: 500px;
+    font-size: 10px;
+}
 /* *************************************************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
 @media only screen and (min-width: 500px){
     .DateRangeSelector-item,
@@ -616,6 +620,7 @@ label {
     .chart-navigation {
         justify-content: space-around;
     }
+
 }
 @media only screen and (min-width: 768px){
     /* ***************** */
@@ -787,6 +792,11 @@ label {
         display: flex;
         flex-direction: row;
     }
+    #event-pie-graph {
+        height: 700px;
+        width: 700px;
+        font-size: 12px;
+    }
     
 }
 
@@ -821,6 +831,11 @@ label {
     .search-field{
         margin: 0 auto;
         max-width: 900px;
+    }
+    #event-pie-graph {
+        height: 800px;
+        width: 800px;
+        font-size: 14px;
     }
     
 
