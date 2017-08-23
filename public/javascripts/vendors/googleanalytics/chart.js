@@ -51,6 +51,9 @@ Chart.defaults.global.maintainAspectRatio = false;
                 GOOGLE ANALYTICS AUTHENTICATION
 ******************************************************************/
 $(document).ready(() => {
+    setTimeout(function(){
+        $('body').addClass('loaded');
+    }, 3000);
 
   gapi.analytics.ready(() => {
     
@@ -370,4 +373,5 @@ $(document).ready(() => {
             });
         });
     })
+    
 })
