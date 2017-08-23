@@ -31,10 +31,10 @@ body {
     background-position: center;
 }
 .title-message {
-    position: relative;
+    /* position: relative;
     top: 50%;
     font-size: 20px;
-    left: 10px;
+    left: 10px; */
 }
 .product-information {
     padding: 60px 20px;
@@ -622,12 +622,12 @@ label {
     /* home page */
     .index-banner {
         height: 800px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .title-message {
-        position: relative;
-        top: 50%;
-        font-size: 30px;
-        left: 10%;
+        height: 500px;
     }
     .product-information-container {
         display: flex;

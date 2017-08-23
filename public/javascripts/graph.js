@@ -346,7 +346,7 @@ const graph = (function() {
                     enabled: true,
                     format: '<b>{point.name}</b>: {point.percentage:.0f} %',
                     style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white'
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || '#395062'
                     }
                 }
             }
