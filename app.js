@@ -49,11 +49,15 @@ passport.use(new GoogleStrategy({
     callbackURL: process.env.GOOGLE_CALLBACK
   },
     function(accessToken, refreshToken, profile, done) {
+        var firstname = profile.name.givenName;
+        firstname = firstname.replace("'", "''");
+        var surname = profile.name.familyName;
+        surname = surname.replace("'", "''");
         db.one(`
         insert into users (email, firstname, surname)
-        values ('${profile.emails[0].value}', '${profile.name.givenName}', '${profile.name.familyName}')
+        values ('${profile.emails[0].value}', '${firstname}', '${surname}')
         on conflict (email)
-        do update set (firstname, surname) = ('${profile.name.givenName}', '${profile.name.familyName}')
+        do update set (firstname, surname) = ('${firstname}', '${surname}')
         where users.email = '${profile.emails[0].value}';
         select * from users where email = '${profile.emails[0].value}';
       `)
