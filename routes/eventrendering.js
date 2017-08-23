@@ -47,24 +47,29 @@ router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
       })
 })
 
-router.post('/edit', function(req, res, next) {
-    db.none(`
+router.post('/edit', ensureAuthenticated, function(req, res, next) {
+    var description = req.body.description;
+    description = description.replace("'", "''");
+    db.one(`
         UPDATE events
-        set
+		set
         event_date = '${req.body.date}', 
-        description = '${req.body.description}',
-        eventlink = '${req.body.eventlink}',
+        description = '${description}',
+        eventlink = NULLIF('${req.body.eventlink}',''),
         method = '${req.body.method}'
-        where event_id = ${req.body.id};
+        where event_id = '${req.body.id}'
+        returning event_id,
+        event_date,
+        description,
+        eventlink,
+        method;
     `)
-    .then((result) => {
-        db.one(`
-        select * from cd.members where memid=${req.params.event_id};
-        `)
         .then((result) => {
-            res.status(202).send(result);
+            console.log(result);
         })
-    })
+        .catch((error) => {
+            console.log(error);
+        })
 })
 
 
