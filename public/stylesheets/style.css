@@ -24,7 +24,7 @@ body {
 /* Landing page */
 
 .index-banner {
-    height: 800px;
+    height: 400px;
     background-image: url('/../images/backgroundbanner.svg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -33,8 +33,19 @@ body {
 .title-message {
     position: relative;
     top: 50%;
-    left: 15%;
-    font-size: 30px;
+    font-size: 20px;
+    left: 10px;
+}
+.product-information {
+    padding: 60px 20px;
+}
+.product-information-photo {
+    margin: 0 auto;
+    width: 90%;
+    padding-bottom: 70px;
+}
+.product-information-photo img {
+    width: 100%;
 }
 .parallax {
     transition: initial;
@@ -90,7 +101,6 @@ label {
 .selector-container,
 .user-info-container{
     padding-left: 20px;
-    padding-right: 20px;
 }
 .large-user-photo {
     display: none;
@@ -400,7 +410,7 @@ label {
     top: 30%;
 }
 .search-field h2 {
-    padding-bottom: 40px;
+    padding-bottom: 20px;
 }
 .event-content,
 .event-container {
@@ -610,6 +620,15 @@ label {
 @media only screen and (min-width: 768px){
     /* ***************** */
     /* home page */
+    .index-banner {
+        height: 800px;
+    }
+    .title-message {
+        position: relative;
+        top: 50%;
+        font-size: 30px;
+        left: 10%;
+    }
     .product-information-container {
         display: flex;
         justify-content: space-around;
@@ -633,7 +652,8 @@ label {
 
 
     .search-field {
-        padding: 100px;
+        min-height: 700px;
+        padding-top: 70px;
     }
     .event-container {
         min-width: 450px;
@@ -675,9 +695,7 @@ label {
         justify-content: flex-start;
         letter-spacing: 1.5px;
         color: #ADD8E6;
-        max-width: 270px;
-        padding-left: 10px;
-        padding-right: 10px;
+        width: 300px;
         padding-top: 125px;
     }
     .selector-container {
@@ -722,6 +740,7 @@ label {
         display: flex;
         flex-direction: row;
         align-items: center;
+        min-height: 900px;
     }
     .login-google {
         padding-top: 50px;
@@ -729,16 +748,17 @@ label {
     }
     .login-container-welcome {
         padding-top: 70px;
+        max-width: 600px;
     }
     .image-pannel {
-        max-width: 400px;
+        max-width: 700px;
         height: 100%;
         padding-top: 70px;
         padding-left: 20px;
         margin: auto 0;
     }
     .login-container {
-        width: 40%;
+        width: 60%;
         margin: auto auto;
         padding: 20px;
     }    
@@ -788,8 +808,8 @@ label {
     .selector-container,
     .user-info-container {
         text-align: left;
-        max-width: 300px;
-        padding-left: 10px;
+        max-width: 320px;
+        padding-left: 20px;
     }
     .sessions-count-container {
         text-align: left;
@@ -798,8 +818,8 @@ label {
         padding-left: 0px;
     }
     .search-field{
-        padding: 100px;
-        width: 80%;
+        margin: 0 auto;
+        max-width: 900px;
     }
     
 

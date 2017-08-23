@@ -98,9 +98,6 @@
 
 
 @media only screen and (min-width: 768px){
-    .search-field {
-        padding: 100px;
-    }
     .event-container {
         min-width: 450px;
     }
