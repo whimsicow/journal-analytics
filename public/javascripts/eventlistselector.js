@@ -302,11 +302,11 @@ function dbUpdateEvent() {
     $.post('/eventlist/edit', eventUpdate)
         .then((result) => {
             $STATUSDIV.append(result);
-            $EVENTFORM.hide('slow');
+            $EVENTFORM.delay(1000).hide('slow');
             var request = {}
             request['startdate'] = moment(eventUpdate['date']).subtract(1, 'days').format('YYYY-MM-DD');
             request['enddate'] = moment(eventUpdate['date']).format('YYYY-MM-DD');
-            
+
             var idArray = $('#events-view-selector-container > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
             request['accountid'] = idArray[0].attributes[1].value;
             request['propertyid'] = idArray[1].attributes[1].value;
