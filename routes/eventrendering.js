@@ -47,24 +47,34 @@ router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
       })
 })
 
-router.post('/:id/edit', function(req, res, next) {
-    db.none(`
+router.post('/edit', ensureAuthenticated, function(req, res, next) {
+    console.log(req.body);
+    var description = req.body.description;
+    description = description.replace("'", "''");
+    var link = req.body.eventlink;
+    link = link.replace("'", "''");
+    db.one(`
         UPDATE events
-        set
-        event_date = '${req.body.event_date}', 
-        description = '${req.body.description}',
-        eventlink = '${req.body.eventlink}',
+		set
+        event_date = '${req.body.date}', 
+        description = '${description}',
+        eventlink = NULLIF('${link}',''),
         method = '${req.body.method}'
-        where event_id = ${req.body.event_id};
+        where event_id = '${req.body.id}'
+        returning event_id,
+        event_date,
+        description,
+        eventlink,
+        method;
     `)
-    .then((result) => {
-        db.one(`
-        select * from cd.members where memid=${req.params.event_id};
-        `)
         .then((result) => {
-            res.status(202).send(result);
+            res.status(202).send('<span class="status-msg">Thank you! Your event has been updated.</span>');
+            res.end();
         })
-    })
+        .catch((error) => {
+            res.status(500).send('<span class="status-msg">Sorry, your event could not be added at this time. Please try again later.</span>');
+            res.end();
+        })
 })
 
 

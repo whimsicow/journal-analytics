@@ -1,6 +1,7 @@
 const $EVENTLIST = $('[data-role="events-container"]');
 const $EVENTFORM = $('[data-role="event-edit"]');
 const $CLOSEFORM = $('[data-role="close-event-form"]');
+const $STATUSDIV = $('[data-role="status-msg"]');
 
 var eventUpdate = {};
 
@@ -40,16 +41,7 @@ gapi.analytics.ready(() => {
         request['enddate'] = dateArray[0].attributes[2].value;
         request['startdate'] = dateArray[1].attributes[2].value;
 
-        $.post('/api/events', request)
-            .then(formatDates)
-            .then(createGroups)
-            .then(createList)
-            .catch((error) => {
-                if($EVENTLIST.children()) {
-                    $EVENTLIST.empty();
-                }
-                $EVENTLIST.append(error.responseText);
-            })
+        getEvents(request);
     })
     
     dateRangeSelectorEvents.on('change', (data) => {
@@ -60,18 +52,23 @@ gapi.analytics.ready(() => {
         request['accountid'] = idArray[0].attributes[1].value;
         request['propertyid'] = idArray[1].attributes[1].value;
 
-        $.post('/api/events', request)
-            .then(formatDates)
-            .then(createGroups)
-            .then(createList)
-            .catch((error) => {
-                if($EVENTLIST.children()) {
-                    $EVENTLIST.empty();
-                }
-                $EVENTLIST.append(error.responseText);
-            })
+        getEvents(request);
     })
-})
+
+
+// Calls API to query database for events w/in given dates/account ids
+function getEvents(request) {
+    $.post('/api/events', request)
+        .then(formatDates)
+        .then(createGroups)
+        .then(createList)
+        .catch((error) => {
+            if($EVENTLIST.children()) {
+                $EVENTLIST.empty();
+            }
+            $EVENTLIST.append(error.responseText);
+        })
+}
 
 // Formats each date ex: Aug 21 2017
 function formatDates(result, request) {
@@ -203,14 +200,19 @@ function capitalizeFirstLetter(string) {
 function addEditListener() {
     $EVENTLIST.on('click', "[data-role='edit']", function(event) {
         event.preventDefault();
+        if($STATUSDIV.children()) {
+            $STATUSDIV.empty();
+        }
         $child = $(event.target);
         $element = $(event.target.parentNode.parentNode);
         $parent = $(event.target.parentNode.parentNode.parentNode);
         console.log($parent);
         console.log($element);
+        console.log(eventUpdate);
         $EVENTFORM.show('slow');
         setDefaults($element, $parent);
-        updateForm($element);
+        eventUpdate = {};
+        eventUpdate['id'] = $element[0].id;
     })
 }
 
@@ -239,19 +241,19 @@ function setDefaults(element, parent) {
     let end = description.length;
     description = description.slice(13, end);
     $('[data-type="form-description"]').val(description);
-    console.log(element[0].attributes[1].value);
     $('[data-role="dropdown"]').find(`option[value='${element[0].attributes[1].value}']`).prop('selected', true);
     // $(`#eventDropdown  option[value='${element[0].attributes[1].value}']`).attr('selected', 'selected');
     if(element[0].childElementCount === 6) {
         $('[data-role="event-link"]').val(element[0].childNodes[1].attributes[0].value);
     }
 }
+
 // Deletes event from DOM and makes api call to delete from database
 function deleteEvent(child, element, parent) {
     $.get(`/eventlist/delete/${element[0].id}`)
         .then((result) => {
             element.remove();
-            if (parent[0].childElementCount === 0) {
+            if (parent[0].childElementCount === 1) {
                 parent.remove();
             } 
         })
@@ -281,26 +283,50 @@ function chooseIcon(method) {
     return newImage[method]
 }
 
-function getUpdatedMethod() {
-    var method = $('#eventDropdown').find(":selected");
-    method = method['prevObject'][0]['innerText'];
-    method = method.trim()
-    setValues('method', method);
-}
-
 function updateForm() {
     $EVENTFORM.submit(() => {
         event.preventDefault();
-        if($('[data-role="status-msg"]').children()) {
-            $('[data-role="status-msg"]').empty();
+        if($STATUSDIV.children()) {
+            $STATUSDIV.empty();
         }
+        
         getFormDescription();
         getDate();
         getMethod();
         getLink();
-        console.log(eventUpdate);
-        // dbUpdateEvent();
+        dbUpdateEvent();
     })
+}
+
+function dbUpdateEvent() {
+    $.post('/eventlist/edit', eventUpdate)
+        .then((result) => {
+            $STATUSDIV.append(result);
+            $EVENTFORM.delay(1000).hide('slow');
+            var request = {}
+            request['startdate'] = moment(eventUpdate['date']).subtract(1, 'days').format('YYYY-MM-DD');
+            request['enddate'] = moment(eventUpdate['date']).format('YYYY-MM-DD');
+
+            var idArray = $('#events-view-selector-container > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
+            request['accountid'] = idArray[0].attributes[1].value;
+            request['propertyid'] = idArray[1].attributes[1].value;
+            
+            var dateArray = $('#date-range-selector-container-events > .DateRangeSelector > .DateRangeSelector-item').find('input[type="date"]');
+
+            var newDateRange = {
+            'start-date': request.startdate,
+            'end-date': request.enddate
+            }
+
+            dateRangeSelectorEvents.set(newDateRange).execute()
+
+            // dateArray[0].attributes[2].value = request.startdate;
+            // dateArray[1].attributes[2].value = request.enddate;
+            getEvents(request);
+        })
+        .catch((error) => {
+            $STATUSDIV.append(error.responseText);
+        })
 }
 
 // stores description in form submition to local storage
@@ -322,7 +348,6 @@ function getDate() {
 // method is dropdown list of icons. can selet one and save to database to be used later for overlay of maps and gathering further information
 function getMethod() {
     var method = $('#eventDropdown').find(":selected");
-    console.log(method);
     method = method['prevObject'][0]['innerText'];
     method = method.trim()
     setValues('method', method);
@@ -338,13 +363,29 @@ function setValues(key, keyValue) {
     eventUpdate[key] = keyValue;
 };
 
+// resets form if reset button is clicked
+const resetButton = () => {
+    $('[data-role="reset"]').click(() => {
+        event.preventDefault();
+        if($('[data-role="status-msg"]').children()) {
+            $('[data-role="status-msg"]').empty();
+        }
+        document.forms["eventform"].reset()
+    })
+}
+
+    updateForm();
+    addDeleteListener();
+    addEditListener();
+    addModalCloseListener();
+    resetButton();
+})
+
 
 $('#eventDropdown').ddslick({
     width: "200px",
     height: "200px",
     imagePosition: "right" 
 });
+
 $EVENTFORM.hide();
-addDeleteListener();
-addEditListener();
-addModalCloseListener();
