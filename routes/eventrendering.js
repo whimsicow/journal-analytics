@@ -47,15 +47,15 @@ router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
       })
 })
 
-router.post('/:id/edit', function(req, res, next) {
+router.post('/edit', function(req, res, next) {
     db.none(`
         UPDATE events
         set
-        event_date = '${req.body.event_date}', 
+        event_date = '${req.body.date}', 
         description = '${req.body.description}',
         eventlink = '${req.body.eventlink}',
         method = '${req.body.method}'
-        where event_id = ${req.body.event_id};
+        where event_id = ${req.body.id};
     `)
     .then((result) => {
         db.one(`

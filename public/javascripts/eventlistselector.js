@@ -302,8 +302,15 @@ function updateForm(element) {
         getMethod();
         getLink();
         console.log(eventUpdate);
-        // dbUpdateEvent();
+        dbUpdateEvent(eventUpdate);
     })
+}
+
+function dbUpdateEvent(req) {
+    $.post('/eventlist/edit', req)
+        .then((result) => {
+            console.log(result);
+        })
 }
 
 // stores description in form submition to local storage
