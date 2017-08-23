@@ -1,5 +1,6 @@
 const graph = (function() {
 
+    // modifying the data returned from google analytics in order to render to graphs
   const getDates = ({data}) => {
       let pushedData1 = [];
       let pushedData2 = [];
@@ -69,14 +70,17 @@ const graph = (function() {
 
 
   const getPieEvents = (userEvents, requestedMethod) => {
+
+    // extract all methods from db query - events table
     let graphEventMethods = []
     for (n of userEvents) {
         graphEventMethods.push(n.method)
     }
+    // get size of methods extracted
     let sizeOfEvents = graphEventMethods.length
 
+    // if the requestedMethod (string) matches.. return the percentage
     let methodPercentage = ((graphEventMethods.filter(x => x === requestedMethod).length) / sizeOfEvents) * 100
-
     return methodPercentage;
 
   }
