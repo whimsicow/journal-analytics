@@ -552,11 +552,6 @@ label {
         display: unset;
         border-radius: 5px;
     }
-    /* .DateRangeSelector-item,
-    .ViewSelector2-item {
-        flex-direction: column;
-    } */
-
     .fixed-container {
         position: fixed;
 
