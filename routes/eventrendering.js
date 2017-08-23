@@ -50,12 +50,14 @@ router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
 router.post('/edit', ensureAuthenticated, function(req, res, next) {
     var description = req.body.description;
     description = description.replace("'", "''");
+    var link = req.body.eventlink;
+    link = link.replace("'", "''");
     db.one(`
         UPDATE events
 		set
         event_date = '${req.body.date}', 
         description = '${description}',
-        eventlink = NULLIF('${req.body.eventlink}',''),
+        eventlink = NULLIF('${link}',''),
         method = '${req.body.method}'
         where event_id = '${req.body.id}'
         returning event_id,
@@ -65,7 +67,7 @@ router.post('/edit', ensureAuthenticated, function(req, res, next) {
         method;
     `)
         .then((result) => {
-            res.status(202).send('<span class="status-msg">Thank you! Your event has been added.</span>');
+            res.status(202).send('<span class="status-msg">Thank you! Your event has been updated.</span>');
             res.end();
         })
         .catch((error) => {

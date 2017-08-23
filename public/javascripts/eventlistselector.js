@@ -1,6 +1,7 @@
 const $EVENTLIST = $('[data-role="events-container"]');
 const $EVENTFORM = $('[data-role="event-edit"]');
 const $CLOSEFORM = $('[data-role="close-event-form"]');
+const $STATUSDIV = $('[data-role="status-msg"]');
 
 var eventUpdate = {};
 
@@ -203,6 +204,10 @@ function capitalizeFirstLetter(string) {
 function addEditListener() {
     $EVENTLIST.on('click', "[data-role='edit']", function(event) {
         event.preventDefault();
+        console.log($STATUSDIV);
+        if($STATUSDIV.children()) {
+            $STATUSDIV.empty();
+        }
         $child = $(event.target);
         $element = $(event.target.parentNode.parentNode);
         $parent = $(event.target.parentNode.parentNode.parentNode);
@@ -292,15 +297,14 @@ function updateForm(element) {
     $EVENTFORM.submit(() => {
         event.preventDefault();
         eventUpdate = {};
-        if($('[data-role="status-msg"]').children()) {
-            $('[data-role="status-msg"]').empty();
+        if($STATUSDIV.children()) {
+            $STATUSDIV.empty();
         }
         eventUpdate['id'] = element[0].id;
         getFormDescription();
         getDate();
         getMethod();
         getLink();
-        console.log(eventUpdate);
         dbUpdateEvent(eventUpdate);
     })
 }
@@ -308,7 +312,10 @@ function updateForm(element) {
 function dbUpdateEvent(req) {
     $.post('/eventlist/edit', req)
         .then((result) => {
-            console.log(result);
+            $STATUSDIV.append(result);
+        })
+        .catch((error) => {
+            $STATUSDIV.append(error.responseText);
         })
 }
 
