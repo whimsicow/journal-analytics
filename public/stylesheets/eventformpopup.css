@@ -11,7 +11,7 @@
     max-width: 400px;
     border: 1px solid #394358;
     border-radius: 10px;
-    z-index: 1000000;
+    z-index: 900;
 }
 .form-container {
     margin: 10px;
