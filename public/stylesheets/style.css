@@ -70,7 +70,8 @@ body {
     padding: 20px;
 }
 
-.mem-title {
+.mem-title,
+.event-title {
     text-align: center;
 }
 
