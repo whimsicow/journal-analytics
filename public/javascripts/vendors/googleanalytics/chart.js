@@ -367,6 +367,7 @@ $(document).ready(() => {
             datefield.textContent = `${data['start-date']} '&mdash' ${data['end-date']}`
         })
 
+        /************************************* ACTIVE USERS */
         activeUsers.once('success', function() {
             var element = this.container.firstChild;
             var timeout;
