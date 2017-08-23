@@ -25,8 +25,8 @@ router.get('/', ensureAuthenticated, function(req, res) {
             navmessage: 'Welcome, ',
             name: result.firstname,
             pic: result.picture,
-            navlink2: '/eventlist',
-            navlinktext2: 'Team Events',
+            navlink2: '/teammembers',
+            navlinktext2: 'Team Management',
             navlink1: '/logout',
             navlinktext1: 'Logout'
         });
