@@ -837,6 +837,7 @@ label {
     .search-field{
         margin: 0 auto;
         max-width: 900px;
+        min-height: 1000px;
     }
     #event-pie-graph {
         height: 800px;
