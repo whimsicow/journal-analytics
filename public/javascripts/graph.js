@@ -71,15 +71,18 @@ const graph = (function() {
 
   const getPieEvents = (userEvents, requestedMethod) => {
 
+
     // extract all methods from db query - events table
     let graphEventMethods = []
     for (n of userEvents) {
-        graphEventMethods.push(n.method)
+        graphEventMethods.push(n.method.trim())
     }
     // get size of methods extracted
     let sizeOfEvents = graphEventMethods.length
 
     // if the requestedMethod (string) matches.. return the percentage
+    let filteredEvents = graphEventMethods.filter(x => x === requestedMethod)
+    return (filteredEvents.length / sizeOfEvents) / 100
     let methodPercentage = ((graphEventMethods.filter(x => x === requestedMethod).length) / sizeOfEvents) * 100
     return methodPercentage;
 
@@ -320,7 +323,7 @@ const graph = (function() {
 
   // pie graph
   const pieGraph = (googleAnalytics, userEvents) => {
-    console.log('configuring highcharts main graph')
+    console.log('configuring highcharts pie graph')
     let ga = getDates(googleAnalytics)
 
     Highcharts.chart('event-pie-graph', {
@@ -380,10 +383,16 @@ const graph = (function() {
             },
             {
                 name: 'Multiplatform',
-                y: getPieEvents(userEvents, ga, 'Multiplatform'),
+                y: getPieEvents(userEvents, "Multiplatform"),
             },{
-                name: 'LinkedIn',
-                y: getPieEvents(userEvents, ga, 'LinkedIn'),
+                name: 'Linkedin',
+                y: getPieEvents(userEvents, 'Linkedin'),
+            },{
+                name: 'Instagram',
+                y: getPieEvents(userEvents, 'Instagram')
+            },{
+                name: 'Twitter',
+                y: getPieEvents(userEvents, 'Tweet')
             }]
         }]
     });
