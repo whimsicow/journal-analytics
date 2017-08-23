@@ -2,6 +2,8 @@ const $EVENTLIST = $('[data-role="events-container"]');
 const $EVENTFORM = $('[data-role="event-edit"]');
 const $CLOSEFORM = $('[data-role="close-event-form"]');
 
+var eventUpdate = {};
+
 gapi.analytics.ready(() => {
     
     gapi.analytics.auth.authorize({
@@ -208,7 +210,7 @@ function addEditListener() {
         console.log($element);
         $EVENTFORM.show('slow');
         setDefaults($element, $parent);
-        saveForm($element);
+        updateForm($element);
     })
 }
 
@@ -280,34 +282,14 @@ function chooseIcon(method) {
     return newImage[method]
 }
 
-function saveForm() {
-    $FORM_CONTAINER.submit(() => {
-        event.preventDefault();
-        if($('[data-role="status-msg"]').children()) {
-            $('[data-role="status-msg"]').empty();
-        }
-        getFormDescription();
-        getDate();
-        getUpdatedMethod();
-        getLink();
-        // dbStoreEvent();
-        // resetForm();
-
-        // rerender graph
-        window.setTimeout(() => {
-            graph.gaDataForMainGraph(this.gaData)
-        }, 500)
-    })
-}
-
 function getUpdatedMethod() {
     var method = $('#eventDropdown').find(":selected");
     method = method['prevObject'][0]['innerText'];
     method = method.trim()
-    setLocalStorageValues('method', method);
+    setValues('method', method);
 }
 
-function saveForm() {
+function updateForm() {
     $EVENTFORM.submit(() => {
         event.preventDefault();
         if($('[data-role="status-msg"]').children()) {
@@ -316,12 +298,47 @@ function saveForm() {
         getFormDescription();
         getDate();
         getMethod();
-        getAccount();
         getLink();
-        console.log(eventData);
+        console.log(eventUpdate);
         // dbUpdateEvent();
     })
 }
+
+// stores description in form submition to local storage
+const getFormDescription = () => {
+    var description = 'description';
+    var $descriptionValue = $('[data-type="form-description"]').val();
+    setValues(description, $descriptionValue);
+}
+
+// gets date value of how local storage saves date data and saves to local storage
+function getDate() {
+    var date = 'date';
+    var dateValue = new Date($('input[name="date"]').val());
+    dateValue = new Date( dateValue.getTime() - dateValue.getTimezoneOffset() * -60000 ).toUTCString();
+
+    setValues(date, dateValue);
+}
+
+// method is dropdown list of icons. can selet one and save to database to be used later for overlay of maps and gathering further information
+function getMethod() {
+    var method = $('#eventDropdown').find(":selected");
+    console.log(method);
+    method = method['prevObject'][0]['innerText'];
+    method = method.trim()
+    setValues('method', method);
+}
+
+// stores optional link to local storage
+function getLink() {
+    var link = $('[name="link"]').val();
+    setValues('eventlink', link);
+}
+
+function setValues(key, keyValue) {
+    eventUpdate[key] = keyValue;
+};
+
 
 $('#eventDropdown').ddslick({
     width: "200px",
