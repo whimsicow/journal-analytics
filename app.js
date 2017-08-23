@@ -102,7 +102,7 @@ app.get('/auth/google',
 
 app.get('/auth/google/callback', 
     passport.authenticate('google', {
-        successRedirect: '/eventlist',
+        successRedirect: '/users',
         failureRedirect: '/login',
         failureFlash: true }));
 
