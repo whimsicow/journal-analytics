@@ -48,6 +48,7 @@ router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
 })
 
 router.post('/edit', ensureAuthenticated, function(req, res, next) {
+    console.log(req.body);
     var description = req.body.description;
     description = description.replace("'", "''");
     var link = req.body.eventlink;

@@ -204,7 +204,6 @@ function capitalizeFirstLetter(string) {
 function addEditListener() {
     $EVENTLIST.on('click', "[data-role='edit']", function(event) {
         event.preventDefault();
-        console.log($STATUSDIV);
         if($STATUSDIV.children()) {
             $STATUSDIV.empty();
         }
@@ -213,9 +212,11 @@ function addEditListener() {
         $parent = $(event.target.parentNode.parentNode.parentNode);
         console.log($parent);
         console.log($element);
+        console.log(eventUpdate);
         $EVENTFORM.show('slow');
         setDefaults($element, $parent);
-        updateForm($element);
+        eventUpdate = {};
+        eventUpdate['id'] = $element[0].id;
     })
 }
 
@@ -286,31 +287,23 @@ function chooseIcon(method) {
     return newImage[method]
 }
 
-function getUpdatedMethod() {
-    var method = $('#eventDropdown').find(":selected");
-    method = method['prevObject'][0]['innerText'];
-    method = method.trim()
-    setValues('method', method);
-}
-
-function updateForm(element) {
+function updateForm() {
     $EVENTFORM.submit(() => {
         event.preventDefault();
-        eventUpdate = {};
         if($STATUSDIV.children()) {
             $STATUSDIV.empty();
         }
-        eventUpdate['id'] = element[0].id;
+        
         getFormDescription();
         getDate();
         getMethod();
         getLink();
-        dbUpdateEvent(eventUpdate);
+        dbUpdateEvent();
     })
 }
 
-function dbUpdateEvent(req) {
-    $.post('/eventlist/edit', req)
+function dbUpdateEvent() {
+    $.post('/eventlist/edit', eventUpdate)
         .then((result) => {
             $STATUSDIV.append(result);
         })
@@ -353,6 +346,17 @@ function setValues(key, keyValue) {
     eventUpdate[key] = keyValue;
 };
 
+// resets form if reset button is clicked
+const resetButton = () => {
+    $('[data-role="reset"]').click(() => {
+        event.preventDefault();
+        if($('[data-role="status-msg"]').children()) {
+            $('[data-role="status-msg"]').empty();
+        }
+        document.forms["eventform"].reset()
+    })
+}
+
 
 $('#eventDropdown').ddslick({
     width: "200px",
@@ -361,6 +365,8 @@ $('#eventDropdown').ddslick({
 });
 
 $EVENTFORM.hide();
+updateForm();
 addDeleteListener();
 addEditListener();
 addModalCloseListener();
+resetButton();
