@@ -245,7 +245,7 @@ function setDefaults(element, parent) {
     if(element[0].childElementCount === 6) {
         $('[data-role="event-link"]').val(element[0].childNodes[1].attributes[0].value);
     }
-
+}
 // Deletes event from DOM and makes api call to delete from database
 function deleteEvent(child, element, parent) {
     $.get(`/eventlist/delete/${element[0].id}`)
