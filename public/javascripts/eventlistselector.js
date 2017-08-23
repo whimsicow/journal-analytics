@@ -239,7 +239,6 @@ function setDefaults(element, parent) {
     let end = description.length;
     description = description.slice(13, end);
     $('[data-type="form-description"]').val(description);
-    console.log(element[0].attributes[1].value);
     $('[data-role="dropdown"]').find(`option[value='${element[0].attributes[1].value}']`).prop('selected', true);
     // $(`#eventDropdown  option[value='${element[0].attributes[1].value}']`).attr('selected', 'selected');
     if(element[0].childElementCount === 6) {
@@ -252,7 +251,7 @@ function deleteEvent(child, element, parent) {
     $.get(`/eventlist/delete/${element[0].id}`)
         .then((result) => {
             element.remove();
-            if (parent[0].childElementCount === 0) {
+            if (parent[0].childElementCount === 1) {
                 parent.remove();
             } 
         })
@@ -332,7 +331,6 @@ function getDate() {
 // method is dropdown list of icons. can selet one and save to database to be used later for overlay of maps and gathering further information
 function getMethod() {
     var method = $('#eventDropdown').find(":selected");
-    console.log(method);
     method = method['prevObject'][0]['innerText'];
     method = method.trim()
     setValues('method', method);

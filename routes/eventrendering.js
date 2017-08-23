@@ -65,10 +65,12 @@ router.post('/edit', ensureAuthenticated, function(req, res, next) {
         method;
     `)
         .then((result) => {
-            console.log(result);
+            res.status(202).send('<span class="status-msg">Thank you! Your event has been added.</span>');
+            res.end();
         })
         .catch((error) => {
-            console.log(error);
+            res.status(500).send('<span class="status-msg">Sorry, your event could not be added at this time. Please try again later.</span>');
+            res.end();
         })
 })
 
