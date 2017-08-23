@@ -245,6 +245,7 @@ function setDefaults(element, parent) {
     if(element[0].childElementCount === 6) {
         $('[data-role="event-link"]').val(element[0].childNodes[1].attributes[0].value);
     }
+}
 
 // Deletes event from DOM and makes api call to delete from database
 function deleteEvent(child, element, parent) {
@@ -288,12 +289,14 @@ function getUpdatedMethod() {
     setValues('method', method);
 }
 
-function updateForm() {
+function updateForm(element) {
     $EVENTFORM.submit(() => {
         event.preventDefault();
+        eventUpdate = {};
         if($('[data-role="status-msg"]').children()) {
             $('[data-role="status-msg"]').empty();
         }
+        eventUpdate['id'] = element[0].id;
         getFormDescription();
         getDate();
         getMethod();
@@ -344,6 +347,7 @@ $('#eventDropdown').ddslick({
     height: "200px",
     imagePosition: "right" 
 });
+
 $EVENTFORM.hide();
 addDeleteListener();
 addEditListener();

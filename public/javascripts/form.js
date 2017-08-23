@@ -8,6 +8,7 @@ var eventData = {};
 const saveForm = () => {
     $FORM_CONTAINER.submit(() => {
         event.preventDefault();
+        eventData = {};
         if($('[data-role="status-msg"]').children()) {
             $('[data-role="status-msg"]').empty();
         }
