@@ -16,8 +16,9 @@
     get() - Returns the current configuration options of a component.*/
 
 /******************************************************************
-                            HELPER
+                            HELPER for annual graph
 ******************************************************************/
+// for google embed default graph (annual)
 function query(params) {
     return new Promise(function (resolve, reject) {
         const data = new gapi.analytics.report.Data({ query: params });
@@ -27,7 +28,7 @@ function query(params) {
     });
 }
 
-
+// for google embed default graph (annual)
 function makeCanvas(id) {
     const container = document.getElementById(id);
     const canvas = document.createElement('canvas');
@@ -41,22 +42,6 @@ function makeCanvas(id) {
     return ctx;
 }
 
-function generateLegend(id, items) {
-    const legend = document.getElementById(id);
-    legend.innerHTML = items.map(function (item) {
-        const color = item.color || item.fillColor;
-        const label = item.label;
-        return '<li><i class="annual-legend" style="background:' + color + '"></i>' +
-            escapeHtml(label) + '</li>';
-    }).join('');
-}
-
-function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
-    return div.innerHTML;
-}
-
 Chart.defaults.global.animationSteps = 60;
 Chart.defaults.global.animationEasing = 'easeInOutQuart';
 Chart.defaults.global.responsive = true;
@@ -66,6 +51,9 @@ Chart.defaults.global.maintainAspectRatio = false;
                 GOOGLE ANALYTICS AUTHENTICATION
 ******************************************************************/
 $(document).ready(() => {
+    setTimeout(function(){
+        $('body').addClass('loaded');
+    }, 3000);
 
   gapi.analytics.ready(() => {
     
@@ -367,6 +355,7 @@ $(document).ready(() => {
             datefield.textContent = `${data['start-date']} '&mdash' ${data['end-date']}`
         })
 
+        /************************************* ACTIVE USERS */
         activeUsers.once('success', function() {
             var element = this.container.firstChild;
             var timeout;
@@ -384,4 +373,5 @@ $(document).ready(() => {
             });
         });
     })
+    
 })
