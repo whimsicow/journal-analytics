@@ -868,12 +868,13 @@ label {
 .extra-info-graphs {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-around;
+    align-items: center;
+    align-content: center;
 }
 
 .pie-container {
-    flex-grow: 4;
     display: flex;
     flex-direction: column;
     align-items: center;

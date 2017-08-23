@@ -369,7 +369,7 @@ $(document).ready(() => {
               timeout = setTimeout(function() {
                 element.className =
                     element.className.replace(/ is-(increasing|decreasing)/g, '');
-              }, 3000);
+              }, 60000);
             });
         });
     })
