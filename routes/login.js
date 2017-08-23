@@ -37,8 +37,6 @@ router.get('/', function(req, res) {
         // not logged in
         res.render('login', {
             title: 'Journal Analytics',
-            navlink1: "/",
-            navlinktext1: "Home",
             message1: "You are not currently signed in. Please ",
             link: '/auth/google',
             linktext: "sign in with Google."

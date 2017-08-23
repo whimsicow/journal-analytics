@@ -27,7 +27,8 @@ router.get('/', function(req, res, next) {
                 });
             });
     } else {
-        res.render('index', {  
+        res.render('index', {
+            title: 'Journal Analytics',  
             navlink1: '/login',
             navlinktext1: 'Login'
         });
