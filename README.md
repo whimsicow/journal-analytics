@@ -6,7 +6,6 @@
 
 
 # Documented Progress
-<h3>An idea was born...and then skteched</h3>
 <img src="http://i.imgur.com/inGZEQZ.jpg" width="300" height="300" />
 <img src="http://i.imgur.com/twnfl4F.jpg" width="300" height="300" />
 <img src="http://i.imgur.com/z76cu9F.jpg" width="300" height="300" />
@@ -27,28 +26,26 @@
 
 
 # Tools
-<h4> HTML </h4>
-<ul>
- <li> HTML5 </li>
-</ul>
-
-<h4> CSS </h4>
-<ul>
-  <li> FlexBox </li>
-  <li> FontAwesome </li>
-  <li> Material Icons </li>
-</ul>
-
 <h4> JS </h4>
 <ul>
   <li> JQuery </li>
   <li> HighCharts </li>
+  <li> ChartJS </li>
+  <li> MomentJS </li>
+  <li> DDSlickJS </li>
+</ul>
+
+<h4> Testing </h4>
+<ul>
+ <li> Mocha </li>
+ <li> Chai </li>
 </ul>
 
 <h4> Technologies / APIs </h4>
-<ul>
- <li> Socket.IO </li>
-</ul>
+ <ul>
+  <li> PassportJS</li>
+  <li><Google Analytics Embed API</li>
+ </ul>
 
 
 # Live Demo

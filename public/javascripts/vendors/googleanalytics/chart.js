@@ -339,7 +339,8 @@ $(document).ready(() => {
             // annual graph
             renderYearOverYearChart(data.ids);
 
-            // // active users
+
+            // active users
             // activeUsers.set(data)
             // .execute()
 
@@ -381,6 +382,6 @@ $(document).ready(() => {
                     element.className.replace(/ is-(increasing|decreasing)/g, '');
               }, 3000);
             });
-          });
+        });
     })
 })
