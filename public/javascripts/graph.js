@@ -26,40 +26,44 @@ const graph = (function() {
       }
   }
  
+  /*********************************************** overlay for main graph */
   const getGraphEvents = (userEvents, ga) => {
+      //userevents is queried from db
+      //ga from google db
 
     // copy googleanalytics dates arr
-    let graphGoogleAnalytics = [...ga.dates]
+    let googleAnalyticDefaultDates = [...ga.dates]
 
     // copy userevents arr
     let userEventsArr = [...userEvents]
+
+    // extract all event_dates from all users and put into new arr.
     let graphUserEvents = []
     for (n of userEventsArr) {
         graphUserEvents.push(n.event_date)
     }
 
-    // find duplicates from userevents arr
-    let arr = []
+    // remove duplicates from all user event_dates and to new arr.
+    let duplicatesRemoved = []
     graphUserEvents.forEach(item => {
-        if (arr.find(x => {
-            return x === item
-        })) {
-            return;
-        }
-        arr.push(item)
+        if (duplicatesRemoved.find(x => x === item)) return;
+        duplicatesRemoved.push(item)
     })
-    
-    arr.reverse()
+    // reverse the results so that they coincide with the way google analytics is rendering their dates
+    // for quicker results..
+    duplicatesRemoved.reverse()
 
-    let finalGraphEventsArr = graphGoogleAnalytics.map((item, index) => {
-        if (arr.find(x => {
-            return x === item
-        })) {
+    // diff array provided by google versus non-duplicate events
+    // [sep 21, sep 22]...
+    // if same dates are present in both arrays, push that item into new arr.. otherwise push invalid value such as a string which highcharts will see as invalid and will not plot that point on the overlay.
+    let finalGraphEventsArr = googleAnalyticDefaultDates.map((item, index) => {
+        if (duplicatesRemoved.find(x => x === item)) {
             return ga.sessions[index];
         }
         return '';
     })
 
+    // return events dataset back to maingraph for overlay
     return finalGraphEventsArr
   }
 
