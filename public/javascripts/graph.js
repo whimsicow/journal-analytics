@@ -333,7 +333,8 @@ const graph = (function() {
             plotShadow: false,
             type: 'pie',
             backgroundColor: null,
-            // height: 300
+            // height: 600,
+            // width: 600
         },
         title: {
             text: null
@@ -349,7 +350,8 @@ const graph = (function() {
                     enabled: true,
                     format: '<b>{point.name}</b>: {point.percentage:.0f} %',
                     style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || '#395062'
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || '#395062',
+                        fontSize: '13px'
                     }
                 }
             }
