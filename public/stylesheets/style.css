@@ -12,6 +12,7 @@
 body {
     margin: 0;
     font-family: 'Raleway', sans-serif;
+    font-weight: 400;
 }
 .js #loader { 
     display: block; 
@@ -67,6 +68,10 @@ body {
 
 .search-field {
     padding: 20px;
+}
+
+.mem-title {
+    text-align: center;
 }
 
 
@@ -431,6 +436,10 @@ label {
     padding-bottom: 5px;
     border-bottom: .25px solid #ADD8E6;
 }
+
+/*.memname {
+    font-weight: 800;
+}*/
 
 
 /* **********************END EVENT MEMBER PAGE*************** *//* *************************************************** *//* *************************************************** *//* *************************************************** */
