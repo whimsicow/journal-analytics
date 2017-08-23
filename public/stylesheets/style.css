@@ -461,7 +461,7 @@ label {
     flex-direction: column;
     color: #ADD8E6;
     border-top: 2px solid slategray;
-    z-index: 50;
+    z-index: 20000;
 }
 .menu-footer {
     padding: 0;
@@ -681,7 +681,7 @@ label {
     }
     .fixed-container {
         position: fixed;
-
+        z-index: 50;
     }
     .sessions-count-container,
     .selector-container,
@@ -717,7 +717,7 @@ label {
         width: 75%;
         text-align: center;
         margin: 0 auto;
-        padding-bottom: 100px;
+        padding-bottom: 50px;
     }
     /* high charts chart */
 
