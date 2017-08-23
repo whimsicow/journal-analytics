@@ -26,8 +26,15 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
                 navlink1: '/logout',
                 navlinktext1: 'Logout'
                 });
+            })
+        .catch((error) => {
+            res.render('login', {
+            message1: "You are not currently signed in. Please ",
+            link: '/auth/google',
+            linktext: "sign in with Google."
             });
-        }) 
+        })
+}) 
 
 router.post('/profile', function(req, res, next) {
     if(!req.body) {
