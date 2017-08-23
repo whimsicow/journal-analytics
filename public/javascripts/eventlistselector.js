@@ -41,16 +41,7 @@ gapi.analytics.ready(() => {
         request['enddate'] = dateArray[0].attributes[2].value;
         request['startdate'] = dateArray[1].attributes[2].value;
 
-        $.post('/api/events', request)
-            .then(formatDates)
-            .then(createGroups)
-            .then(createList)
-            .catch((error) => {
-                if($EVENTLIST.children()) {
-                    $EVENTLIST.empty();
-                }
-                $EVENTLIST.append(error.responseText);
-            })
+        getEvents(request);
     })
     
     dateRangeSelectorEvents.on('change', (data) => {
@@ -61,18 +52,23 @@ gapi.analytics.ready(() => {
         request['accountid'] = idArray[0].attributes[1].value;
         request['propertyid'] = idArray[1].attributes[1].value;
 
-        $.post('/api/events', request)
-            .then(formatDates)
-            .then(createGroups)
-            .then(createList)
-            .catch((error) => {
-                if($EVENTLIST.children()) {
-                    $EVENTLIST.empty();
-                }
-                $EVENTLIST.append(error.responseText);
-            })
+        getEvents(request);
     })
-})
+
+
+// Calls API to query database for events w/in given dates/account ids
+function getEvents(request) {
+    $.post('/api/events', request)
+        .then(formatDates)
+        .then(createGroups)
+        .then(createList)
+        .catch((error) => {
+            if($EVENTLIST.children()) {
+                $EVENTLIST.empty();
+            }
+            $EVENTLIST.append(error.responseText);
+        })
+}
 
 // Formats each date ex: Aug 21 2017
 function formatDates(result, request) {
@@ -306,6 +302,27 @@ function dbUpdateEvent() {
     $.post('/eventlist/edit', eventUpdate)
         .then((result) => {
             $STATUSDIV.append(result);
+            $EVENTFORM.hide('slow');
+            var request = {}
+            request['startdate'] = moment(eventUpdate['date']).subtract(1, 'days').format('YYYY-MM-DD');
+            request['enddate'] = moment(eventUpdate['date']).format('YYYY-MM-DD');
+            
+            var idArray = $('#events-view-selector-container > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
+            request['accountid'] = idArray[0].attributes[1].value;
+            request['propertyid'] = idArray[1].attributes[1].value;
+            
+            var dateArray = $('#date-range-selector-container-events > .DateRangeSelector > .DateRangeSelector-item').find('input[type="date"]');
+
+            var newDateRange = {
+            'start-date': request.startdate,
+            'end-date': request.enddate
+            }
+
+            dateRangeSelectorEvents.set(newDateRange).execute()
+
+            // dateArray[0].attributes[2].value = request.startdate;
+            // dateArray[1].attributes[2].value = request.enddate;
+            getEvents(request);
         })
         .catch((error) => {
             $STATUSDIV.append(error.responseText);
@@ -357,6 +374,13 @@ const resetButton = () => {
     })
 }
 
+    updateForm();
+    addDeleteListener();
+    addEditListener();
+    addModalCloseListener();
+    resetButton();
+})
+
 
 $('#eventDropdown').ddslick({
     width: "200px",
@@ -365,8 +389,3 @@ $('#eventDropdown').ddslick({
 });
 
 $EVENTFORM.hide();
-updateForm();
-addDeleteListener();
-addEditListener();
-addModalCloseListener();
-resetButton();
