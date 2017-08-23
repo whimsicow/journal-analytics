@@ -28,11 +28,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
                 });
             })
         .catch((error) => {
-            res.render('login', {
-            message1: "You are not currently signed in. Please ",
-            link: '/auth/google',
-            linktext: "sign in with Google."
-            });
+            res.redirect('/login');
         })
 }) 
 

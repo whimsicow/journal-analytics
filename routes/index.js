@@ -9,6 +9,7 @@ router.get('/', function(req, res, next) {
         db.one(`select firstname, picture from users where email = '${req.user}'`)
             .then((result) => {
                 res.render('index', {
+                title: 'Journal Analytics',
                 navmessage: 'Welcome, ',
                 name: result.firstname,
                 pic: result.picture,

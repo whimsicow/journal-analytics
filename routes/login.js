@@ -9,6 +9,7 @@ router.get('/', function(req, res) {
         db.one(`select firstname, picture from users where email = '${req.user}'`)
             .then((result) => {
                 res.render('login', {
+                title: 'Journal Analytics',
                 navmessage: 'Welcome, ',
                 name: result.firstname,
                 pic: result.picture,
@@ -25,6 +26,7 @@ router.get('/', function(req, res) {
             })
             .catch((error) => {
                  res.render('login', {
+                    title: 'Journal Analytics',
                     message1: "You are not currently signed in. Please ",
                     link: '/auth/google',
                     linktext: "sign in with Google."
@@ -34,12 +36,13 @@ router.get('/', function(req, res) {
     } else {
         // not logged in
         res.render('login', {
-        navlink1: "/",
-        navlinktext1: "Home",
-        message1: "You are not currently signed in. Please ",
-        link: '/auth/google',
-        linktext: "sign in with Google."
-        });
+            title: 'Journal Analytics',
+            navlink1: "/",
+            navlinktext1: "Home",
+            message1: "You are not currently signed in. Please ",
+            link: '/auth/google',
+            linktext: "sign in with Google."
+            });
     }   
 });
 
