@@ -18,15 +18,17 @@ router.get('/', function(req, res) {
                 navlinktext2: 'Team Events',
                 navlink1: '/logout',
                 navlinktext1: 'Logout',
-                navlink1: "/",
-                navlinktext1: "Home",
                 message1: "You are already signed in. ",
                 link: '/users',
-                linktext: "View your analytics ",
-                message2: "or ",
-                link2: '/logout',
-                linktext2: 'Logout'
+                linktext: "View your analytics."
                 });
+            })
+            .catch((error) => {
+                 res.render('login', {
+                    message1: "You are not currently signed in. Please ",
+                    link: '/auth/google',
+                    linktext: "sign in with Google."
+                    });
             })
     
     } else {

@@ -15,18 +15,19 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
     db.one(`select firstname, picture from users where email = '${req.user}'`)
         .then((result) => {
             res.render('users', {
+                title: 'Journal Analytics',
                 navmessage: 'Welcome, ',
                 name: result.firstname,
                 pic: result.picture,
-                ftrlink: '/logout',
-                ftrlinktext: 'Logout',
-                navlink1: "/",
-                navlinktext1: "Home",
-                navlink2: '/logout',
-                navlinktext2: 'Logout'
+                navlink3: '/teammembers',
+                navlinktext3: 'Team Management',
+                navlink2: '/eventlist',
+                navlinktext2: 'Team Events',
+                navlink1: '/logout',
+                navlinktext1: 'Logout'
+                });
             });
         }) 
-});
 
 router.post('/profile', function(req, res, next) {
     if(!req.body) {
