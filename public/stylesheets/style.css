@@ -29,12 +29,17 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
 .title-message {
-    position: relative;
-    top: 50%;
-    font-size: 20px;
-    left: 10px;
+    margin-top: 70px;
+}
+.title-message img {
+    height: 200px;
+    margin: 0 auto;
 }
 .product-information {
     padding: 60px 20px;
@@ -620,7 +625,10 @@ label {
     .chart-navigation {
         justify-content: space-around;
     }
-
+    .title-message img{
+        height: 200px;
+        margin: 0 auto;
+    }
 }
 @media only screen and (min-width: 768px){
     /* ***************** */
@@ -628,11 +636,9 @@ label {
     .index-banner {
         height: 800px;
     }
-    .title-message {
-        position: relative;
-        top: 50%;
-        font-size: 20px;
-        left: 30%;
+    .title-message img{
+        height: 400px;
+        margin: 0 auto;
     }
     .product-information-container {
         display: flex;
@@ -831,11 +837,16 @@ label {
     .search-field{
         margin: 0 auto;
         max-width: 900px;
+        min-height: 1000px;
     }
     #event-pie-graph {
         height: 800px;
         width: 800px;
         font-size: 14px;
+    }
+    .title-message img{
+        height: 500px;
+        margin: 0 auto;
     }
     
 
