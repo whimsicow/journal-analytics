@@ -36,8 +36,8 @@ router.get('/', ensureAuthenticated, function(req, res) {
 
 router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
     db.none(`
-    DELETE from events
-    where event_id=${req.params.id};
+        DELETE from events
+        where event_id=${req.params.id};
     `)
      .then((result) => {
             res.status(202).send('success');
@@ -48,7 +48,23 @@ router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
 })
 
 router.post('/:id/edit', function(req, res, next) {
-
+    db.none(`
+        UPDATE events
+        set
+        event_date = '${req.body.event_date}', 
+        description = '${req.body.description}',
+        eventlink = '${req.body.eventlink}',
+        method = '${req.body.method}'
+        where event_id = ${req.body.event_id};
+    `)
+    .then((result) => {
+        db.one(`
+        select * from cd.members where memid=${req.params.event_id};
+        `)
+        .then((result) => {
+            res.status(202).send(result);
+        })
+    })
 })
 
 

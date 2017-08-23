@@ -44,11 +44,11 @@ function createList(result) {
     }
 
     if (result.length === 0) {
-        $noevents = $('<p></p>', {
-            'text': `No events found. Please try your search again.`,
+        $nomems = $('<p></p>', {
+            'text': `No active team members found. Please try your search again.`,
             'class': 'event-error'
         })
-        $MEMBERLIST.append($noevents);
+        $MEMBERLIST.append($nomems);
     } else {
         var $memberscontainer = $('<div></div>', {
                 "class" : "members-container"

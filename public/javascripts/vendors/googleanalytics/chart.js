@@ -339,6 +339,7 @@ $(document).ready(() => {
             // annual graph
             renderYearOverYearChart(data.ids);
 
+
             // active users
             // activeUsers.set(data)
             // .execute()

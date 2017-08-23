@@ -85,8 +85,8 @@ const getAccount = () => {
 // stores description in form submition to local storage
 const getFormDescription = () => {
     var description = 'description';
-    var $descrptionValue = $('[data-type="form-description"]').val();
-    setLocalStorageValues(description, $descrptionValue);
+    var $descriptionValue = $('[data-type="form-description"]').val();
+    setLocalStorageValues(description, $descriptionValue);
 }
 
 // gets date value of how local storage saves date data and saves to local storage

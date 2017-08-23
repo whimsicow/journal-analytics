@@ -1,6 +1,8 @@
 const $EVENTLIST = $('[data-role="events-container"]');
-const $EVENTMODALCONT = $('[data-role="event-modal"]');
-const $EVENTMODAL = $('#event-modal');
+const $EVENTFORM = $('[data-role="event-edit"]');
+const $CLOSEFORM = $('[data-role="close-event-form"]');
+
+var eventUpdate = {};
 
 gapi.analytics.ready(() => {
     
@@ -139,6 +141,7 @@ function createList(result) {
                 let firstname = capitalizeFirstLetter(event.firstname)
                 let $event = $('<div></div>', {
                     'id': event.event_id,
+                    'name': event.method,
                     'class' : "event-content"
                 });
                 let $description = $('<span></span>', {
@@ -205,22 +208,16 @@ function addEditListener() {
         $parent = $(event.target.parentNode.parentNode.parentNode);
         console.log($parent);
         console.log($element);
-        createEventModal($element, $parent);
-        $EVENTMODAL.css('display', 'block');
-        window.addEventListener('click', (e) => {
-            if (e.target === $EVENTMODAL) {
-                $EVENTMODAL.css('display', 'none');
-                $('[data-role="modal-content"]').remove();
-            }
-        })
+        $EVENTFORM.show('slow');
+        setDefaults($element, $parent);
+        updateForm($element);
     })
 }
 
 function addModalCloseListener() {
-    $('[data-role="close"]').on('click', function(event) {
+    $CLOSEFORM.click((event) => {
         event.preventDefault();
-        $EVENTMODAL.css('display', 'none');
-        $('[data-role="modal-content"]').remove();
+        $EVENTFORM.hide('slow');
     })
 }
 
@@ -235,160 +232,19 @@ function addDeleteListener() {
     })
 }
 
-function createEventModal(element, parent) {
-    //whole form appends to DOM
-    let $modalform = $('<form></form>', {
-        'name': 'edit-event',
-        'class': 'modal-list',
-        'data-role': 'modal-content'
-    });
-    // modal container
-    let $modalContainer = $('<div></div>', {
-        'class' : 'modal-container'
-    })
-    $modalform.append($modalContainer);
-
-    // date container
-    let $datediv = $('<div></div>', {
-        'class' : 'date-container'
-    });
-    let $datelabel = $('<label></label>', {
-        'text': 'Event Date:',
-        'class' : 'modal-date'
-    });
-    $datediv.append($datelabel);
-    let $date = $('<input>', {
-        'name': 'date',
-        'type': 'date',
-        'autocomplete': 'on',
-        'required': ''
-    });
-    $datediv.append($date);
-    $modalContainer.append($datediv);
-
-    // description container
-    let $descdiv = $('<div></div>', {
-        'class': 'modal-text-area',
-    });
-    let $desctxt = $('<textarea></textarea>', {
-        'placeholder' : 'rewrite description here',
-        'name': 'event-description',
-        'rows': '3',
-        'cols': '50',
-        'required': ''
-    });
-    // link container
-    $descdiv.append($desctxt);
-    $modalContainer.append($descdiv);
-    let $linkdiv = $('<div></div>', {
-        'class' : 'link-box'
-    });
-    let $linktxt = $('<input>', {
-        'name': 'link',
-        'type': 'text',
-    });
-    $linkdiv.append($linktxt);
-    $modalContainer.append($linkdiv);
-
-    // dropdown for type of event
-    let $dropdown = $('<div></div>', {
-        // 'id': 'eventDropdown',
-        'class' : 'event-dropdown'
-    })
-    let $option1 = $('<option></option>', {
-        'class': 'icon',
-        'value': 'General',
-        'data-imagesrc': '../images/defaulticon.svg',
-        'data-description': 'General'
-    })
-    $dropdown.append($option1);
-    let $option2 = $('<option></option>', {
-        'class': 'icon',
-        'value': 'Multiplatform',
-        'data-imagesrc': '../images/multipleplatform.png',
-        'data-description': 'Multiplatform'
-    })
-    $dropdown.append($option2);
-    let $option3 = $('<option></option>', {
-        'class': 'icon',
-        'value': 'Outdoor',
-        'data-imagesrc': '../images/tent.png',
-        'data-description': 'Outdoor'
-    })
-    $dropdown.append($option3);
-    let $option4 = $('<option></option>', {
-        'class': 'icon',
-        'value': 'Important',
-        'data-imagesrc': '../images/importanticon.svg',
-        'data-description': 'Important'
-    })
-    $dropdown.append($option4);
-    let $option5 = $('<option></option>', {
-        'class': 'icon',
-        'value': 'Social',
-        'data-imagesrc': '../images/socialevent.png',
-        'data-description': 'Social',
-        'text' : 'Social'
-    })
-    $dropdown.append($option5);
-    let $option6 = $('<option></option>', {
-        'class': 'icon',
-        'value': 'Email',
-        'data-imagesrc': '../images/email.png',
-        'data-description': 'Email',
-        'text' : 'Email'
-    })
-    $dropdown.append($option6);
-    let $option7 = $('<option></option>', {
-        'class': 'icon',
-        'value': 'Facebook',
-        'data-imagesrc': 'https://cdn.worldvectorlogo.com/logos/facebook-icon.svg',
-        'data-description': 'Facebook'
-    })
-    $dropdown.append($option7);
-    let $option8 = $('<option></option>', {
-        'class': 'icon',
-        'value': 'Tweet',
-        'data-imagesrc': 'https://cdn.worldvectorlogo.com/logos/twitter-4.svg',
-        'data-description': 'Tweet'
-    })
-    $dropdown.append($option8);
-    let $option9 = $('<option></option>', {
-        'class': 'icon',
-        'value': 'Google Plus',
-        'data-imagesrc': '../images/google-plus.svg',
-        'data-description': 'Google Plus'
-    })
-    $dropdown.append($option9);
-    let $option10 = $('<option></option>', {
-        'class': 'icon',
-        'value': 'Linkedin',
-        'data-imagesrc': '../images/linkedin.png',
-        'data-description': 'Linkedin'
-    })
-    $dropdown.append($option10);
-    let $option11 = $('<option></option>', {
-        'class': 'icon',
-        'value': 'Instagram',
-        'data-imagesrc': 'https://cdn.worldvectorlogo.com/logos/instagram-2016.svg',
-        'data-description': 'Instagram'
-    })
-    $dropdown.append($option11);
-    // end of dropdown
-    $modalContainer.append($dropdown);
-    let $buttondiv = $('<div></div>', {
-        'class': 'button-container'
-    })
-    let $update= $('<button></button>', {
-        'type': 'submit',
-        'class': 'submit-event',
-        'data-role': 'update',
-        'text': 'Update'
-    })
-    $buttondiv.append($update);
-    $modalContainer.append($buttondiv);
-    $EVENTMODALCONT.append($modalform);
-}
+function setDefaults(element, parent) {
+    let d = new Date(parent[0].childNodes[0].textContent);
+    document.getElementById('event-date').valueAsDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12);
+    let description = element[0].childNodes[0].textContent;
+    let end = description.length;
+    description = description.slice(13, end);
+    $('[data-type="form-description"]').val(description);
+    console.log(element[0].attributes[1].value);
+    $('[data-role="dropdown"]').find(`option[value='${element[0].attributes[1].value}']`).prop('selected', true);
+    // $(`#eventDropdown  option[value='${element[0].attributes[1].value}']`).attr('selected', 'selected');
+    if(element[0].childElementCount === 6) {
+        $('[data-role="event-link"]').val(element[0].childNodes[1].attributes[0].value);
+    }
 
 // Deletes event from DOM and makes api call to delete from database
 function deleteEvent(child, element, parent) {
@@ -425,12 +281,70 @@ function chooseIcon(method) {
     return newImage[method]
 }
 
+function getUpdatedMethod() {
+    var method = $('#eventDropdown').find(":selected");
+    method = method['prevObject'][0]['innerText'];
+    method = method.trim()
+    setValues('method', method);
+}
+
+function updateForm() {
+    $EVENTFORM.submit(() => {
+        event.preventDefault();
+        if($('[data-role="status-msg"]').children()) {
+            $('[data-role="status-msg"]').empty();
+        }
+        getFormDescription();
+        getDate();
+        getMethod();
+        getLink();
+        console.log(eventUpdate);
+        // dbUpdateEvent();
+    })
+}
+
+// stores description in form submition to local storage
+const getFormDescription = () => {
+    var description = 'description';
+    var $descriptionValue = $('[data-type="form-description"]').val();
+    setValues(description, $descriptionValue);
+}
+
+// gets date value of how local storage saves date data and saves to local storage
+function getDate() {
+    var date = 'date';
+    var dateValue = new Date($('input[name="date"]').val());
+    dateValue = new Date( dateValue.getTime() - dateValue.getTimezoneOffset() * -60000 ).toUTCString();
+
+    setValues(date, dateValue);
+}
+
+// method is dropdown list of icons. can selet one and save to database to be used later for overlay of maps and gathering further information
+function getMethod() {
+    var method = $('#eventDropdown').find(":selected");
+    console.log(method);
+    method = method['prevObject'][0]['innerText'];
+    method = method.trim()
+    setValues('method', method);
+}
+
+// stores optional link to local storage
+function getLink() {
+    var link = $('[name="link"]').val();
+    setValues('eventlink', link);
+}
+
+function setValues(key, keyValue) {
+    eventUpdate[key] = keyValue;
+};
+
+
 $('#eventDropdown').ddslick({
     width: "200px",
     height: "200px",
     imagePosition: "right" 
 });
-
+$EVENTFORM.hide();
 addDeleteListener();
 addEditListener();
 addModalCloseListener();
