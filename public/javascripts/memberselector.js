@@ -62,16 +62,20 @@ function createList(result) {
                 'alt': "profile picture"
             })
             $member.append($profpic);
+            
+            var $namediv = $('<div></div>', {});
             let firstname = capitalizeFirstLetter(member.firstname)
+            let $name = $('<span></span>', {
+                'class': 'memname',
+                'text': `${firstname}: `
+            })
+            $namediv.append($name);
             let $link = $('<a></a>', {
                 'src': `/teammembers/${member.email}`,
-                'text': `${firstname}: ${member.email}`
+                'text': `${member.email}`
             })
-            $member.append($link);
-            // let $email = $('<span></span>', {
-            //     'text': `${member.email}`
-            // })
-            // $member.append($email);
+            $namediv.append($link);
+            $member.append($namediv);
             $memberscontainer.append($member);
         })
         $MEMBERLIST.append($memberscontainer);
