@@ -147,9 +147,9 @@ function createList(result) {
                 $event.append($description);
                 if (event.eventlink !== null) {
                     let $link = $('<a></a>', {
+                        'href': `${event.eventlink}`,
                         'target': "_blank",
                         'rel': "noopener noreferrer", 
-                        'href': `${event.eventlink}`,
                         'text': 'Link to event'
                     })
                     $event.append($link);
