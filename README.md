@@ -16,7 +16,7 @@
 <h3>Katie Lane: https://github.com/MaeDae11</h3>
 <b>Primary team role:</b> Styling wizard
 </br>
-<b>Contributions:</b> Main focus was HTML, CSS, JavaScript, UI/UX, and jQuery for entire site. Created the Journal Analytics logo, site design, and branding. Tested responsive design and implemented changes with team as needed. Ensured consistent design throughout site.
+<b>Contributions:</b> Main focus was HTML, CSS, JavaScript, UI/UX, and jQuery for entire site. Created the Journal Analytics logo, site design, and branding. Tested responsive design and implemented changes with team as needed. Ensured consistent design throughout site. Assisted in creating server, routes, and API.
 
 <h3>Sarah Abbey: https://github.com/sabbey37</h3>
 <b>Primary team role:</b> Database magician
