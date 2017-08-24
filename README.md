@@ -31,10 +31,20 @@
 <img src="http://i.imgur.com/z76cu9F.jpg" width="300" height="300" />
 <img src="http://i.imgur.com/MazOj1Z.jpg" width="300" height="300" />
 
- 
-# Features
+# Challenges & Solutions
+<h3>Some of the biggest challenges we faced with this project build included:</h2>
+
+<b>Challenge:</b> Google Analytics API did not allow for server-side rendering of graphs using JavaScript.
+</br>
+<b>Solution:</b> Obtained raw data from graph after render. Used raw data with ChartJS and HighCharts libraries to render graphs and have more control over graph appearance.
+
+<b>Challenge:</b> Combining server-side rendering with user interface.
+</br>
+<b>Solution:</b> Used Express and Handlebars to render different page views. Used JavaScript and jQuery to update specific page elements after page is rendered.
 
 
+
+</br>
 # Stretch Goals
 
 
@@ -64,7 +74,7 @@
 
 <h4> APIs </h4>
  <ul>
-  <li><Google Analytics Embed API</li>
+  <li><Google Analytics</li>
  </ul>
 
 
