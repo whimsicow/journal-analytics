@@ -55,6 +55,7 @@
 <li> Node.js </li>
 <li> Express </li>
 <li> Handlebars </li>
+<li><Google Analytics API</li>
 </ul>
 
 <h4> JavaScript Libraries </h4>
@@ -72,11 +73,6 @@
  <li> Mocha </li>
  <li> Chai </li>
 </ul>
-
-<h4> APIs </h4>
- <ul>
-  <li><Google Analytics</li>
- </ul>
 
 
 # Live Demo
@@ -109,7 +105,7 @@ https://www.youtube.com/watch?v=-r-Tvb5xrN8
 <br/>
 
 <img src="public/images/piechart.png" alt="Screenshot of pie chart">
-<h4>Pie graph showing distribution of events your team has added by method (ie Facbook, Twitter, etc). </h4>
+<h4>Pie graph showing distribution of events your team has added by method (ex. Facebook, Twitter, etc). </h4>
 <br/>
 
 <img src="public/images/AddingEvents.png" alt="Screenshot of adding events form">
