@@ -25,6 +25,7 @@
 
 </br>
 </br>
+
 # Documented Progress
 <img src="http://i.imgur.com/inGZEQZ.jpg" width="300" height="300" />
 <img src="http://i.imgur.com/twnfl4F.jpg" width="300" height="300" />
@@ -80,3 +81,12 @@
 
 # Live Demo
 https://www.youtube.com/watch?v=-r-Tvb5xrN8
+
+<h2><u>Code Snippets:</u></h2>
+<img src="public/images/UpsertQuery.png" alt="Database upsert query">
+<h4>This code obtains a user's profile information from Google after authentication. The query updates a row if it already exists or inserts a new row if the row does not exist already.</h4>
+<br/>
+
+<img src="public/images/modal.png" alt="Modal filter and creation">
+<h4>The above snippet shows how user events are filtered by the date the user clicks on the graph and added to the modal.</h4>
+<br/>
