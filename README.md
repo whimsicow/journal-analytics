@@ -21,7 +21,7 @@
 <h3>Sarah Abbey: https://github.com/sabbey37</h3>
 <b>Primary team role:</b> Database magician
 </br>
-<b>Contributions:</b> Implemented Google OAuth using Passport.js. Assisted in creating server, routes, and API. Wrote PostgreSQL database queries to create, retrieve, update, and delete information. Created ec2 instance to host site and database. Assisted all team members in connecting to database via Postico so all members could view the same information and edit the database schema as needed. Wrote Javascript for 'Team Management' and 'Team Events' pages.
+<b>Contributions:</b> Implemented Google OAuth using Passport.js. Assisted in creating server, routes, and API. Wrote PostgreSQL database queries to create, retrieve, update, and delete information. Created ec2 instance to host site and database. Assisted all team members in connecting to database via Postico so all members could view the same information and edit the database schema as needed. Wrote JavaScript for 'Team Management' and 'Team Events' pages.
 
 </br>
 </br>
