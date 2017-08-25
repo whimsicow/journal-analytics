@@ -87,6 +87,48 @@ https://www.youtube.com/watch?v=-r-Tvb5xrN8
 <h4>This code obtains a user's profile information from Google after authentication. The query updates a row if it already exists or inserts a new row if the row does not exist already.</h4>
 <br/>
 
-<img src="public/images/modal.png" alt="Modal filter and creation">
+<img src="public/images/modalcode.png" alt="Modal filter and creation">
 <h4>The above snippet shows how user events are filtered by the date the user clicks on the graph and added to the modal.</h4>
 <br/>
+
+<h2><u>Screenshots:</u></h2>
+<img src="public/images/Home.png" alt="Screenshot of home page">
+<h4>Landing page</h4>
+<br/>
+
+<img src="public/images/login.png" alt="Screenshot of login page">
+<h4>Login page</h4>
+<br/>
+
+<img src="public/images/mainchart.png" alt="Screenshot of main sessions graph">
+<h4>Main graph showing total sessions on site. A plus icon appears if your team has added an event on this day.</h4>
+<br/>
+
+<img src="public/images/modal.png" alt="Screenshot of events modal">
+<h4>This events modal pops up when a user clicks on the graph on a particular day. It shows the events posted for that day.</h4>
+<br/>
+
+<img src="public/images/piechart.png" alt="Screenshot of pie chart">
+<h4>Pie graph showing distribution of events your team has added by method (ie Facbook, Twitter, etc). </h4>
+<br/>
+
+<img src="public/images/AddingEvents.png" alt="Screenshot of adding events form">
+<h4>Users can add events for their team.</h4>
+<br/>
+
+<img src="public/images/trafficyear.png" alt="Screenshot of site traffic over the past two years">
+<h4>Bar chart highlighting total sessions over the past 2 years.</h4>
+<br/>
+
+<img src="public/images/trafficgraph.png" alt="Screenshot of weekly network referrals">
+<h4>Weekly network referrals</h4>
+<br/>
+
+<img src="public/images/mempage.png" alt="Screenshot of 'Team Management' page">
+<h4>User can see all active members on their teams</h4>
+<br/>
+
+<img src="public/images/EditEvents.png" alt="Screenshot of editing events">
+<h4>User can edit or delete their team's events on the "Team Events" page</h4>
+<br/>
+
