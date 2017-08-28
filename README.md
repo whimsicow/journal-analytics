@@ -53,7 +53,7 @@
 <li> Node.js </li>
 <li> Express </li>
 <li> Handlebars </li>
-<li><Google Analytics API</li>
+<li>Google Analytics API</li>
 </ul>
 
 <h4> JavaScript Libraries </h4>
