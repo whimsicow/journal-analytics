@@ -27,10 +27,8 @@
 </br>
 
 # Documented Progress
-<img src="http://i.imgur.com/inGZEQZ.jpg" width="300" height="300" />
-<img src="http://i.imgur.com/twnfl4F.jpg" width="300" height="300" />
-<img src="http://i.imgur.com/z76cu9F.jpg" width="300" height="300" />
-<img src="http://i.imgur.com/MazOj1Z.jpg" width="300" height="300" />
+<img src="http://i.imgur.com/inGZEQZ.jpg" width="300" height="300" />      <img src="http://i.imgur.com/twnfl4F.jpg" width="300" height="300" />
+<img src="http://i.imgur.com/z76cu9F.jpg" width="300" height="300" />      <img src="http://i.imgur.com/MazOj1Z.jpg" width="300" height="300" />
 
 # Challenges & Solutions
 <h3>Some of the biggest challenges we faced with this project build included:</h2>
