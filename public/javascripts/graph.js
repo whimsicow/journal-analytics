@@ -226,8 +226,16 @@ const graph = (function() {
   // main graph
   const mainGraph = (googleAnalytics, userEvents) => {
     console.log('configuring highcharts main graph')
+    console.log("userEvents ", userEvents);
+    console.log("googleAnalytics ", googleAnalytics);
     let ga = getDates(googleAnalytics)
-    
+    console.log("userEvents ", userEvents)
+    let idArray = $('#view-selector-container > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
+    console.log(idArray);
+    let accountName = idArray[0]["innerText"];
+    // if (!(userEvents)) {
+    //     u
+    // }
     Highcharts.chart('main-container', {
       chart: {
           type: 'area',
@@ -292,7 +300,7 @@ const graph = (function() {
             }
       }},
       series: [{
-          name: `${userEvents[0].accountname}`,
+          name: accountName,
           marker: {
               symbol: 'circle',
               width: 16,
