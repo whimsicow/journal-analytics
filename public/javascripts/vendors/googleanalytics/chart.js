@@ -50,12 +50,17 @@ Chart.defaults.global.maintainAspectRatio = false;
 /******************************************************************
                 GOOGLE ANALYTICS AUTHENTICATION
 ******************************************************************/
+
 $(document).ready(() => {
     setTimeout(function(){
         $('body').addClass('loaded');
     }, 3000);
 
   gapi.analytics.ready(() => {
+
+    if (!gapi.analytics.auth.isAuthorized()) {
+        // sarah does magic here
+    }
     
     gapi.analytics.auth.authorize({
         // auth-container is dom element that hosts the sign-in button during a sessions first load. sign in button can also contain an event listener to do something     else as well
