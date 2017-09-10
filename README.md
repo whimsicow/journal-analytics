@@ -79,11 +79,15 @@
 
 
 # Live Demo
-https://www.youtube.com/watch?v=-r-Tvb5xrN8
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=-r-Tvb5xrN8
+" target="_blank"><img src="public/images/Home.png" 
+alt="journal analytics demo link to youtube" width="240" height="180" border="10" /></a>
+
 
 <h2><u>Code Snippets:</u></h2>
 
 <h4>This code obtains a user's profile information from Google after authentication. The query updates a row if it already exists or inserts a new row if the row does not exist already.</h4>
+
 
 ``` javascript
 
