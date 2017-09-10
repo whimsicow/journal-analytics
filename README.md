@@ -81,7 +81,7 @@
 # Live Demo
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=-r-Tvb5xrN8
 " target="_blank"><img src="public/images/Home.png" 
-alt="journal analytics demo link to youtube" width="240" height="180" border="10" /></a>
+alt="journal analytics demo link to youtube" width="300" height="200" border="10" /></a>
 
 
 <h2><u>Code Snippets:</u></h2>
