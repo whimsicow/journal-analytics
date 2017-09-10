@@ -37,6 +37,13 @@ router.get('/', ensureAuthenticated, function(req, res) {
 });
 
 router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
+    Event.getById(req.params.id)
+        .delete()
+
+    //or!
+    Event.deleteById(req.params.id)
+
+
     db.none(`
         DELETE from events
         where event_id=${req.params.id};

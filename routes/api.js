@@ -28,18 +28,19 @@ router.post('/events', ensureAuthenticated, (req, res, next) => {
     var startdate = dateSifter(req.body.startdate);
     var enddate = dateSifter(req.body.enddate);
     
-    db.any(`
-    SELECT evs.event_date, evs.event_id, evs.description, evs.method, evs.accountname, evs.propertyname, evs.email, evs.eventlink, evs.date_added, urs.firstname, urs.picture 
-	from events evs
-		inner join users urs
-		on urs.email = evs.email
-    where 
-    	evs.event_date::date >= '${startdate}'
-    	and evs.event_date::date <= '${enddate}'
-    	and evs.accountid = '${req.body.accountid}'
-    	and evs.propertyid = '${req.body.propertyid}'    
-    	order by evs.event_date DESC;
-    `)
+    // db.any(`
+    // SELECT evs.event_date, evs.event_id, evs.description, evs.method, evs.accountname, evs.propertyname, evs.email, evs.eventlink, evs.date_added, urs.firstname, urs.picture 
+	// from events evs
+	// 	inner join users urs
+	// 	on urs.email = evs.email
+    // where 
+    // 	evs.event_date::date >= '${startdate}'
+    // 	and evs.event_date::date <= '${enddate}'
+    // 	and evs.accountid = '${req.body.accountid}'
+    // 	and evs.propertyid = '${req.body.propertyid}'    
+    // 	order by evs.event_date DESC;
+    // `)
+    Event.getByDate()
     .then(results => {
         res.send(results)
     })
@@ -73,9 +74,12 @@ router.post('/eventstore', ensureAuthenticated, function(req, res, next) {
     link = link.replace("'", "''");
     var date = moment().utc(-240);
     
-    db.none(`insert into events (event_date, description, method, accountname, accountid, propertyname, propertyid, email, eventlink, date_added)
-        values ('${req.body.date}', '${description}', '${req.body.method}', '${req.body.accountName}', '${req.body.accountId}', '${req.body.propertyName}', '${req.body.propertyId}', '${req.user}', NULLIF('${link}',''), '${date}');
-    `)
+    // db.none(`insert into events (event_date, description, method, accountname, accountid, propertyname, propertyid, email, eventlink, date_added)
+    //     values ('${req.body.date}', '${description}', '${req.body.method}', '${req.body.accountName}', '${req.body.accountId}', '${req.body.propertyName}', '${req.body.propertyId}', '${req.user}', NULLIF('${link}',''), '${date}');
+    // `)
+    const event = new Event(req.body.description, req.body.eventlink, moment().utc(-240));
+
+    event.save()
         .then((result) => {
             res.status(202).send('<span class="status-msg">Thank you! Your event has been added.</span>');
             res.end();
