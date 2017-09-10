@@ -77,12 +77,65 @@
 https://www.youtube.com/watch?v=-r-Tvb5xrN8
 
 <h2><u>Code Snippets:</u></h2>
-<img src="public/images/UpsertQuery.png" alt="Database upsert query">
+
 <h4>This code obtains a user's profile information from Google after authentication. The query updates a row if it already exists or inserts a new row if the row does not exist already.</h4>
+
+``` javascript
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.GOOGLE_CALLBACK
+  },
+    function(accessToken, refreshToken, profile, done) {
+        var firstname = profile.name.givenName;
+        firstname = firstname.replace("'", "''");
+        var surname = profile.name.familyName;
+        surname = surname.replace("'", "''");
+        db.one(`
+        insert into users (email, firstname, surname)
+        values ('${profile.emails[0].value}', '${firstname}', '${surname}')
+        on conflict (email)
+        do update set (firstname, surname) = ('${firstname}', '${surname}')
+        where users.email = '${profile.emails[0].value}';
+        select * from users where email = '${profile.emails[0].value}';
+      `)
+            .then((result) => {
+                done(null, profile.emails[0].value);
+            })
+}));
+```
 <br/>
 
-<img src="public/images/modalcode.png" alt="Modal filter and creation">
-<h4>The above snippet shows how user events are filtered by the date the user clicks on the graph and added to the modal.</h4>
+
+<h4>This snippet shows how user events are filtered by the date the user clicks on the graph and added to the modal.</h4>
+
+``` javascript
+
+const renderEvents = (googleAnalytics, userEvents, userDateClicked) => {
+
+  // match date requested
+  let filteredEventsByDate = userEvents.filter(x => x.event_date === userDateClicked)
+  // early return for no events
+
+  // sets date at top of modal. emptys .top-modal-info span if has been appended before
+  let title = $('.top-modal-info')
+  title.html("")
+  let date = `Date: ${userDateClicked}`
+  title.append(date)
+    
+  // if no events for day selected
+  if (filteredEventsByDate.length === 0) {
+    let parent = document.querySelector('.modal-list')
+    let message = document.createElement('h2')
+    message.textContent = 'No events for this date :('
+    message.style.textAlign = 'left'
+    parent.appendChild(message)
+    return;
+  };
+};
+```
+
 <br/>
 
 <h2><u>Screenshots:</u></h2>
