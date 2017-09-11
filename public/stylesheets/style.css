@@ -26,13 +26,14 @@ body {
 
 .index-banner {
     height: 400px;
-    background-image: url('/../images/backgroundbanner.svg');
+    background-image: url('/../images/backgroundbanner.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
     justify-content: center;
     align-content: center;
     align-items: center;
+    opacity: .8;
 }
 .title-message {
     margin-top: 70px;
