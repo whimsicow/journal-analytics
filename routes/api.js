@@ -4,11 +4,9 @@ const passport = require('passport');
 const moment = require('moment');
 const db = require('../db');
 const ensureAuthenticated = require('../utils').ensureAuthenticated;
+const Event = require('../models/event.js');
 
-// function ensureAuthenticated(req, res, next) {
-//     if (req.isAuthenticated()) { return next(); }
-//     res.redirect('/login');
-//   }
+
 
 function dateSifter(date) {
     if (date === "0daysAgo") {
@@ -29,19 +27,19 @@ router.post('/events', ensureAuthenticated, (req, res, next) => {
     var startdate = dateSifter(req.body.startdate);
     var enddate = dateSifter(req.body.enddate);
     
-    // db.any(`
-    // SELECT evs.event_date, evs.event_id, evs.description, evs.method, evs.accountname, evs.propertyname, evs.email, evs.eventlink, evs.date_added, urs.firstname, urs.picture 
-	// from events evs
-	// 	inner join users urs
-	// 	on urs.email = evs.email
-    // where 
-    // 	evs.event_date::date >= '${startdate}'
-    // 	and evs.event_date::date <= '${enddate}'
-    // 	and evs.accountid = '${req.body.accountid}'
-    // 	and evs.propertyid = '${req.body.propertyid}'    
-    // 	order by evs.event_date DESC;
-    // `)
-    Event.getByDate()
+    db.any(`
+    SELECT evs.event_date, evs.event_id, evs.description, evs.method, evs.accountname, evs.propertyname, evs.email, evs.eventlink, evs.date_added, urs.firstname, urs.picture 
+	from events evs
+		inner join users urs
+		on urs.email = evs.email
+    where 
+    	evs.event_date::date >= '${startdate}'
+    	and evs.event_date::date <= '${enddate}'
+    	and evs.accountid = '${req.body.accountid}'
+    	and evs.propertyid = '${req.body.propertyid}'    
+    	order by evs.event_date DESC;
+    `)
+    // Event.getByDate()
     .then(results => {
         res.send(results)
     })
