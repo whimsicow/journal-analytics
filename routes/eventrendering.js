@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const db = require('../db');
+const ensureAuthenticated = require('../utils').ensureAuthenticated;
 
 // gets all information not submitted to github in .env file
 //database/hostname etc
@@ -11,10 +12,10 @@ require('dotenv').config();
 // Ensures users are authenticated before allowing them to access page
 // native to passport
 // returns next: what we write after this
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('/login');
-  }
+// function ensureAuthenticated(req, res, next) {
+//     if (req.isAuthenticated()) { return next(); }
+//     res.redirect('/login');
+//   }
 
 // 
 router.get('/', ensureAuthenticated, function(req, res) {

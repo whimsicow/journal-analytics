@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const moment = require('moment');
-const db = require('../db')
+const db = require('../db');
+const ensureAuthenticated = require('../utils').ensureAuthenticated;
 
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('/login');
-  }
+// function ensureAuthenticated(req, res, next) {
+//     if (req.isAuthenticated()) { return next(); }
+//     res.redirect('/login');
+//   }
 
 function dateSifter(date) {
     if (date === "0daysAgo") {
