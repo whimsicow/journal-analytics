@@ -1,7 +1,10 @@
-const db = require('../db')
+const db = require('../db');
+
 class Event {
-    constructor(description, link, date) {
-        // this.blah = blah
+    constructor(description, link, date, ) {
+        this.description = description,
+        this.link = link,
+        this.date = date
     }
     save() {
         return db.none(`insert into events (event_date, description, method, accountname, accountid, propertyname, propertyid, email, eventlink, date_added)

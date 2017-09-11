@@ -54,7 +54,7 @@ gapi.analytics.ready(() => {
 
         getEvents(request);
     })
-
+});
 
 // Calls API to query database for events w/in given dates/account ids
 function getEvents(request) {
@@ -68,7 +68,7 @@ function getEvents(request) {
             }
             $EVENTLIST.append(error.responseText);
         })
-}
+};
 
 // Formats each date ex: Aug 21 2017
 function formatDates(result, request) {
@@ -82,7 +82,7 @@ function formatDates(result, request) {
         })
         return result
     }
-}
+};
 
 // Groups all events with same event_date together in an array
 function createGroups(result) {
@@ -107,19 +107,19 @@ function createGroups(result) {
         finalarr.push(temparr);
         return finalarr;
     }
-}
+};
 
 
 function createList(result) {
     if($EVENTLIST.children()) {
         $EVENTLIST.empty();
-    }
+    };
 
     if (result.length === 0) {
         $noevents = $('<p></p>', {
             'text': `No events found. Please try your search again.`,
             'class': 'event-error'
-        })
+        });
         $EVENTLIST.append($noevents);
     } else {
         var $eventcontainer = $('<div></div>', {
@@ -194,10 +194,10 @@ function createList(result) {
         })
         $EVENTLIST.append($eventcontainer);
     }
-}
+};
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+};
 // Adds click listener to Edit link for each event
 function addEditListener() {
     $EVENTLIST.on('click', "[data-role='edit']", function(event) {
@@ -216,14 +216,14 @@ function addEditListener() {
         eventUpdate = {};
         eventUpdate['id'] = $element[0].id;
     })
-}
+};
 
 function addModalCloseListener() {
     $CLOSEFORM.click((event) => {
         event.preventDefault();
         $EVENTFORM.hide('slow');
     })
-}
+};
 
 // Adds click listener to Delete link for each event
 function addDeleteListener() {
@@ -234,7 +234,7 @@ function addDeleteListener() {
         $parent = $(event.target.parentNode.parentNode.parentNode);
         deleteEvent($child, $element, $parent);
     })
-}
+};
 
 function setDefaults(element, parent) {
     let d = new Date(parent[0].childNodes[0].textContent);
@@ -247,8 +247,8 @@ function setDefaults(element, parent) {
     // $(`#eventDropdown  option[value='${element[0].attributes[1].value}']`).attr('selected', 'selected');
     if(element[0].childElementCount === 6) {
         $('[data-role="event-link"]').val(element[0].childNodes[1].attributes[0].value);
-    }
-}
+    };
+};
 
 // Deletes event from DOM and makes api call to delete from database
 function deleteEvent(child, element, parent) {
@@ -266,7 +266,7 @@ function deleteEvent(child, element, parent) {
             }
             child.append(error.responseText);
         })
-}
+};
 
 function chooseIcon(method) {
     let newImage = {
@@ -283,7 +283,7 @@ function chooseIcon(method) {
         "Social": "../images/socialevent.png"
     }
     return newImage[method]
-}
+};
 
 function updateForm() {
     $EVENTFORM.submit(() => {
@@ -298,7 +298,7 @@ function updateForm() {
         getLink();
         dbUpdateEvent();
     })
-}
+};
 
 function dbUpdateEvent() {
     $.post('/eventlist/edit', eventUpdate)
@@ -328,7 +328,7 @@ function dbUpdateEvent() {
         })
         .catch((error) => {
             $STATUSDIV.append(error.responseText);
-        })
+        });
 }
 
 // stores description in form submition to local storage
@@ -345,7 +345,7 @@ function getDate() {
     dateValue = new Date( dateValue.getTime() - dateValue.getTimezoneOffset() * -60000 ).toUTCString();
 
     setValues(date, dateValue);
-}
+};
 
 // method is dropdown list of icons. can selet one and save to database to be used later for overlay of maps and gathering further information
 function getMethod() {
@@ -353,13 +353,13 @@ function getMethod() {
     method = method['prevObject'][0]['innerText'];
     method = method.trim()
     setValues('method', method);
-}
+};
 
 // stores optional link to local storage
 function getLink() {
     var link = $('[name="link"]').val();
     setValues('eventlink', link);
-}
+};
 
 function setValues(key, keyValue) {
     eventUpdate[key] = keyValue;
@@ -374,14 +374,15 @@ const resetButton = () => {
         }
         document.forms["eventform"].reset()
     })
-}
+};
 
+$(window).load(function() {
     updateForm();
     addDeleteListener();
     addEditListener();
     addModalCloseListener();
     resetButton();
-})
+});
 
 
 $('#eventDropdown').ddslick({

@@ -2,14 +2,15 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const db = require('../db');
+const ensureAuthenticated = require('../utils').ensureAuthenticated;
 
 require('dotenv').config();
 
 // Ensures users are authenticated before allowing them to access page
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
-}
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) { return next(); }
+//   res.redirect('/login');
+// }
 
 router.get('/', ensureAuthenticated, function(req, res) { 
     db.one(`select firstname, picture from users where email = '${req.user}'`)
