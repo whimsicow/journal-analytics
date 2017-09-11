@@ -171,7 +171,7 @@ const renderEvents = (googleAnalytics, userEvents, userDateClicked) => {
 <h4>Pie graph showing distribution of events your team has added by method (ex. Facebook, Twitter, etc). </h4>
 <br/>
 
-<img src="public/images/Maingraphdesktops.png" alt="Screenshot of adding events form">
+<img src="public/images/Maingraphdesktop.png" alt="Screenshot of adding events form">
 <h4>Users can add events for their team.</h4>
 <br/>
 
