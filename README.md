@@ -159,6 +159,9 @@ const renderEvents = (googleAnalytics, userEvents, userDateClicked) => {
 <img src="public/images/mainchart.png" alt="Screenshot of main sessions graph">
 <h4>Main graph showing total sessions on site. A plus icon appears if your team has added an event on this day.</h4>
 <br/>
+<img src="public/images/Maingraphmobile.png" alt="Screenshot of main sessions graph on mobile">
+<h4>Main graph within mobile version.</h4>
+<br/>
 
 <img src="public/images/modal.png" alt="Screenshot of events modal">
 <h4>This events modal pops up when a user clicks on the graph on a particular day. It shows the events posted for that day.</h4>
@@ -168,7 +171,7 @@ const renderEvents = (googleAnalytics, userEvents, userDateClicked) => {
 <h4>Pie graph showing distribution of events your team has added by method (ex. Facebook, Twitter, etc). </h4>
 <br/>
 
-<img src="public/images/AddingEvents.png" alt="Screenshot of adding events form">
+<img src="public/images/Maingraphdesktops.png" alt="Screenshot of adding events form">
 <h4>Users can add events for their team.</h4>
 <br/>
 
@@ -184,7 +187,7 @@ const renderEvents = (googleAnalytics, userEvents, userDateClicked) => {
 <h4>User can see all active members on their teams</h4>
 <br/>
 
-<img src="public/images/EditEvents.png" alt="Screenshot of editing events">
+<img src="public/images/Editeventspage.png" alt="Screenshot of editing events">
 <h4>User can edit or delete their team's events on the "Team Events" page</h4>
 <br/>
 
