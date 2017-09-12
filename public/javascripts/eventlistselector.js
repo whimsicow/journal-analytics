@@ -374,15 +374,14 @@ const resetButton = () => {
         }
         document.forms["eventform"].reset()
     })
-};
+}
 
-$(window).load(function() {
-    updateForm();
-    addDeleteListener();
-    addEditListener();
-    addModalCloseListener();
-    resetButton();
-});
+
+updateForm();
+addDeleteListener();
+addEditListener();
+addModalCloseListener();
+resetButton();
 
 
 $('#eventDropdown').ddslick({
