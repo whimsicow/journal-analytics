@@ -57,10 +57,6 @@ $(document).ready(() => {
     }, 3000);
 
   gapi.analytics.ready(() => {
-
-    if (!gapi.analytics.auth.isAuthorized()) {
-        // sarah does magic here
-    }
     
     gapi.analytics.auth.authorize({
         // auth-container is dom element that hosts the sign-in button during a sessions first load. sign in button can also contain an event listener to do something     else as well
@@ -79,6 +75,11 @@ $(document).ready(() => {
     function setPicture(result) {
         $('[data-role="profilepic"]').attr("src", result.picture); 
     }
+
+    console.log(gapi.analytics.auth.isAuthorized());
+    //     console.log('whoaaa');
+    //     // sarah does magic here
+    // }
 
         /******************************************************************
                                     MAIN GRAPH
