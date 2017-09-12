@@ -89,10 +89,10 @@ const graph = (function() {
   }
     // queried from googleAnalytics DB
     const gaDataForMainGraph = (googleAnalytics) => {
-        console.log(googleAnalytics)
-        if (!googleAnalytics) {
-            // get target element
-        }
+        // console.log(googleAnalytics)
+        // if (!googleAnalytics) {
+        //     console.log('nooo');
+        // }
         var request = {};
         request['accountid'] =(googleAnalytics.response.profileInfo.accountId);
         request['propertyid'] = (googleAnalytics.response.profileInfo.webPropertyId);

@@ -55,10 +55,10 @@ passport.use(new GoogleStrategy({
         var surname = profile.name.familyName;
         surname = surname.replace("'", "''");
         db.one(`
-        insert into users (email, firstname, surname)
-        values ('${profile.emails[0].value}', '${firstname}', '${surname}')
+        insert into users (email, firstname, surname, picture)
+        values ('${profile.emails[0].value}', '${firstname}', '${surname}', '${profile._json.image.url}')
         on conflict (email)
-        do update set (firstname, surname) = ('${firstname}', '${surname}')
+        do update set (firstname, surname, picture) = ('${firstname}', '${surname}', '${profile._json.image.url}')
         where users.email = '${profile.emails[0].value}';
         select * from users where email = '${profile.emails[0].value}';
       `)

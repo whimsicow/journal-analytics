@@ -75,7 +75,7 @@ $(document).ready(() => {
     function setPicture(result) {
         $('[data-role="profilepic"]').attr("src", result.picture); 
     }
-
+    console.log(gapi.analytics.auth.getUserProfile());
     console.log(gapi.analytics.auth.isAuthorized());
     //     console.log('whoaaa');
     //     // sarah does magic here
