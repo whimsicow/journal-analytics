@@ -335,245 +335,251 @@ const graph = (function() {
 
   // pie graph
   const pieGraph = (googleAnalytics, userEvents) => {
-    console.log('configuring highcharts pie graph')
-    let ga = getDates(googleAnalytics)
-
-    Highcharts.chart('event-pie-graph', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie',
-            backgroundColor: null,
-            // height: 600,
-            // width: 600
-        },
-        title: {
-            text: null
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.0f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || '#395062',
-                        fontSize: '13px'
+    
+    if (userEvents.length > 0) {
+        let ga = getDates(googleAnalytics)
+        Highcharts.chart('event-pie-graph', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+                backgroundColor: null,
+                // height: 600,
+                // width: 600
+            },
+            title: {
+                text: null
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.0f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || '#395062',
+                            fontSize: '13px'
+                        }
                     }
                 }
-            }
-        },
-        series: [{
-            name: 'Sessions',
-            colorByPoint: true,
-            data: [{
-                name: 'Email',
-                y: getPieEvents(userEvents, 'Email')
-            }, {
-                name: 'Social',
-                y: getPieEvents(userEvents, 'Social')
-            }, {
-                name: 'General',
-                y: getPieEvents(userEvents, 'General'),
-                sliced: true,
-                selected: true
-            }, {
-                name: 'Outdoor',
-                y: getPieEvents(userEvents, 'Outdoor'),
-            },{
-                name: 'Important',
-                y: getPieEvents(userEvents, 'Important'),
-            },{
-                name: 'Google Plus',
-                y: getPieEvents(userEvents, 'Google Plus'),
-            },{
-                name: 'Facebook',
-                y: getPieEvents(userEvents, 'Facebook'),
             },
-            {
-                name: 'Multiplatform',
-                y: getPieEvents(userEvents, "Multiplatform"),
-            },{
-                name: 'Linkedin',
-                y: getPieEvents(userEvents, 'Linkedin'),
-            },{
-                name: 'Instagram',
-                y: getPieEvents(userEvents, 'Instagram')
-            },{
-                name: 'Twitter',
-                y: getPieEvents(userEvents, 'Tweet')
+            series: [{
+                name: 'Sessions',
+                colorByPoint: true,
+                data: [{
+                    name: 'Email',
+                    y: getPieEvents(userEvents, 'Email')
+                }, {
+                    name: 'Social',
+                    y: getPieEvents(userEvents, 'Social')
+                }, {
+                    name: 'General',
+                    y: getPieEvents(userEvents, 'General'),
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Outdoor',
+                    y: getPieEvents(userEvents, 'Outdoor'),
+                },{
+                    name: 'Important',
+                    y: getPieEvents(userEvents, 'Important'),
+                },{
+                    name: 'Google Plus',
+                    y: getPieEvents(userEvents, 'Google Plus'),
+                },{
+                    name: 'Facebook',
+                    y: getPieEvents(userEvents, 'Facebook'),
+                },
+                {
+                    name: 'Multiplatform',
+                    y: getPieEvents(userEvents, "Multiplatform"),
+                },{
+                    name: 'Linkedin',
+                    y: getPieEvents(userEvents, 'Linkedin'),
+                },{
+                    name: 'Instagram',
+                    y: getPieEvents(userEvents, 'Instagram')
+                },{
+                    name: 'Twitter',
+                    y: getPieEvents(userEvents, 'Tweet')
+                }]
             }]
-        }]
-    });
+        });
+    } else {
+        $('#event-pie-graph').empty();
+        $('#event-pie-graph').append($('<h2></h2>', {
+            'text': 'No events found for these dates and this account/property. Add events by clicking the green plus button.',
+            'class': 'ga-error'
+        }));
+    }
   }
 
   // traffic graph
-  const trafficGraph = (googleAnalytics) => {
-      console.log('configuring highcharts traffic graph')
-      let a = googleAnalytics[0]
-      let ga = getDates(googleAnalytics);
+//   const trafficGraph = (googleAnalytics) => {
+//       let a = googleAnalytics[0]
+//       let ga = getDates(googleAnalytics);
 
-      Highcharts.chart('traffic-container', {
-        credits: {
-            enabled: false
-        },
-        chart: {
-          type: 'area',
-          marginRight: 50,
-          spacingLeft: 50,
-          spacingBottom: 50
-        },
-        title: {
-            text: false
-        },
-        subtitle: {
-            text: false,
-        },
-        xAxis: {
-            lineColor: '#eee',
-            categories: ['Aug 15, 2017', 'Aug 16, 2017', 'Aug 17, 2017', 'Aug 18, 2017', 'Aug 19, 2017', 'Aug 20, 2017', 'Aug 21, 2017', 'Aug 22, 2017'],
-            tickInterval: 1,
-            labels: {
-                style: {
-                    color: '#999999'
-                },
-                y: 35
-            },
-            title: {
-                text: `${'Aug 15, 2017'} - ${'Aug 22, 2017'}`,
-                margin: 20
-            },
-            tickColor: '#eeeeee',
-            tickmarkPlacement: 'on'
-        },
-        yAxis: {
-            gridLineColor: '#eeeeee',
-            title: {
-                text: false
-            },
-            min: 0,
-            max: 10,
-            tickInterval: 1,
-            labels: {
-              style: {
-                  color: '#999999',
-                  fontSize: '9px'
-              }
-            },
-            title: {
-                text: "Visits"
-            },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }]
-        },
-        tooltip: {
-            backgroundColor: 'white',
-            borderColor: null,
-            borderWidth: null
-        },
-        legend: {
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'top',
-            symbolHeight: 11,
-            symbolWidth: 11,
-            symbolPadding: 10,
-            borderWidth: 0,
-            y: -10,
-            x: -15,
-            padding: 15,
-            itemDistance: 35,
-            itemMarginTop: 5,
-            itemMarginBottom: 5,
-            itemStyle: { 
-              color: "#2D282A",
-              fontSize: 12,
-              fontWeight: 'normal'
-            }
-        },
-        plotOptions: {
-            area: {
-              lineWidth: 0,
-              marker: {
-                symbol: 'square'
-              }
-            },
-            series: {
-              fillOpacity: 0.1,
-              stickyTracking: false,
-              states: {
-                    hover: {
-                        halo: {
-                            size: 8
-                        }
+//       Highcharts.chart('traffic-container', {
+//         credits: {
+//             enabled: false
+//         },
+//         chart: {
+//           type: 'area',
+//           marginRight: 50,
+//           spacingLeft: 50,
+//           spacingBottom: 50
+//         },
+//         title: {
+//             text: false
+//         },
+//         subtitle: {
+//             text: false,
+//         },
+//         xAxis: {
+//             lineColor: '#eee',
+//             categories: ['Aug 15, 2017', 'Aug 16, 2017', 'Aug 17, 2017', 'Aug 18, 2017', 'Aug 19, 2017', 'Aug 20, 2017', 'Aug 21, 2017', 'Aug 22, 2017'],
+//             tickInterval: 1,
+//             labels: {
+//                 style: {
+//                     color: '#999999'
+//                 },
+//                 y: 35
+//             },
+//             title: {
+//                 text: `${'Aug 15, 2017'} - ${'Aug 22, 2017'}`,
+//                 margin: 20
+//             },
+//             tickColor: '#eeeeee',
+//             tickmarkPlacement: 'on'
+//         },
+//         yAxis: {
+//             gridLineColor: '#eeeeee',
+//             title: {
+//                 text: false
+//             },
+//             min: 0,
+//             max: 10,
+//             tickInterval: 1,
+//             labels: {
+//               style: {
+//                   color: '#999999',
+//                   fontSize: '9px'
+//               }
+//             },
+//             title: {
+//                 text: "Visits"
+//             },
+//             plotLines: [{
+//                 value: 0,
+//                 width: 1,
+//                 color: '#808080'
+//             }]
+//         },
+//         tooltip: {
+//             backgroundColor: 'white',
+//             borderColor: null,
+//             borderWidth: null
+//         },
+//         legend: {
+//             layout: 'horizontal',
+//             align: 'center',
+//             verticalAlign: 'top',
+//             symbolHeight: 11,
+//             symbolWidth: 11,
+//             symbolPadding: 10,
+//             borderWidth: 0,
+//             y: -10,
+//             x: -15,
+//             padding: 15,
+//             itemDistance: 35,
+//             itemMarginTop: 5,
+//             itemMarginBottom: 5,
+//             itemStyle: { 
+//               color: "#2D282A",
+//               fontSize: 12,
+//               fontWeight: 'normal'
+//             }
+//         },
+//         plotOptions: {
+//             area: {
+//               lineWidth: 0,
+//               marker: {
+//                 symbol: 'square'
+//               }
+//             },
+//             series: {
+//               fillOpacity: 0.1,
+//               stickyTracking: false,
+//               states: {
+//                     hover: {
+//                         halo: {
+//                             size: 8
+//                         }
 
-                    }
-                }
-            }
-        },
-        series: [{
-            name: 'Facebook',
-            data: [9, 10, 8, 9, 3, 0, 5, 0],
-            color: '#6693E5',
-            marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/facebook-icon.svg)',
-                width: 16,
-                height: 16
-            }
-        }, {
-            name: 'Twitter',
-            data: [0, 6, 0, 1, 0, 0, 1, 1],
-            color: '#7DCAFD',
-            visible: false,
-            marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/twitter-4.svg)',
-                width: 16,
-                height: 16
-            }
-        }, {
-            name: 'Reddit',
-            data: [2, 1, 0, 0, 0, 0, 0, 0],
-            color: '#115EA3',
-            marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/reddit-2.svg)',
-                width: 16,
-                height: 16
-            }
-        }, {
-            name: 'LinkedIn',
-            data: [0, 6, 2, 6, 3, 0, 0, 0],
-            color: '#D64857',
-            marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/linkedin-icon-1.svg)',
-                width: 16,
-                height: 16
-            }
-        },{
-            name: 'Meetup',
-            data: [0, 0, 2, 0, 0, 0, 0, 0],
-            color: '#6d48d6',
-            visible: false,
-            marker: {
-                symbol: 'url(https://cdn.worldvectorlogo.com/logos/meetup-1.svg)',
-                width: 16,
-                height: 16
-            }
-        }]
-    })};
+//                     }
+//                 }
+//             }
+//         },
+//         series: [{
+//             name: 'Facebook',
+//             data: [9, 10, 8, 9, 3, 0, 5, 0],
+//             color: '#6693E5',
+//             marker: {
+//                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/facebook-icon.svg)',
+//                 width: 16,
+//                 height: 16
+//             }
+//         }, {
+//             name: 'Twitter',
+//             data: [0, 6, 0, 1, 0, 0, 1, 1],
+//             color: '#7DCAFD',
+//             visible: false,
+//             marker: {
+//                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/twitter-4.svg)',
+//                 width: 16,
+//                 height: 16
+//             }
+//         }, {
+//             name: 'Reddit',
+//             data: [2, 1, 0, 0, 0, 0, 0, 0],
+//             color: '#115EA3',
+//             marker: {
+//                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/reddit-2.svg)',
+//                 width: 16,
+//                 height: 16
+//             }
+//         }, {
+//             name: 'LinkedIn',
+//             data: [0, 6, 2, 6, 3, 0, 0, 0],
+//             color: '#D64857',
+//             marker: {
+//                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/linkedin-icon-1.svg)',
+//                 width: 16,
+//                 height: 16
+//             }
+//         },{
+//             name: 'Meetup',
+//             data: [0, 0, 2, 0, 0, 0, 0, 0],
+//             color: '#6d48d6',
+//             visible: false,
+//             marker: {
+//                 symbol: 'url(https://cdn.worldvectorlogo.com/logos/meetup-1.svg)',
+//                 width: 16,
+//                 height: 16
+//             }
+//         }]
+//     })};
       
     // return public methods exposed globally
     // can call in other files with graph.mainGraph
   return {
       mainGraph,
-      trafficGraph,
+    //   trafficGraph,
       gaDataForMainGraph,
       gaDataForTrafficGraph
   }
