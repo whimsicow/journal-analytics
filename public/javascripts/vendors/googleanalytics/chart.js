@@ -77,7 +77,6 @@ $(document).ready(() => {
     gapi.analytics.auth.on('needsAuthorization', function() {
         $('.all-charts-container').empty();
         $('.selector-container').empty();
-        $('.view-selector-container').empty();
         $('.user-info-container').empty();
         $('.add-event-button').remove();
         $('.all-charts-container').append($('<h2></h2>', {
@@ -279,17 +278,17 @@ $(document).ready(() => {
 
         /***************************************** MAIN GRAPH */
         mainGraph.on('success', (result) => {
-            console.groupCollapsed('Query was successful and Google Analytics Default Graph has been rendered -- (display: none)')
-            console.group('Raw Data')
-            console.log(result.data) // raw data of the graph values (x, y, and graph points)
-            console.groupEnd()
-            console.group('Chart Info')
-            console.log(result.chart) // gives info of chart.. can manipulate chart using js/jquery with this info )
-            console.groupEnd()
-            console.group('Entire Raw Response')
-            console.log(result.response) // raw data of the entire response... )
-            console.groupEnd()
-            console.groupEnd()
+            // console.groupCollapsed('Query was successful and Google Analytics Default Graph has been rendered -- (display: none)')
+            // console.group('Raw Data')
+            // console.log(result.data) // raw data of the graph values (x, y, and graph points)
+            // console.groupEnd()
+            // console.group('Chart Info')
+            // console.log(result.chart) // gives info of chart.. can manipulate chart using js/jquery with this info )
+            // console.groupEnd()
+            // console.group('Entire Raw Response')
+            // console.log(result.response) // raw data of the entire response... )
+            // console.groupEnd()
+            // console.groupEnd()
             
             // save global for later usage during saving form
             this.gaData = result;
@@ -302,17 +301,17 @@ $(document).ready(() => {
 
         /***************************************** TRAFFIC GRAPH */
         trafficGraph.on('success', (result) => {
-            console.groupCollapsed('Query was successful and Google Analytics Default Graph has been rendered -- (display: none)')
-            console.group('Raw Data')
-            console.log(result.data) // raw data of the graph values (x, y, and graph points)
-            console.groupEnd()
-            console.group('Chart Info')
-            console.log(result.chart) // gives info of chart.. can manipulate chart using js/jquery with this info )
-            console.groupEnd()
-            console.group('Entire Raw Response')
-            console.log(result.response) // raw data of the entire response... )
-            console.groupEnd()
-            console.groupEnd()
+            // console.groupCollapsed('Query was successful and Google Analytics Default Graph has been rendered -- (display: none)')
+            // console.group('Raw Data')
+            // console.log(result.data) // raw data of the graph values (x, y, and graph points)
+            // console.groupEnd()
+            // console.group('Chart Info')
+            // console.log(result.chart) // gives info of chart.. can manipulate chart using js/jquery with this info )
+            // console.groupEnd()
+            // console.group('Entire Raw Response')
+            // console.log(result.response) // raw data of the entire response... )
+            // console.groupEnd()
+            // console.groupEnd()
             
             graph.gaDataForTrafficGraph(result)
         })

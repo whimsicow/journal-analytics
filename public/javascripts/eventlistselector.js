@@ -13,10 +13,14 @@ gapi.analytics.ready(() => {
         //client ID of our project from developers console (using Sarahs)
         clientid: CLIENT_ID,
     })
-
-    // return user info to console when they sign in... (name, email, profilePic)
-    gapi.analytics.auth.on('signIn', function() {
-     
+    gapi.analytics.auth.on('needsAuthorization', function() {
+        $('.search-field').empty();
+        $('.selector-container').empty();
+        $('.user-info-container').empty();
+        $('.search-field').append($('<h2></h2>', {
+            'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data and adding events.',
+            'class': 'ga-error'
+        }));
     })
     const mainGraphDateRange = {
         'start-date': '7daysAgo',

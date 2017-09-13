@@ -218,24 +218,17 @@ const graph = (function() {
   }
   // render graphs
   const renderMainGraph = (googleAnalytics, userEvents) => {
-      mainGraph(googleAnalytics, userEvents)
-      pieGraph(googleAnalytics, userEvents)
-      console.log('highcharts main graph has been rendered')
+      mainGraph(googleAnalytics, userEvents);
+      pieGraph(googleAnalytics, userEvents);
   }
   const renderTrafficGraph = (googleAnalytics) => {
     trafficGraph(googleAnalytics)
-    console.log('highcharts traffic graph has been rendered')
   }
 
   // main graph
   const mainGraph = (googleAnalytics, userEvents) => {
-    console.log('configuring highcharts main graph')
-    console.log("userEvents ", userEvents);
-    console.log("googleAnalytics ", googleAnalytics);
     let ga = getDates(googleAnalytics)
-    console.log("userEvents ", userEvents)
     let idArray = $('#view-selector-container > .ViewSelector2 > .ViewSelector2-item > .FormField').find(":selected");
-    console.log(idArray);
     let accountName = idArray[0]["innerText"];
     // if (!(userEvents)) {
     //     u
