@@ -412,6 +412,18 @@ label {
     font-weight: 800;
     text-align: center;
 }
+
+.ga-error {
+    color: red;
+    text-align: center;
+}
+
+.ga-error2 {
+    color: red;
+    text-align: center;
+    margin: 1em 0;
+}
+
 /* ******************LOGIN PAGE********************************* *//* *************************************************** *//* *************************************************** */
 
 

@@ -37,7 +37,7 @@ router.post('/profile', function(req, res, next) {
     if(!req.body) {
         return res.status(400).send('No files were uploaded.');
     }
-    db.one(`
+    db.none(`
         update users set picture = '${req.body.imageUrl}'
         where users.email = '${req.body.email}';
         select * from users where email = '${req.body.email}';

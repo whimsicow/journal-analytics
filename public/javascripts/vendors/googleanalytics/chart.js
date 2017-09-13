@@ -57,29 +57,42 @@ $(document).ready(() => {
     }, 3000);
 
   gapi.analytics.ready(() => {
-
-    if (!gapi.analytics.auth.isAuthorized()) {
-        // sarah does magic here
-    }
-    
+    var signedIn = false;
     gapi.analytics.auth.authorize({
         // auth-container is dom element that hosts the sign-in button during a sessions first load. sign in button can also contain an event listener to do something     else as well
         container: 'embed-api-auth-container',
         //client ID of our project from developers console (using Sarahs)
-        clientid: CLIENT_ID,
+        clientid: CLIENT_ID
     })
 
     // return user info to console when they sign in... (name, email, profilePic)
     gapi.analytics.auth.on('signIn', function() {
-      const profile = gapi.analytics.auth.getUserProfile();
-      $.post('/users/profile', profile);
-      $.post('/api/picture', profile)
-        .then(setPicture)
+        const profile = gapi.analytics.auth.getUserProfile();
+        $.post('/users/profile', profile);
+        $.post('/api/picture', profile)
+            .then(setPicture)
+    })
+
+    // If user is not authorized via Google Analytics, display error message
+    gapi.analytics.auth.on('needsAuthorization', function() {
+        $('.all-charts-container').empty();
+        $('.selector-container').empty();
+        $('.user-info-container').empty();
+        $('.add-event-button').remove();
+        $('.all-charts-container').append($('<h2></h2>', {
+            'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
+            'class': 'ga-error'
+        }));
     })
     function setPicture(result) {
         $('[data-role="profilepic"]').attr("src", result.picture); 
     }
-
+    // console.log(gapi.analytics.auth.getUserProfile());
+    // console.log(gapi.analytics.auth.isAuthorized());
+    //     console.log('whoaaa');
+    //     // sarah does magic here
+    // }
+    // console.log(signedIn);
         /******************************************************************
                                     MAIN GRAPH
         ******************************************************************/
@@ -265,17 +278,17 @@ $(document).ready(() => {
 
         /***************************************** MAIN GRAPH */
         mainGraph.on('success', (result) => {
-            console.groupCollapsed('Query was successful and Google Analytics Default Graph has been rendered -- (display: none)')
-            console.group('Raw Data')
-            console.log(result.data) // raw data of the graph values (x, y, and graph points)
-            console.groupEnd()
-            console.group('Chart Info')
-            console.log(result.chart) // gives info of chart.. can manipulate chart using js/jquery with this info )
-            console.groupEnd()
-            console.group('Entire Raw Response')
-            console.log(result.response) // raw data of the entire response... )
-            console.groupEnd()
-            console.groupEnd()
+            // console.groupCollapsed('Query was successful and Google Analytics Default Graph has been rendered -- (display: none)')
+            // console.group('Raw Data')
+            // console.log(result.data) // raw data of the graph values (x, y, and graph points)
+            // console.groupEnd()
+            // console.group('Chart Info')
+            // console.log(result.chart) // gives info of chart.. can manipulate chart using js/jquery with this info )
+            // console.groupEnd()
+            // console.group('Entire Raw Response')
+            // console.log(result.response) // raw data of the entire response... )
+            // console.groupEnd()
+            // console.groupEnd()
             
             // save global for later usage during saving form
             this.gaData = result;
@@ -288,17 +301,17 @@ $(document).ready(() => {
 
         /***************************************** TRAFFIC GRAPH */
         trafficGraph.on('success', (result) => {
-            console.groupCollapsed('Query was successful and Google Analytics Default Graph has been rendered -- (display: none)')
-            console.group('Raw Data')
-            console.log(result.data) // raw data of the graph values (x, y, and graph points)
-            console.groupEnd()
-            console.group('Chart Info')
-            console.log(result.chart) // gives info of chart.. can manipulate chart using js/jquery with this info )
-            console.groupEnd()
-            console.group('Entire Raw Response')
-            console.log(result.response) // raw data of the entire response... )
-            console.groupEnd()
-            console.groupEnd()
+            // console.groupCollapsed('Query was successful and Google Analytics Default Graph has been rendered -- (display: none)')
+            // console.group('Raw Data')
+            // console.log(result.data) // raw data of the graph values (x, y, and graph points)
+            // console.groupEnd()
+            // console.group('Chart Info')
+            // console.log(result.chart) // gives info of chart.. can manipulate chart using js/jquery with this info )
+            // console.groupEnd()
+            // console.group('Entire Raw Response')
+            // console.log(result.response) // raw data of the entire response... )
+            // console.groupEnd()
+            // console.groupEnd()
             
             graph.gaDataForTrafficGraph(result)
         })

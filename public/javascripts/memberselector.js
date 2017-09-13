@@ -10,9 +10,13 @@ gapi.analytics.ready(() => {
         clientid: CLIENT_ID,
     })
 
-    // return user info to console when they sign in... (name, email, profilePic)
-    gapi.analytics.auth.on('signIn', function() {
-     
+    gapi.analytics.auth.on('needsAuthorization', function() {
+        $('.search-field').empty();
+        $('.chart-navigation').empty();
+        $('.search-field').append($('<h2></h2>', {
+            'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
+            'class': 'ga-error2'
+        }));
     })
     const viewSelectorMembers = new gapi.analytics.ext.ViewSelector2({
         container: 'members-view-selector-container'

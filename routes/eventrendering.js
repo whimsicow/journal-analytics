@@ -9,15 +9,6 @@ const ensureAuthenticated = require('../utils').ensureAuthenticated;
 //database/hostname etc
 require('dotenv').config();
 
-// Ensures users are authenticated before allowing them to access page
-// native to passport
-// returns next: what we write after this
-// function ensureAuthenticated(req, res, next) {
-//     if (req.isAuthenticated()) { return next(); }
-//     res.redirect('/login');
-//   }
-
-// 
 router.get('/', ensureAuthenticated, function(req, res) {
     db.one(`select firstname, picture from users where email = '${req.user}'`)
     .then((result) => {
@@ -38,11 +29,11 @@ router.get('/', ensureAuthenticated, function(req, res) {
 });
 
 router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
-    Event.getById(req.params.id)
-        .delete()
+    // Event.getById(req.params.id)
+    //     .delete()
 
-    //or!
-    Event.deleteById(req.params.id)
+    // //or!
+    // Event.deleteById(req.params.id)
 
 
     db.none(`
@@ -58,7 +49,6 @@ router.get('/delete/:id', ensureAuthenticated, function(req, res, next) {
 })
 
 router.post('/edit', ensureAuthenticated, function(req, res, next) {
-    console.log(req.body);
     var description = req.body.description;
     description = description.replace("'", "''");
     var link = req.body.eventlink;
