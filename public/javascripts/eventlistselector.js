@@ -19,7 +19,7 @@ gapi.analytics.ready(() => {
         $('.user-info-container').empty();
         $('.search-field').append($('<h2></h2>', {
             'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data and adding events.',
-            'class': 'ga-error'
+            'class': 'ga-error2'
         }));
     })
     const mainGraphDateRange = {
