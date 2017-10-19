@@ -47,9 +47,9 @@
 
 # Stretch Goals
 <ul>
-<li>Customizability for users profiles including types of graphs preferred and additional graphs for other analytical data sets.</li>
+<li>Customizability for user profiles, including types of graphs preferred and additional graphs for other analytical data sets.</li>
 <li>Researching Google Analytics API in the future to see if Google creates an API utilizing server-side rendering. As for now, they only have a Beta API.</li>
-<li>Creating a guide for managers of the Google Analytics account to add additional users for read only basis. This allows others to see data through Journal Analytics and add events.</li>
+<li>Creating a guide for managers of the Google Analytics account to add additional users for read only basis. This allows others to see data through Journal Analytics and add events without being granted access to the Google Analytics account.</li>
 </ul>
 
 # Tools
