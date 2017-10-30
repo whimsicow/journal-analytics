@@ -68,6 +68,8 @@ $(document).ready(() => {
     // return user info to console when they sign in... (name, email, profilePic)
     gapi.analytics.auth.on('signIn', function() {
         const profile = gapi.analytics.auth.getUserProfile();
+        console.log(profile);
+        $('#embed-api-auth-container').addClass('hidden');
         $.post('/users/profile', profile);
         $.post('/api/picture', profile)
             .then(setPicture)
@@ -77,12 +79,13 @@ $(document).ready(() => {
     gapi.analytics.auth.on('needsAuthorization', function() {
         $('.all-charts-container').empty();
         $('.selector-container').empty();
-        $('.user-info-container').empty();
+        // $('.user-info-container').empty();
+        $('#embed-api-auth-container').removeClass('hidden');
         $('.add-event-button').remove();
         $('.all-charts-container').append($('<h2></h2>', {
             'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
-            'class': 'ga-error'
-        }));
+            'class': 'ga-error'}));
+        console.log('authaaah what???');
     })
     function setPicture(result) {
         $('[data-role="profilepic"]').attr("src", result.picture); 
