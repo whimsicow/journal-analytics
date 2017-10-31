@@ -19,6 +19,7 @@ router.get('/', ensureAuthenticated, function(req, res) {
             pic: result.picture,
             navlink2: '/teammembers',
             navlinktext2: 'Team Management',
+            datatype1: 'logout',
             navlink1: '/logout',
             navlinktext1: 'Logout'
         });

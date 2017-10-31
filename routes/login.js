@@ -17,6 +17,7 @@ router.get('/', function(req, res) {
                 navlinktext3: 'Team Management',
                 navlink2: '/eventlist',
                 navlinktext2: 'Team Events',
+                datatype1: 'logout',
                 navlink1: '/logout',
                 navlinktext1: 'Logout',
                 message1: "You are already signed in. ",
