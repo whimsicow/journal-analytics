@@ -68,7 +68,6 @@ $(document).ready(() => {
     // return user info to console when they sign in... (name, email, profilePic)
     gapi.analytics.auth.on('signIn', function() {
         const profile = gapi.analytics.auth.getUserProfile();
-        console.log(profile);
         $('#embed-api-auth-container').addClass('hidden');
         $.post('/users/profile', profile);
         $.post('/api/picture', profile)
@@ -77,15 +76,14 @@ $(document).ready(() => {
 
     // If user is not authorized via Google Analytics, display error message
     gapi.analytics.auth.on('needsAuthorization', function() {
-        $('.all-charts-container').empty();
-        $('.selector-container').empty();
+        // $('.all-charts-container').empty();
+        // $('.selector-container').empty();
         // $('.user-info-container').empty();
         $('#embed-api-auth-container').removeClass('hidden');
-        $('.add-event-button').remove();
-        $('.all-charts-container').append($('<h2></h2>', {
-            'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
-            'class': 'ga-error'}));
-        console.log('authaaah what???');
+        // $('.add-event-button').remove();
+        // $('.all-charts-container').append($('<h2></h2>', {
+        //     'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
+        //     'class': 'ga-error'}));
     })
     function setPicture(result) {
         $('[data-role="profilepic"]').attr("src", result.picture); 
@@ -133,6 +131,15 @@ $(document).ready(() => {
                 chart: {
                     container: 'template-container'
                 }
+            })
+            .then(null, err => {
+                $('.all-charts-container').empty();
+                $('.selector-container').empty();
+                $('.user-info-container').empty();
+                $('.add-event-button').remove();
+                $('.all-charts-container').append($('<h2></h2>', {
+                    'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
+                    'class': 'ga-error'}));
             })
         /******************************************************************
                                     TRAFFIC GRAPH
