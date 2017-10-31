@@ -69,6 +69,7 @@ $(document).ready(() => {
     gapi.analytics.auth.on('signIn', function() {
         const profile = gapi.analytics.auth.getUserProfile();
         $('#embed-api-auth-container').addClass('hidden');
+        console.log(profile);
         $.post('/users/profile', profile);
         $.post('/api/picture', profile)
             .then(setPicture)
@@ -132,15 +133,15 @@ $(document).ready(() => {
                     container: 'template-container'
                 }
             })
-            .then(null, err => {
-                $('.all-charts-container').empty();
-                $('.selector-container').empty();
-                $('.user-info-container').empty();
-                $('.add-event-button').remove();
-                $('.all-charts-container').append($('<h2></h2>', {
-                    'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
-                    'class': 'ga-error'}));
-            })
+            // .then(null, err => {
+            //     $('.all-charts-container').empty();
+            //     $('.selector-container').empty();
+            //     $('.user-info-container').empty();
+            //     $('.add-event-button').remove();
+            //     $('.all-charts-container').append($('<h2></h2>', {
+            //         'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
+            //         'class': 'ga-error'}));
+            // })
         /******************************************************************
                                     TRAFFIC GRAPH
         ******************************************************************/
