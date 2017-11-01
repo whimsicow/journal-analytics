@@ -12,9 +12,7 @@ const hamburgerMenu = () => {
 }
 
 $('[data-role="logout"]').on('click', () => {
-    event.preventDefault();
-    console.log('here');
-    gapi.auth.signOut();
+    gapi.analytics.auth.signOut();
 });
 
 // starts out with menu hidden
