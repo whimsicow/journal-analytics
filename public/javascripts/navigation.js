@@ -11,6 +11,12 @@ const hamburgerMenu = () => {
     })
 }
 
+$('[data-type="logout"]').on('click', () => {
+    event.preventDefault();
+    console.log('here');
+    gapi.auth.signOut();
+});
+
 // starts out with menu hidden
 $('.nav-menu-mobile').hide();
 // initializes
