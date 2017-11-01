@@ -11,7 +11,7 @@ const hamburgerMenu = () => {
     })
 }
 
-$('[data-type="logout"]').on('click', () => {
+$('[data-role="logout"]').on('click', () => {
     event.preventDefault();
     console.log('here');
     gapi.auth.signOut();
