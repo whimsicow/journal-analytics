@@ -7,9 +7,6 @@
         <div class="fixed-container">
             <div class="user-info-container">
                 <img data-role="profilepic" class="large-user-photo" src='{{pic}}' alt='profile picture'>
-                <!-- Map and Google API containers -->
-                {{!-- <div id="view-name" class="hidden"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data --> --}}
-                <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
                 <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
             </div>
             <div class="selector-container">
@@ -21,9 +18,9 @@
         </div>
     </div>
 
+     <div id="embed-api-auth-container" class="hidden"></div>
     <div class="search-field">
         <h2>{{company}}</h2>
-        <div id="embed-api-auth-container3" class="hidden"></div>
         <h2 class="event-title">Search Events Added by Your Team</h2>
         <div class="events-container" data-role="events-container"></div>
         

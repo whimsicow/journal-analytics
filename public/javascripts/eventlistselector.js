@@ -6,22 +6,6 @@ const $STATUSDIV = $('[data-role="status-msg"]');
 var eventUpdate = {};
 
 gapi.analytics.ready(() => {
-    
-    gapi.analytics.auth.authorize({
-        // auth-container is dom element that hosts the sign-in button during a sessions first load. sign in button can also contain an event listener to do something     else as well
-        container: 'embed-api-auth-container3',
-        //client ID of our project from developers console (using Sarahs)
-        clientid: CLIENT_ID,
-    })
-    gapi.analytics.auth.on('needsAuthorization', function() {
-        $('.search-field').empty();
-        $('.selector-container').empty();
-        $('.user-info-container').empty();
-        $('.search-field').append($('<h2></h2>', {
-            'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data and adding events.',
-            'class': 'ga-error2'
-        }));
-    })
     const mainGraphDateRange = {
         'start-date': '7daysAgo',
         'end-date': '0daysAgo'

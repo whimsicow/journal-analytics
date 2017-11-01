@@ -2,22 +2,6 @@ const $MEMBERLIST = $('[data-role="member-list"]');
 
 // Must authorize through Google in order to show ViewSelector2
 gapi.analytics.ready(() => {
-    
-    gapi.analytics.auth.authorize({
-        // auth-container is dom element that hosts the sign-in button during a sessions first load. sign in button can also contain an event listener to do something     else as well
-        container: 'embed-api-auth-container2',
-        //client ID of our project from developers console (using Sarahs)
-        clientid: CLIENT_ID,
-    })
-
-    gapi.analytics.auth.on('needsAuthorization', function() {
-        $('.search-field').empty();
-        $('.chart-navigation').empty();
-        $('.search-field').append($('<h2></h2>', {
-            'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
-            'class': 'ga-error2'
-        }));
-    })
     const viewSelectorMembers = new gapi.analytics.ext.ViewSelector2({
         container: 'members-view-selector-container'
         })
