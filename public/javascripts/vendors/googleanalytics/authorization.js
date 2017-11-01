@@ -33,7 +33,6 @@ gapi.analytics.ready(() => {
 
     // If user is not authorized via Google Analytics, display error message
     gapi.analytics.auth.on('needsAuthorization', function() {
-        console.log('auth??')
         $('#embed-api-auth-container').removeClass('hidden');
         $('.search-field').addClass('hidden');
         $('.chart-navigation').addClass('hidden');
