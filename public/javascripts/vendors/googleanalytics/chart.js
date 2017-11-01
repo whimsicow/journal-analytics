@@ -68,8 +68,12 @@ $(document).ready(() => {
     // return user info to console when they sign in... (name, email, profilePic)
     gapi.analytics.auth.on('signIn', function() {
         const profile = gapi.analytics.auth.getUserProfile();
-        $('#embed-api-auth-container').addClass('hidden');
         console.log(profile);
+        $('#embed-api-auth-container').addClass('hidden');
+         $('.all-charts-container').removeClass('hidden');
+        $('.selector-container').removeClass('hidden');
+        $('.user-info-container').removeClass('hidden');
+        $('.add-event-button').removeClass('hidden');
         $.post('/users/profile', profile);
         $.post('/api/picture', profile)
             .then(setPicture)
@@ -77,11 +81,12 @@ $(document).ready(() => {
 
     // If user is not authorized via Google Analytics, display error message
     gapi.analytics.auth.on('needsAuthorization', function() {
-        // $('.all-charts-container').empty();
-        // $('.selector-container').empty();
-        // $('.user-info-container').empty();
+        console.log("nottt"); 
         $('#embed-api-auth-container').removeClass('hidden');
-        // $('.add-event-button').remove();
+        $('.all-charts-container').addClass('hidden');
+        $('.selector-container').addClass('hidden');
+        $('.user-info-container').addClass('hidden');
+        $('.add-event-button').addClass('hidden');
         // $('.all-charts-container').append($('<h2></h2>', {
         //     'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
         //     'class': 'ga-error'}));

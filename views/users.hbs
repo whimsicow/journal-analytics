@@ -13,9 +13,8 @@
                 <div class="user-info-container">
                     <img data-role="profilepic" class="large-user-photo" src='{{pic}}' alt='profile picture'>
                     <div id="active-users-container"></div><br /> <!-- Active users -->
-                    <!-- Map and Google API containers -->
+                    <!-- Google API containers -->
                     {{!-- <div id="view-name" class="hidden"></div> <!-- PropertyName: DigitalCrafts, ViewName: All Web Site Data --> --}}
-                    <div id="embed-api-auth-container" class="hidden"></div> <!--You are logged in as: google user -->
                     <div id="view-selector-container"></div> <!-- Account, Property, View dropdowns -->
                 </div>
                 <div class="selector-container">
@@ -27,8 +26,6 @@
             </div>
         </div>
 
-
-
         {{!-- Charts container --}}
         <div class="charts-container">
             <div class="company-logo-container">
@@ -38,7 +35,7 @@
                     {{!-- <img class="company-logo" src='{{{companylogo}}}'alt="company-logo"> --}}
                 </div>
             </div>
-
+            <div id="embed-api-auth-container"></div> <!--You are logged in as: google user -->
             <div class="all-charts-container">
 
                 <!-- default graphs provided by GA, will be hidden-->
