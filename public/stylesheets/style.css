@@ -71,10 +71,6 @@ body {
     display: none;
 }
 
-.search-field {
-    padding: 20px;
-}
-
 .mem-title,
 .event-title {
     text-align: center;
@@ -686,10 +682,22 @@ label {
     /* home page */
     /* ***************** */
 
+    .embed-container {
+        min-height: 700px;
+        padding-top: 70px;
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 900px;
+        min-height: 1000px;
+    }
 
     .search-field {
         min-height: 700px;
         padding-top: 70px;
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 900px;
+        min-height: 1000px;
     }
     .event-container {
         min-width: 450px;
@@ -857,11 +865,6 @@ label {
     }
     .image-pannel {
         padding-left: 0px;
-    }
-    .search-field{
-        margin: 0 auto;
-        max-width: 900px;
-        min-height: 1000px;
     }
     #event-pie-graph {
         height: 800px;
