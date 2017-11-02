@@ -57,12 +57,6 @@ $(document).ready(() => {
     }, 3000);
 
   gapi.analytics.ready(() => {
-    // console.log(gapi.analytics.auth.getUserProfile());
-    // console.log(gapi.analytics.auth.isAuthorized());
-    //     console.log('whoaaa');
-    //     // sarah does magic here
-    // }
-    // console.log(signedIn);
         /******************************************************************
                                     MAIN GRAPH
         ******************************************************************/
