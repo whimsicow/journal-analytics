@@ -95,6 +95,10 @@ $(document).ready(() => {
                     container: 'template-container'
                 }
             })
+            .on('error', () => {
+                console.log('murple');
+                console.log(response.error.message);
+            })
             // .then(null, err => {
             //     $('.all-charts-container').empty();
             //     $('.selector-container').empty();
