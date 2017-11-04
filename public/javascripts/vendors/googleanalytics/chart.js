@@ -94,20 +94,8 @@ $(document).ready(() => {
                 chart: {
                     container: 'template-container'
                 }
-            })
-            .on('error', () => {
-                console.log('murple');
-                console.log(response.error.message);
-            })
-            // .then(null, err => {
-            //     $('.all-charts-container').empty();
-            //     $('.selector-container').empty();
-            //     $('.user-info-container').empty();
-            //     $('.add-event-button').remove();
-            //     $('.all-charts-container').append($('<h2></h2>', {
-            //         'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
-            //         'class': 'ga-error'}));
-            // })
+            });
+            
         /******************************************************************
                                     TRAFFIC GRAPH
         ******************************************************************/
@@ -220,7 +208,7 @@ $(document).ready(() => {
             {
                 container: 'active-users-container',
                 pollingInterval: 5
-            })
+            });
 
         /********************************** VIEWSELECTOR CONSTRUCTOR*/
         const viewSelector = new gapi.analytics.ext.ViewSelector2(
@@ -228,6 +216,16 @@ $(document).ready(() => {
                 container: 'view-selector-container'
             })
             .execute()
+            .on('error', () => {
+                console.log('murple');
+                $('.all-charts-container').empty();
+                $('.selector-container').empty();
+                $('.user-info-container').empty();
+                $('.add-event-button').remove();
+                $('.all-charts-container').append($('<h2></h2>', {
+                    'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
+                    'class': 'ga-error'}));
+            })
         const viewSelectorForm = new gapi.analytics.ext.ViewSelector2({
             container: 'view-selector-container2'
         })
@@ -237,7 +235,6 @@ $(document).ready(() => {
             container: 'members-view-selector-container'
         })
             .execute();
-        
 
         /********************************** DATERANGE CONSTRUCTOR*/
         const dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector(
@@ -245,7 +242,7 @@ $(document).ready(() => {
                 container: 'date-range-selector-container'
             })
             .set(mainGraphDateRange)
-            .execute()
+            .execute();
 
 
 
