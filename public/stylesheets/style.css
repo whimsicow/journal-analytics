@@ -172,7 +172,7 @@ label {
 .company-logo-container {
     margin: 0 auto;
     padding-top: 60px;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
     width: 100%; 
 }
 .company-logo{
@@ -891,7 +891,7 @@ label {
   font-weight: normal;
   margin-left: 35px;
   margin-bottom: 20px;
-  padding-top: 20px;
+  padding-top: 40px;
 }
 
 .date a {
