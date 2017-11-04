@@ -165,14 +165,14 @@ label {
 /* ************* */
 /* logged in charts container user information with welcome  */
 .charts-container {
-    width: 100%;
+    width: 75%;
     text-align: center;
     margin: 0 auto;
 }
 .company-logo-container {
     margin: 0 auto;
     padding-top: 60px;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
     width: 100%; 
 }
 .company-logo{
@@ -757,6 +757,8 @@ label {
         text-align: center;
         margin: 0 auto;
         padding-bottom: 50px;
+        padding-right: 50px;
+        padding-left: 50px;
     }
     /* high charts chart */
 
@@ -889,7 +891,7 @@ label {
   font-weight: normal;
   margin-left: 35px;
   margin-bottom: 20px;
-  padding-top: 40px;
+  padding-top: 20px;
 }
 
 .date a {

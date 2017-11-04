@@ -95,7 +95,7 @@ $(document).ready(() => {
                     container: 'template-container'
                 }
             });
-            
+
         /******************************************************************
                                     TRAFFIC GRAPH
         ******************************************************************/
@@ -217,10 +217,9 @@ $(document).ready(() => {
             })
             .execute()
             .on('error', () => {
-                console.log('murple');
                 $('.all-charts-container').empty();
                 $('.selector-container').empty();
-                $('.user-info-container').empty();
+                $('.chart-navigation').remove();
                 $('.add-event-button').remove();
                 $('.all-charts-container').append($('<h2></h2>', {
                     'text': 'It appears you do not have an account set up with Google Analytics. Please create an account to start visualizing your site data.',
