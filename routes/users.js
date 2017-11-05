@@ -5,13 +5,6 @@ const db = require('../db');
 const ensureAuthenticated = require('../utils').ensureAuthenticated;
 
 
-// Ensures users are authenticated before allowing them to access page
-
-// function ensureAuthenticated(req, res, next) {
-//   if (req.isAuthenticated()) { return next(); }
-//   res.redirect('/login');
-// }
-
 router.get('/', ensureAuthenticated, function(req, res, next) { 
     db.one(`select firstname, picture from users where email = '${req.user}'`)
         .then((result) => {
