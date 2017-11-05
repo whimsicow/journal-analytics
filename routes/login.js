@@ -12,6 +12,7 @@ router.get('/', function(req, res) {
                 title: 'Journal Analytics',
                 navmessage: 'Welcome, ',
                 name: result.firstname,
+                altpictext: 'profile picture',
                 pic: result.picture,
                 navlink3: '/teammembers',
                 navlinktext3: 'Team Management',

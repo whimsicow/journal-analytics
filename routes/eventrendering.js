@@ -14,9 +14,11 @@ router.get('/', ensureAuthenticated, function(req, res) {
     .then((result) => {
         res.render('teamevents', {
             title: 'Journal Analytics',
-            navmessage: 'Welcome, ',
-            name: result.firstname,
+            navlinktext3: 'Welcome, ',
+            name3: result.firstname,
             pic: result.picture,
+            altpictext: 'profile picture',
+            navlink3: '/users',
             navlink2: '/teammembers',
             navlinktext2: 'Team Management',
             datatype1: 'logout',
