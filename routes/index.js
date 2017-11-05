@@ -13,6 +13,8 @@ router.get('/', function(req, res, next) {
                 navmessage: 'Welcome, ',
                 name: result.firstname,
                 pic: result.picture,
+                altpictext: 'profile picture',
+                navuser: '/users',
                 navlink3: '/teammembers',
                 navlinktext3: 'Team Management',
                 navlink2: '/eventlist',
@@ -30,8 +32,8 @@ router.get('/', function(req, res, next) {
     } else {
         res.render('index', {
             title: 'Journal Analytics',  
-            navlink1: '/login',
-            navlinktext1: 'Login'
+            navuser: '/login',
+            navmessage: 'Login'
         });
     }    
 })

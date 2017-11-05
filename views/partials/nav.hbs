@@ -7,7 +7,7 @@
             <a href="/"><img class="JALogo" src="../images/JournalAnalyticslogo.svg" alt="Journal Analytics Logo"></a>
         </div>
         <div class="hamburger-icon">
-            <img data-role="profilepic" class="mobile-user-photo" src='{{pic}}' alt='profile picture'>
+            <img data-role="profilepic" class="mobile-user-photo" src='{{pic}}' alt='{{altpictext}}'>
             <img src="/../../images/HamburgerIcon.svg" alt="hamburger icon">
         </div>
     </nav>
@@ -15,7 +15,7 @@
 
 <div class="mobile-menu">
     <menu type="context" class="nav-menu-mobile">
-        <span><a href="/users">{{navmessage}}{{name}}</a></span>
+        <span><a href="{{navuser}}">{{navmessage}}{{name}}</a></span>
         <span><a href="{{navlink3}}">{{navlinktext3}}</a></span>
         <span><a href="{{navlink2}}">{{navlinktext2}}</a></span>
         <span><a data-role="{{datatype1}}" href="{{navlink1}}">{{navlinktext1}}</a></span>
